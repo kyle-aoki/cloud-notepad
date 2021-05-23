@@ -1,0 +1,18 @@
+{
+  "name": "user-db",
+  "version": "1.0.0",
+  "description": "",
+  "main": "execute-ddl.js",
+  "scripts": {
+    "dev": "set NODE_ENV=dev&& node bin/execute-ddl.js",
+    "stage": "set NODE_ENV=stage&& node bin/execute-ddl.js",
+    "prod": "set NODE_ENV=prod&& node bin/execute-ddl.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.1",
+    "pg": "^8.6.0"
+  }
+}
