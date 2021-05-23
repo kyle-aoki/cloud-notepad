@@ -1,1 +1,1 @@
-["user-api-application-port", "user-db-host", "user-db-port", "user-db-username", "user-db-password"]
+["USER_API_APPLICATION_PORT"]

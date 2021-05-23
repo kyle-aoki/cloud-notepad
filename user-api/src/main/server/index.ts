@@ -1,8 +1,8 @@
-import app from "../";
+import app from "..";
 import chalk from 'chalk';
 
-const PORT = process.env["user-api-application-port"];
+const PORT = process.env.USER_API_APPLICATION_PORT;
 
 app.listen(PORT, () => {
-  console.log(chalk.bold.green(`User API listening on port ${PORT}`));
+  console.log(chalk.green(`User API listening on port ${PORT}`));
 });
