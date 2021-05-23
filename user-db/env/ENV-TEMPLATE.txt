@@ -1,4 +1,4 @@
-// This is a template only, do not write environment values in this file.
+// This is a template only, do not write environment variable values in this file.
 {
   "user-db-host": "",
   "user-db-port": "",

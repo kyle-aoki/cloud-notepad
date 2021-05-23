@@ -43,10 +43,7 @@ async function Main() {
   try {
     for (const ddl of allDdl) await sqlClient.query(ddl);
   } catch (error) {
-    const errorFileName = "error.log";
-    const output = fs.createWriteStream(path.join(process.cwd(), errorFileName));
-    const errorLogger = new Console(output);
-    errorLogger.log(error);
+    writeToErrorLog(error)
 
     console.log(chalk.bold.red(`Failed to execute DDL. Check ${errorFileName} for details on failure.`));
     return await sqlClient.end();
@@ -54,6 +51,13 @@ async function Main() {
 
   console.log(chalk.bold.green("Successfully executed DDL."));
   await sqlClient.end();
+}
+
+function writeToErrorLog(errorMessage) {
+  const errorFileName = "error.log";
+  const output = fs.createWriteStream(path.join(process.cwd(), errorFileName));
+  const errorLogger = new Console(output);
+  errorLogger.log(errorMessage);
 }
 
 Main();
