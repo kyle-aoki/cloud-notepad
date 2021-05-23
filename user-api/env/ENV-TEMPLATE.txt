@@ -1,0 +1,8 @@
+// This is a template only, do not write environment variable values in this file.
+{
+  ""user-api-application-port": 0,
+  "user-db-host": "",
+  "user-db-port": "",
+  "user-db-username": "",
+  "user-db-password": ""
+}
