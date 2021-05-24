@@ -34,4 +34,10 @@ if (process.env.NODE_ENV !== 'prod') {
   }));
 }
 
+export enum Severity {
+  INFO = 'info',
+  WARN = 'warn',
+  ERROR = 'error',
+}
+
 export default logger;
