@@ -17,6 +17,7 @@ const handleError = (error: ErrorMessageObject, req: Request, res: Response, nex
     logger.log(error.serverMessage.severity, error.serverMessage.message);
   }
 
+  if (error.statusCode) res.status(error.statusCode);
   res.send(errorResponseEntity);
 };
 

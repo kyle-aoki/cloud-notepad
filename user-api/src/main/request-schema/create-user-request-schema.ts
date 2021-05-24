@@ -1,18 +1,16 @@
-// or ESM/TypeScript import
-import Ajv from "ajv"
+import Ajv, {JTDDataType} from "ajv/dist/jtd"
 
 const ajv = new Ajv();
 
 const createUserSchema = {
-  type: "object",
   properties: {
     username: {type: "string"},
     password: {type: "string"}
-  },
-  required: ["username", "password"],
-  additionalProperties: false,
-}
+  }
+} as const;
 
-const createUserValidator = ajv.compile(createUserSchema);
+type CreateUserSchema = JTDDataType<typeof createUserSchema>;
+
+const createUserValidator = ajv.compile<CreateUserSchema>(createUserSchema);
 
 export default createUserValidator;
