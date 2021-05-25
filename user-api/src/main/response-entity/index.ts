@@ -1,5 +1,5 @@
 import { Response } from "express";
-import logger, { Severity } from "../log";
+import Logger, { Severity } from "../log";
 
 interface ResponseEntity {
   ok: true;
@@ -19,7 +19,7 @@ const sendResponse = (res: Response, messageObject?: MessageObject, data?: any) 
   const responseEntity: ResponseEntity = { ok: true };
 
   if (messageObject && messageObject.serverMessage) {
-    logger.log(messageObject.serverMessage.severity, messageObject.serverMessage.message);
+    Logger.log(messageObject.serverMessage.severity, messageObject.serverMessage.message);
   }
 
   if (messageObject && messageObject.message) {
