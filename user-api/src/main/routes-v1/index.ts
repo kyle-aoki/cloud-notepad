@@ -2,11 +2,11 @@ import express from 'express';
 import createUser from '../controller-v1/create-user';
 import requestSchemaMiddleware from '../middleware/request-schema-middleware-v1';
 
-const baseRoutes = express.Router();
+const v1Routes = express.Router();
 
-baseRoutes.use(requestSchemaMiddleware);
+v1Routes.use(requestSchemaMiddleware);
 
-baseRoutes.post('/create-user', createUser);
-baseRoutes.post('/log-in');
+v1Routes.post('/create-user', createUser);
+v1Routes.post('/log-in');
 
-export default baseRoutes;
+export default v1Routes;

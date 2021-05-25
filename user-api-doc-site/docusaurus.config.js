@@ -3,7 +3,7 @@ module.exports = {
   title: "User API Docsite",
   tagline: "Docs for the User API",
   url: "https://your-docusaurus-test-site.com",
-  baseUrl: "/",
+  baseUrl: "/documentation/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
@@ -23,7 +23,11 @@ module.exports = {
           position: "left",
           label: "Docs",
         },
-        { to: "/blog", label: "Blog", position: "left" },
+        {
+          to: "/blog",
+          label: "Blog",
+          position: "left",
+        },
         {
           href: "https://github.com/kyle-aoki/user-api-monorepo",
           label: "GitHub",
@@ -74,7 +78,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `User API, Built with Docusaurus.`,
     },
   },
   presets: [

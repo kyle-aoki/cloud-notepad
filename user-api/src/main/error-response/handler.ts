@@ -1,6 +1,7 @@
-import { Request, Response, NextFunction } from 'express';
-import logger from '../log';
-import { ErrorMessageObject } from './error-response';
+import chalk from "chalk";
+import { Request, Response, NextFunction } from "express";
+import Logger from "../log";
+import { ErrorMessageObject } from "./error-response";
 
 export interface ErrorResponseEntity {
   ok: false;
@@ -11,10 +12,11 @@ const handleError = (error: ErrorMessageObject, req: Request, res: Response, nex
   const errorResponseEntity: ErrorResponseEntity = {
     ok: false,
     message: error.message,
-  }
+  };
 
   if (error.serverMessage) {
-    logger.log(error.serverMessage.severity, error.serverMessage.message);
+    if (process.env.NODE_ENV !== "prod") console.log(chalk.bold.red(error.serverMessage));
+    Logger.log(error.serverMessage.severity, error.serverMessage.message);
   }
 
   if (error.statusCode) res.status(error.statusCode);

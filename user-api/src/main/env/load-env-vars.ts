@@ -17,7 +17,7 @@ enum ENV {
 
 const ENV_ARRAY = [ENV.dev, ENV.stage, ENV.prod];
 
-const loadEnvVars = () => {
+const LOAD_ENV_VARS = () => {
   const NODE_ENV = process.env.NODE_ENV as ENV;
   if (!NODE_ENV) {
     logMissingNODE_ENV();
@@ -67,4 +67,4 @@ const loadEnvVars = () => {
   console.log(chalk.green('Loaded Environment Variables...'));
 };
 
-export default loadEnvVars;
+export default LOAD_ENV_VARS;
