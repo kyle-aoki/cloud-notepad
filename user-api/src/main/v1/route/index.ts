@@ -1,6 +1,6 @@
 import express from 'express';
-import createUser from '../controller-v1/create-user';
-import requestSchemaMiddleware from '../middleware/request-schema-middleware-v1';
+import createUser from '../handler/create-user';
+import requestSchemaMiddleware from '../../middleware/request-schema-middleware-v1';
 
 const v1Routes = express.Router();
 

@@ -1,28 +1,34 @@
+// First to execute
+import LOAD_ENV_VARS from "./env/load-env-vars";
+LOAD_ENV_VARS();
+
 import express from "express";
 import logger from "morgan";
-import LOAD_ENV_VARS from "./env/load-env-vars";
-import handleError from "./error-response/handler";
-import v1Routes from "./routes-v1";
-import path from "path";
+import errorHandler from "./error-response/error-handler";
+import v1Routes from "./v1/route";
+import apiKeyAuthenticationMiddleware from "./middleware/authentication-middleware";
+import docsiteRoutes from "./docs";
+import welcome from "./etc/welcome";
+import routeNotFound from "./etc/route-not-found";
 
 const app = express();
 
-LOAD_ENV_VARS();
-
-if (process.env.NODE_ENV === "dev" || process.env.NODE_ENV === "stage") app.use(logger("dev"));
+if (process.env.NODE_ENV === "dev" || process.env.NODE_ENV === "stage") {
+  app.use(logger("dev"));
+}
 
 app.use(express.json());
+app.use(docsiteRoutes);
 
-const pathToDocSite = path.join(process.cwd(), "..", "user-api-doc-site", "build");
-app.use(["/api-docs", "/documentation"], express.static(pathToDocSite));
-app.use('/docs', (req, res, next) => res.redirect('/documentation'));
+app.use(/\//, welcome);
+
+// ---------------------------- Auth Middleware ----------------------------------------------------------------
+app.use(apiKeyAuthenticationMiddleware);
 
 app.use("/v1", v1Routes);
 
-app.use('/', (req, res, next) => {
-  res.send("You've reached the User API. See '/documentation' for more info.")
-});
+app.use('/', routeNotFound);
 
-app.use(handleError);
+app.use(errorHandler);
 
 export default app;

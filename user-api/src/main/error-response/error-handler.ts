@@ -1,14 +1,9 @@
 import chalk from "chalk";
 import { Request, Response, NextFunction } from "express";
 import Logger from "../log";
-import { ErrorMessageObject } from "./error-response";
+import { ErrorMessageObject, ErrorResponseEntity } from "./types";
 
-export interface ErrorResponseEntity {
-  ok: false;
-  message: string;
-}
-
-const handleError = (error: ErrorMessageObject, req: Request, res: Response, next: NextFunction) => {
+const errorHandler = (error: ErrorMessageObject, req: Request, res: Response, next: NextFunction) => {
   const errorResponseEntity: ErrorResponseEntity = {
     ok: false,
     message: error.message,
@@ -23,4 +18,4 @@ const handleError = (error: ErrorMessageObject, req: Request, res: Response, nex
   res.send(errorResponseEntity);
 };
 
-export default handleError;
+export default errorHandler;
