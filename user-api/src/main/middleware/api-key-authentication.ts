@@ -12,9 +12,9 @@ if (!correctApiKey) {
 const apiKeyAuthenticationMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const apiKey = req.headers["apikey"];
 
-  if (!apiKey) next(ErrorResponse.MissingApiKey());
+  if (!apiKey) throw ErrorResponse.MissingApiKey();
 
-  if (apiKey !== correctApiKey) next(ErrorResponse.IncorrectApiKey());
+  if (apiKey !== correctApiKey) throw ErrorResponse.IncorrectApiKey();
 
   next();
 };

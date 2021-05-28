@@ -1,12 +1,6 @@
 import path from "path";
 import fs from "fs";
-import {
-  logIncorrectNODE_ENV,
-  logMissingEnvFile,
-  logMissingNODE_ENV,
-  logMissingRequiredEnvVariable,
-  logMissingRequiredEnvsFile,
-} from "./error-messages";
+import EnvironmentVariableError from "./error-messages";
 import chalk from "chalk";
 
 enum ENV {
@@ -17,15 +11,17 @@ enum ENV {
 
 const ENV_ARRAY = [ENV.dev, ENV.stage, ENV.prod];
 
-const LOAD_ENV_VARS = () => {
+export default function LOAD_ENV_VARS () {
+  console.log(chalk.yellow("Loading Environment Variables..."));
+
   const NODE_ENV = process.env.NODE_ENV as ENV;
   if (!NODE_ENV) {
-    logMissingNODE_ENV();
+    EnvironmentVariableError.MISSING_NODE_ENV();
     return process.exit(1);
   }
 
   if (!ENV_ARRAY.includes(NODE_ENV)) {
-    logIncorrectNODE_ENV();
+    EnvironmentVariableError.INCORRECT_NODE_ENV();
     return process.exit(1);
   }
 
@@ -37,9 +33,10 @@ const LOAD_ENV_VARS = () => {
     const fileContents = fs.readFileSync(envFilePath, "utf-8");
     envJSON = JSON.parse(fileContents);
   } catch (error) {
-    logMissingEnvFile(envFileName, envFilePath);
+    EnvironmentVariableError.MISSING_ENV_FILE(envFileName, envFilePath);
     process.exit(1);
   }
+
   const requiredEnvFileName = `required-env.json`;
   const requiredEnvFilePath = path.join(process.cwd(), "env", requiredEnvFileName);
 
@@ -48,14 +45,14 @@ const LOAD_ENV_VARS = () => {
     const fileContents = fs.readFileSync(requiredEnvFilePath, "utf-8");
     requiredEnv = JSON.parse(fileContents);
   } catch (error) {
-    logMissingRequiredEnvsFile(envFileName, envFilePath);
+    EnvironmentVariableError.MISSING_REQUIRED_ENV_FILE(envFileName, envFilePath);
     process.exit(1);
   }
 
   const presentEnvVars = Object.keys(envJSON);
   for (const requiredEnvVar of requiredEnv) {
     if (!presentEnvVars.includes(requiredEnvVar)) {
-      logMissingRequiredEnvVariable(requiredEnvVar, envFileName);
+      EnvironmentVariableError.MISSING_REQUIRED_ENV_VARIABLE(requiredEnvVar, envFileName);
       process.exit(1);
     }
   }
@@ -64,7 +61,5 @@ const LOAD_ENV_VARS = () => {
     process.env[envVar] = envJSON[envVar];
   }
 
-  console.log(chalk.green('Loaded Environment Variables...'));
+  console.log(chalk.green("Loaded Environment Variables..."));
 };
-
-export default LOAD_ENV_VARS;

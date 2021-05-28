@@ -6,10 +6,10 @@ import express from "express";
 import logger from "morgan";
 import errorHandler from "./error-response/error-handler";
 import v1Routes from "./v1/route";
-import apiKeyAuthenticationMiddleware from "./middleware/authentication-middleware";
+import apiKeyAuthenticationMiddleware from "./middleware/api-key-authentication";
 import docsiteRoutes from "./docs";
-import welcome from "./etc/welcome";
-import routeNotFound from "./etc/route-not-found";
+import welcome from "./misc/welcome";
+import routeNotFound from "./misc/route-not-found";
 
 const app = express();
 

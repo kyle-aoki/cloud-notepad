@@ -1,4 +1,0 @@
-interface Result {
-  ok: boolean;
-}
-

@@ -14,7 +14,8 @@ const errorHandler = (error: ErrorMessageObject, req: Request, res: Response, ne
     Logger.log(error.serverMessage.severity, error.serverMessage.message);
   }
 
-  if (error.statusCode) res.status(error.statusCode);
+  res.status(error.statusCode || 400);
+  
   res.send(errorResponseEntity);
 };
 
