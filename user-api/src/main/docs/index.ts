@@ -3,10 +3,8 @@ import path from "path";
 
 const docsiteRoutes = express.Router();
 
-const pathToDocSite = path.join(process.cwd(), "..", "user-api-doc-site", "build");
+const pathToDocSite = path.join(process.cwd(), "apidoc");
 
-docsiteRoutes.use("/documentation", express.static(pathToDocSite));
-
-docsiteRoutes.use(["/docs", "/api-docs"], (req, res, next) => res.redirect("/documentation"));
+docsiteRoutes.use(["/docs", "/api-docs", "/documentation"], express.static(pathToDocSite));
 
 export default docsiteRoutes;
