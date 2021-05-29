@@ -1,10 +1,14 @@
 import { Request, Response, NextFunction } from "express";
-import Logger, { Severity } from "../../log";
-import sendResponse from "../../response-entity";
-import { CreateUserResponse } from "../../response-entity/create-user-response";
+import sendResponse from "../../successful-response";
+
+import createUserQuery from "../../sql/query/create-user";
+import SuccessfulResponse from "../../successful-response/class";
 
 export default function createUser(req: Request, res: Response, next: NextFunction) {
-  Logger.warn("watch out...");
+  const username = req.body.username;
+  const password = req.body.password;
 
-  sendResponse(res, CreateUserResponse);
+  createUserQuery(username, password);
+
+  sendResponse(res, new SuccessfulResponse())
 }

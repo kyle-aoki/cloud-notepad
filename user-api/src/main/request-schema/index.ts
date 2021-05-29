@@ -1,5 +1,5 @@
 import { ValidateFunction } from "ajv";
-import ErrorResponse from "../error-response/error-response";
+import ErrorResponse from "../error-response/class";
 import { Request } from 'express';
 
 export type Validator = (req: Request) => void;

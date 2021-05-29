@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import ErrorResponse from "../error-response/error-response";
+import ErrorResponse from "../error-response/class";
 import routeMetadata from "../route-metadata";
 
 const requestSchemaMiddleware = (req: Request, res: Response, next: NextFunction) => {
