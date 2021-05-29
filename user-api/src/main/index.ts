@@ -7,9 +7,9 @@ import logger from "morgan";
 import errorHandler from "./error-response/error-handler";
 import v1Routes from "./v1/route";
 import apiKeyAuthenticationMiddleware from "./middleware/api-key-authentication";
-import docsiteRoutes from "./docs";
 import welcome from "./misc/welcome";
 import routeNotFound from "./misc/route-not-found";
+import swaggerRouter from "./swagger";
 
 const app = express();
 
@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === "dev" || process.env.NODE_ENV === "stage") {
 }
 
 app.use(express.json());
-app.use(docsiteRoutes);
+app.use(swaggerRouter);
 
 app.use(/\//, welcome);
 
