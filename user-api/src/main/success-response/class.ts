@@ -1,7 +1,7 @@
 import UserCreatedResponse from './response/user-created-response';
 
-class SuccessfulResponse {
+class SuccessResponse {
   static UserCreatedResponse = UserCreatedResponse;
 }
 
-export default SuccessfulResponse;
+export default SuccessResponse;
