@@ -1,20 +1,21 @@
 import { Response } from "express";
 import Logger from "../log";
-import SuccessfulResponse from "./class";
-import { ResponseEntity } from "./types";
+import { MessageObject, ResponseEntity } from "./types";
 
-const sendResponse = (res: Response, successfulResponse: SuccessfulResponse) => {
+type SendResponseFunction = (res: Response, messageObject: MessageObject, data?: any) => void;
+
+const sendResponse: SendResponseFunction = (res, messageObject, data) => {
   const responseEntity: ResponseEntity = { ok: true };
 
-  // if (successfulResponse && successfulResponse.serverMessage) {
-  //   Logger.log(successfulResponse.serverMessage.severity, successfulResponse.serverMessage.message);
-  // }
+  if (messageObject && messageObject.serverMessage) {
+    Logger.log(messageObject.serverMessage.severity, messageObject.serverMessage.message);
+  }
 
-  // if (successfulResponse && successfulResponse.message) {
-  //   responseEntity.message = successfulResponse.message;
-  // }
+  if (messageObject && messageObject.message) {
+    responseEntity.message = messageObject.message;
+  }
 
-  // if (successfulResponse.data) responseEntity.data = successfulResponse.data;
+  if (data) responseEntity.data = data;
 
   res.status(200).send(responseEntity);
 };
