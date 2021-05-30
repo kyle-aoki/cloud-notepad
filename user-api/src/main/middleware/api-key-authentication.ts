@@ -9,7 +9,7 @@ if (!correctApiKey) {
   process.exit(1);
 }
 
-const apiKeyAuthenticationMiddleware = (req: Request, res: Response, next: NextFunction) => {
+export default async function ApiKeyAuthentication(req: Request, res: Response, next: NextFunction) {
   const apiKey = req.headers["apikey"];
 
   if (!apiKey) throw ErrorResponse.MissingApiKey();
@@ -17,6 +17,4 @@ const apiKeyAuthenticationMiddleware = (req: Request, res: Response, next: NextF
   if (apiKey !== correctApiKey) throw ErrorResponse.IncorrectApiKey();
 
   next();
-};
-
-export default apiKeyAuthenticationMiddleware;
+}

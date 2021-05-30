@@ -1,7 +1,9 @@
+import SuccessfulLogIn from './response/successfully-logged-in';
 import UserCreatedResponse from './response/user-created-response';
 
-class SuccessResponse {
-  static UserCreatedResponse = UserCreatedResponse;
+const SuccessResponse = {
+  UserCreatedResponse,
+  SuccessfulLogIn
 }
 
 export default SuccessResponse;

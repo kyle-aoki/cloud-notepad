@@ -14,6 +14,7 @@ interface RequestSchemaUrlMap {
 const routeMetadata: RequestSchemaUrlMap = {
   "/create-user": { method: "POST", validatePayload: createUserValidator },
   "/log-in": { method: "POST", validatePayload: logInValidator },
+  "/user/authenticate": { method: "GET", validatePayload: () => true },
 };
 
 export default routeMetadata;

@@ -1,7 +1,5 @@
 import { MessageObject } from "../types";
 
-const UserCreatedResponse = (): MessageObject => ({
-  message: "User successfully created."
-});
-
-export default UserCreatedResponse;
+export default function UserCreatedResponse(): MessageObject {
+  return { message: "User successfully created." };
+}

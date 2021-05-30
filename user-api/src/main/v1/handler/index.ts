@@ -1,24 +1,9 @@
-import createUser from './create-user';
-import { Request, Response, NextFunction } from "express";
+import createUser from "./create-user";
+import logIn from "./log-in";
+import authenticateWithSessionToken from "./user/authenticate-with-session-token";
+import withCatchAsyncError from "../../async-catch";
 
-const catchAsyncError = (func: Function) => {
-  const catcher = (req: Request, res: Response, next: NextFunction) => {
-    func(req, res, next).catch(next);
-  }
-  return catcher;
-}
+const V1HandlerList: Function[] = [createUser, logIn, authenticateWithSessionToken];
+const V1Handler = withCatchAsyncError(V1HandlerList);
 
-interface Indexable extends Function { [x: string]: any }
-
-function withCatchAsyncError(constructor: Indexable) {
-  for (const key of Object.keys(constructor)) {
-    if (typeof constructor[key] === 'function') {
-      constructor[key] = catchAsyncError(constructor[key]);
-    }
-  }
-}
-
-@withCatchAsyncError
-export default class V1Handler {
-  static createUser = createUser;
-}
+export default V1Handler;

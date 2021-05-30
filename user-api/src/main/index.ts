@@ -7,10 +7,10 @@ import logger from "morgan";
 import helmet from 'helmet';
 import errorHandler from "./error-response/error-handler";
 import v1Routes from "./v1/route";
-import apiKeyAuthenticationMiddleware from "./middleware/api-key-authentication";
 import welcome from "./misc/welcome";
 import routeNotFound from "./misc/route-not-found";
 import swaggerRouter from "./swagger";
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
@@ -19,6 +19,7 @@ if (process.env.NODE_ENV === "dev" || process.env.NODE_ENV === "stage") {
 }
 
 app.use(helmet());
+app.use(cookieParser());
 app.use(express.json());
 app.use(swaggerRouter);
 

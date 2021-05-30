@@ -5,5 +5,6 @@
   "USER_DB_HOST": "",
   "USER_DB_PORT": 0,
   "USER_DB_USERNAME": "",
-  "USER_DB_PASSWORD": ""
+  "USER_DB_PASSWORD": "",
+  "PASS_HASH_SALT": "dev_salt"
 }

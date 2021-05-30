@@ -2,7 +2,7 @@ import chalk from "chalk";
 import { Pool, PoolConfig } from "pg";
 import Logger from "../../log";
 
-console.log(chalk.bold.yellow("Collecting Env Vars for connection pool..."));
+console.log(chalk.yellow("Collecting Env Vars for connection pool..."));
 
 const env = process.env;
 
@@ -21,5 +21,5 @@ const poolConfig: PoolConfig = { host: host, port: portNum, user: user, password
 
 const SQL = new Pool(poolConfig);
 
-console.log(chalk.bold.green("Successfully created connection pool..."));
+console.log(chalk.green("Successfully created connection pool..."));
 export default SQL;

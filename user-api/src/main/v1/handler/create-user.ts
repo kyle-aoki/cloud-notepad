@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import sendResponse from "../../success-response";
 import SuccessResponse from "../../success-response/class";
 import Query from "../../sql/query";
+import hashPassword from "../../crypto/hash-password";
 
 export default async function createUser(req: Request, res: Response, next: NextFunction) {
   const username = req.body.username;
@@ -9,7 +10,9 @@ export default async function createUser(req: Request, res: Response, next: Next
 
   await Query.doesUserExist(username);
 
-  await Query.createUser(username, password);
+  const hashedPassword = hashPassword(password);
+
+  await Query.createUser(username, hashedPassword);
 
   sendResponse(res, SuccessResponse.UserCreatedResponse());
 }
