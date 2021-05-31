@@ -1,9 +1,15 @@
-import createUser from "./create-user";
-import logIn from "./log-in";
-import authenticateWithSessionToken from "./user/authenticate-with-session-token";
+import CreateUser from "./create-user";
+import LogIn from "./log-in";
+import AuthenticateWithSessionToken from "./user/authenticate-with-session-token";
 import withCatchAsyncError from "../../async-catch";
+import DeleteUser from "./user/delete-user";
 
-const V1HandlerList: Function[] = [createUser, logIn, authenticateWithSessionToken];
-const V1Handler = withCatchAsyncError(V1HandlerList);
+@withCatchAsyncError
+class V1Handler {
+  static CreateUser = CreateUser;
+  static LogIn = LogIn;
+  static AuthenticateWithSessionToken = AuthenticateWithSessionToken;
+  static DeleteUser = DeleteUser;
+}
 
 export default V1Handler;

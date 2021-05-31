@@ -6,7 +6,7 @@ import Query from "../../sql/query";
 import sendResponse from "../../success-response";
 import SuccessResponse from "../../success-response/class";
 
-export default async function logIn(req: Request, res: Response, next: NextFunction) {
+export default async function LogIn(req: Request, res: Response, next: NextFunction) {
   const username = req.body.username;
   const password = req.body.password;
 

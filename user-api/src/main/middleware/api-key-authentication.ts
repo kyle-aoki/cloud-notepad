@@ -13,7 +13,6 @@ export default async function ApiKeyAuthentication(req: Request, res: Response, 
   const apiKey = req.headers["apikey"];
 
   if (!apiKey) throw ErrorResponse.MissingApiKey();
-
   if (apiKey !== correctApiKey) throw ErrorResponse.IncorrectApiKey();
 
   next();

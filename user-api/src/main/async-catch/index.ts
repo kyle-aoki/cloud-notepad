@@ -8,12 +8,12 @@ const catchAsyncError = (func: Function) => {
   return funcWithCatchAsyncError;
 };
 
-const withCatchAsyncError = (handlers: Function[]) => {
-  const handlersWithAsyncCatch: Indexable = {};
-  for (let handler of handlers) {
-    handlersWithAsyncCatch[handler.name] = catchAsyncError(handler);
+const withCatchAsyncError = (constructor: Indexable) => {
+  for (let key of Object.keys(constructor)) {
+    if (typeof constructor[key] === 'function') {
+      constructor[key] = catchAsyncError(constructor[key]);
+    }
   }
-  return handlersWithAsyncCatch;
-};
+}
 
 export default withCatchAsyncError;

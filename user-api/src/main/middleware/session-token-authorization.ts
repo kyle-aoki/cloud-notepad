@@ -6,7 +6,7 @@ export default async function SessionTokenAuthorization(req: Request, res: Respo
   const session_token = req.cookies.session_token;
   const username = req.cookies.username;
 
-  if (!session_token || !username) ErrorResponse.NotAuthorized();
+  if (!session_token || !username) throw ErrorResponse.NotAuthorized();
 
   await Query.verifySessioinToken(session_token, username);
 

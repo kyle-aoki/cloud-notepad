@@ -8,7 +8,7 @@ import helmet from 'helmet';
 import errorHandler from "./error-response/error-handler";
 import v1Routes from "./v1/route";
 import welcome from "./misc/welcome";
-import routeNotFound from "./misc/route-not-found";
+import RouteNotFound from "./misc/route-not-found";
 import swaggerRouter from "./swagger";
 import cookieParser from 'cookie-parser';
 
@@ -27,7 +27,7 @@ app.use(/\//, welcome);
 
 app.use("/v1", v1Routes);
 
-app.use('/', routeNotFound);
+app.use('/', RouteNotFound);
 
 app.use(errorHandler);
 

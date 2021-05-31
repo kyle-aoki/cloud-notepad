@@ -7,7 +7,7 @@ export default async function ValidateRequestSchema(req: Request, res: Response,
   const url: string = req.url;
 
   const route = routeMetadata[url];
-  if (!route) throw ErrorResponse.RouteDoesNotExist(url);
+  if (!route) throw ErrorResponse.RouteDoesNotExist(req.originalUrl);
 
   if (route.method !== method) throw ErrorResponse.IncorrectHttpMethod(url, method, route.method);
 

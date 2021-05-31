@@ -4,7 +4,7 @@ import SuccessResponse from "../../success-response/class";
 import Query from "../../sql/query";
 import hashPassword from "../../crypto/hash-password";
 
-export default async function createUser(req: Request, res: Response, next: NextFunction) {
+export default async function CreateUser(req: Request, res: Response, next: NextFunction) {
   const username = req.body.username;
   const password = req.body.password;
 
