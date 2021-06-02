@@ -6,7 +6,7 @@ const userRouter = express.Router();
 
 userRouter.use(Middleware.SessionTokenAuthorization);
 
-userRouter.get("/authenticate", V1Handler.AuthenticateWithSessionToken);
+userRouter.post("/authenticate", V1Handler.AuthenticateWithSessionToken);
 userRouter.delete("/delete-user", V1Handler.DeleteUser);
 
 export default userRouter;

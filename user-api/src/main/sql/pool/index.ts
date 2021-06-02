@@ -2,8 +2,6 @@ import chalk from "chalk";
 import { Pool, PoolConfig } from "pg";
 import Logger from "../../log";
 
-console.log(chalk.yellow("Collecting Env Vars for connection pool..."));
-
 const env = process.env;
 
 const host = env.USER_DB_HOST;
@@ -16,8 +14,8 @@ if (!(host && port && user && password)) {
   process.exit(1);
 }
 
-const portNum = parseInt(port);
-const poolConfig: PoolConfig = { host: host, port: portNum, user: user, password: password };
+const portAsNumber = parseInt(port);
+const poolConfig: PoolConfig = { host: host, port: portAsNumber, user: user, password: password };
 
 const SQL = new Pool(poolConfig);
 
