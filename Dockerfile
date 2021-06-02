@@ -12,7 +12,9 @@ COPY ./logs/ ./logs/
 
 RUN npm run build
 
-RUN npm run rm-dev-deps
+RUN rm -rf node_modules src tsconfig.json
+
+RUN npm i --production
 
 EXPOSE 4000
 
