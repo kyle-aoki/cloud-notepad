@@ -1,7 +1,4 @@
 // First to execute
-import LOAD_ENV_VARS from "./env/load-env-vars";
-LOAD_ENV_VARS();
-
 import express from "express";
 import logger from "morgan";
 import helmet from 'helmet';
@@ -11,6 +8,11 @@ import welcome from "./misc/welcome";
 import RouteNotFound from "./misc/route-not-found";
 import swaggerRouter from "./swagger";
 import cookieParser from 'cookie-parser';
+import dotenv from 'dotenv';
+import checkEnvVars from "./env/check-env-vars";
+
+dotenv.config();
+checkEnvVars();
 
 const app = express();
 
