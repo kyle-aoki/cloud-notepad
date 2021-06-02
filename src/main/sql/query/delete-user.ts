@@ -11,7 +11,6 @@ const deleteUserSQL = `
 
 export default async function deleteUser(session_token: string, username: string): Promise<void> {
   const result = await SQL.query(deleteUserSQL, [session_token, username]).catch(handleError);
-  console.log(result);
   if (result.rowCount !== 1) throw ErrorResponse.FailedToDeleteUser();
 }
 
