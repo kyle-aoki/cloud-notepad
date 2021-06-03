@@ -25,7 +25,7 @@ export default async function CreateUser(req: Request, res: Response, next: Next
   while (passGenAttempts < maxPassGenAttempts) {
     const candidatePassword = generatePassword();
     const hashedCandidatePassword = hashPassword(candidatePassword);
-    const userExists = await Query.doesUserExist(username, hashedCandidatePassword);
+    const userExists = await Query.doesUserExist(hashedCandidatePassword);
     if (!userExists) {
       password = candidatePassword;
       break;
