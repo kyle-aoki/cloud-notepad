@@ -1,4 +1,4 @@
-import { ErrorMessageObject } from "../types";
+import { ErrorMessageObject } from "../../types/response";
 
 const UserAlreadyExists = (): ErrorMessageObject => {
   const msg = "User already exists.";

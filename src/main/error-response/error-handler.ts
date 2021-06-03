@@ -1,7 +1,6 @@
-import chalk from "chalk";
 import { Request, Response, NextFunction } from "express";
 import Logger from "../log";
-import { ErrorMessageObject, ErrorResponseEntity } from "./types";
+import { ErrorMessageObject, ErrorResponseEntity } from "../types/response";
 
 const errorHandler = (error: ErrorMessageObject, req: Request, res: Response, next: NextFunction) => {
   const errorResponseEntity: ErrorResponseEntity = {
@@ -9,13 +8,9 @@ const errorHandler = (error: ErrorMessageObject, req: Request, res: Response, ne
     message: error.message,
   };
 
-  if (error.serverMessage) {
-    if (process.env.NODE_ENV !== "prod") console.log(chalk.bold.red(error.serverMessage));
-    Logger.log(error.serverMessage.severity, error.serverMessage.message);
-  }
+  if (error.serverMessage) Logger.log(error.serverMessage.severity, error.serverMessage.message);
 
   res.status(error.statusCode || 400);
-  
   res.send(errorResponseEntity);
 };
 

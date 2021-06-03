@@ -1,4 +1,4 @@
-import { ErrorMessageObject } from "../types";
+import { ErrorMessageObject } from "../../types/response";
 
 const FailedToDeleteUser = (): ErrorMessageObject => {
   const msg = "Failed to delete user. Something went wrong with user deletion.";

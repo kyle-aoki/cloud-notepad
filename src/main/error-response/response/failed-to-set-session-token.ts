@@ -1,4 +1,4 @@
-import { ErrorMessageObject } from "../types";
+import { ErrorMessageObject } from "../../types/response";
 
 const FailedToSetSessionToken = (): ErrorMessageObject => {
   const msg = "Failed to set session token. Try logging in again.";

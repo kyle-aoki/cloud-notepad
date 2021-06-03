@@ -14,7 +14,7 @@ export default async function LogIn(req: Request, res: Response, next: NextFunct
   await Query.verifyPassword(username, hashedPassword);
 
   const session_token = generateSessionToken();
-  await Query.setSessionToken(session_token, username);
+  await Query.setSessionToken(session_token, username, hashedPassword);
 
   res.cookie('username', username, { maxAge: oneDayInMilliseconds });
   res.cookie("session_token", session_token, { maxAge: oneDayInMilliseconds });

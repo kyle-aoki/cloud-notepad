@@ -1,5 +1,5 @@
 import { referDocsite } from "../constants";
-import { ErrorMessageObject } from "../types";
+import { ErrorMessageObject } from "../../types/response";
 
 const InvalidRequestPayload = (url: string): ErrorMessageObject => {
   const msg = `Invalid request payload for route '${url}'. ${referDocsite}`;

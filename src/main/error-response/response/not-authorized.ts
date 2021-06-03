@@ -1,5 +1,5 @@
 import { referDocsite } from "../constants";
-import { ErrorMessageObject } from "../types";
+import { ErrorMessageObject } from "../../types/response";
 
 const NotAuthorized = (): ErrorMessageObject => {
   const msg = `Missing or incorrect 'session_token' and 'username' cookies. ${referDocsite}`;

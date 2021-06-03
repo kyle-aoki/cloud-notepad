@@ -1,5 +1,5 @@
 import { referDocsite } from "../constants";
-import { ErrorMessageObject } from "../types";
+import { ErrorMessageObject } from "../../types/response";
 
 const RouteDoesNotExist = (url: string): ErrorMessageObject => {
   const msg = `Route '${url}' does not exist. ${referDocsite}`;

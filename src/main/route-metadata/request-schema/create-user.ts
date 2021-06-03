@@ -5,8 +5,8 @@ const ajv = new Ajv();
 
 const createUserSchema = {
   properties: {
-    username: { type: "string" },
-    password: { type: "string" },
+    firstName: { type: "string" },
+    lastName: { type: "string" },
   },
 } as const;
 

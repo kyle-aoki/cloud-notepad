@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import ErrorResponse from "../error-response/class";
 import routeMetadata from "../route-metadata";
 
-export default async function ValidateRequestSchema(req: Request, res: Response, next: NextFunction) {
+export default async function ValidateRequest(req: Request, res: Response, next: NextFunction) {
   const method: string = req.method;
   const url: string = req.url;
 

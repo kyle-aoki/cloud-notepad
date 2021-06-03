@@ -9,8 +9,6 @@ export default async function createUser(username: string, password: string): Pr
 }
 
 const handleError = (error: any) => {
-  if (error.code === "23505") throw ErrorResponse.UserAlreadyExists();
-
   Logger.error(JSON.stringify(error));
   throw ErrorResponse.QueryError();
 };

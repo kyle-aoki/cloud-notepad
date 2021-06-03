@@ -7,10 +7,13 @@ import MissingApiKey from "./response/missing-api-key";
 import QueryError from "./response/query-error";
 import RouteDoesNotExist from "./response/route-does-not-exist";
 import UserAlreadyExists from "./response/user-already-exists";
-import NotAuthorized from './response/not-authorized';
+import NotAuthorized from "./response/not-authorized";
 import FailedToDeleteUser from "./response/failed-to-delete-user";
+import InvalidUsername from "./response/invalid-username";
+import FailedToCreateUser from "./response/failed-to-create-user";
+import GenericError from "./response/generic-error";
 
-class ErrorResponse {
+export default class ErrorResponse {
   static RouteDoesNotExist = RouteDoesNotExist;
   static IncorrectApiKey = IncorrectApiKey;
   static IncorrectHttpMethod = IncorrectHttpMethod;
@@ -22,6 +25,7 @@ class ErrorResponse {
   static FailedToSetSessionToken = FailedToSetSessionToken;
   static NotAuthorized = NotAuthorized;
   static FailedToDeleteUser = FailedToDeleteUser;
+  static InvalidUsername = InvalidUsername;
+  static FailedToCreateUser = FailedToCreateUser;
+  static GenericError = GenericError;
 }
-
-export default ErrorResponse;

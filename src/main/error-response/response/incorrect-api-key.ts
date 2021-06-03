@@ -1,4 +1,4 @@
-import { ErrorMessageObject } from "../types";
+import { ErrorMessageObject } from "../../types/response";
 
 const IncorrectApiKey = (): ErrorMessageObject => {
   const msg = `Incorrect API Key. You may obtain an api-key from the onboarding form on '/documentation'.`;

@@ -1,5 +1,5 @@
-import { MessageObject } from "../types";
+import { SuccessMessageObject } from "../../types/response";
 
-export default function UserCreatedResponse(): MessageObject {
+export default function UserCreatedResponse(): SuccessMessageObject {
   return { message: "User successfully created." };
 }

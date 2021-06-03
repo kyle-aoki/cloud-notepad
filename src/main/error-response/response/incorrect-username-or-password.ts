@@ -1,4 +1,4 @@
-import { ErrorMessageObject } from "../types";
+import { ErrorMessageObject } from "../../types/response";
 
 const IncorrectUsernameOrPassword = (): ErrorMessageObject => {
   const msg = "Incorrect username or password.";

@@ -9,8 +9,6 @@ export enum Severity {
   ERROR = "ERROR",
   WARN = "WARN",
   INFO = "INFO",
-  DEBUG = "DEBUG",
-  VERBOSE = "VERBOSE",
 }
 
 if (!process.env.NODE_ENV) {
@@ -18,14 +16,12 @@ if (!process.env.NODE_ENV) {
   process.exit(1);
 }
 
-class Logger {
+export default class Logger {
   private static ENV = process.env.NODE_ENV as string;
   private static LoggerLevelMap = {
     [Severity.ERROR]: Logger.error,
     [Severity.WARN]: Logger.warn,
     [Severity.INFO]: Logger.info,
-    [Severity.DEBUG]: Logger.debug,
-    [Severity.VERBOSE]: Logger.verbose,
   };
 
   private static logToErrorFile(msg: string) {
@@ -48,42 +44,30 @@ class Logger {
     return new Date().toLocaleString();
   }
 
-  private static getLogText(severity: string, msg: string) {
-    return `[${Logger.dt()}][${severity}] ${msg}`
+  private static getLogText(severity: string, msg: string, err?: any) {
+    return `[${Logger.dt()}][${severity}] ${msg}${err && ` Error: ${JSON.stringify(err)}`}`;
   }
 
-  public static log(severity: Severity, msg: string) {
-    Logger.LoggerLevelMap[severity](msg);
+  public static log(severity: Severity, msg: string, err?: any) {
+    Logger.LoggerLevelMap[severity](msg, err);
   }
 
-  public static error(msg: string) {
-    const logText = Logger.getLogText(Severity.ERROR, msg);
+  public static error(msg: string, err?: any) {
+    const logText = Logger.getLogText(Severity.ERROR, msg, err);
     Logger.logToConsole(chalk.bold.red(logText));
     Logger.logToErrorFile(logText);
     Logger.logToCombinedFile(logText);
   }
 
-  public static warn(msg: string) {
-    const logText = Logger.getLogText(Severity.WARN, msg);
+  public static warn(msg: string, err?: any) {
+    const logText = Logger.getLogText(Severity.WARN, msg, err);
     Logger.logToConsole(chalk.bold.yellow(logText));
     Logger.logToCombinedFile(logText);
   }
 
-  public static info(msg: string) {
-    const logText = Logger.getLogText(Severity.INFO, msg);
+  public static info(msg: string, err?: any) {
+    const logText = Logger.getLogText(Severity.INFO, msg, err);
     Logger.logToConsole(logText);
     Logger.logToCombinedFile(logText);
   }
-
-  public static debug(msg: string) {
-    const logText = Logger.getLogText(Severity.DEBUG, msg);
-    Logger.logToConsole(logText);
-  }
-
-  public static verbose(msg: string) {
-    const logText = Logger.getLogText(Severity.VERBOSE, msg);
-    Logger.logToConsole(logText);
-  }
 }
-
-export default Logger;

@@ -1,13 +1,11 @@
 import withCatchAsyncError from "../async-catch";
 import ApiKeyAuthentication from "./api-key-authentication";
 import SessionTokenAuthorization from "./session-token-authorization";
-import ValidateRequestSchema from "./validate-request-schema";
+import ValidateRequest from "./validate-request";
 
 @withCatchAsyncError
-class Middleware {
+export default class Middleware {
   static ApiKeyAuthentication = ApiKeyAuthentication;
   static SessionTokenAuthorization = SessionTokenAuthorization;
-  static ValidateRequestSchema = ValidateRequestSchema;
+  static ValidateRequest = ValidateRequest;
 }
-
-export default Middleware;
