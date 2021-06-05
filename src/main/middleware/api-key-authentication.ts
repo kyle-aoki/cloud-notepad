@@ -10,7 +10,7 @@ if (!correctApiKey) {
 }
 
 export default async function ApiKeyAuthentication(req: Request, res: Response, next: NextFunction) {
-  const apiKey = req.headers["apikey"];
+  const apiKey = req.headers["api_key"];
 
   if (!apiKey) throw ErrorResponse.MissingApiKey();
   if (apiKey !== correctApiKey) throw ErrorResponse.IncorrectApiKey();

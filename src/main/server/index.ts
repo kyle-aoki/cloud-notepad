@@ -11,5 +11,5 @@ import chalk from "chalk";
 const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
-  console.log(chalk.green(`User API listening on port ${PORT}`));
+  console.log(chalk.green(`user-svc listening on port ${PORT}`));
 });
