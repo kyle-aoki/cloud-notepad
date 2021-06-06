@@ -4,7 +4,7 @@ import { ErrorMessageObject } from "../../types/response";
 export enum InvalidUsernameType {
   TOO_LONG = "TOO_LONG",
   TOO_SHORT = "TOO_SHORT",
-  NUMBERS_OR_SYMBOLS_PRESENT = "NUMBERS_OR_SYMBOLS_PRESENT",
+  INVALID_SYMBOLS_PRESENT = "INVALID_SYMBOLS_PRESENT",
 }
 
 export default function InvalidUsername(type: InvalidUsernameType): ErrorMessageObject {
@@ -16,12 +16,12 @@ export default function InvalidUsername(type: InvalidUsernameType): ErrorMessage
       };
     case InvalidUsernameType.TOO_SHORT:
       return {
-        message: `Username too short. Must be smaller than ${usernameMinLength} characters.`,
+        message: `Username too short. Must not be smaller than ${usernameMinLength} characters.`,
         statusCode: 400,
       };
-    case InvalidUsernameType.NUMBERS_OR_SYMBOLS_PRESENT:
+    case InvalidUsernameType.INVALID_SYMBOLS_PRESENT:
       return {
-        message: "Username contains invalid characters. Username cannot contain numbers or symbols, only letters.",
+        message: "Username contains invalid characters. Username cannot contain symbols other than '-' and '_'.",
         statusCode: 400,
       };
     default:

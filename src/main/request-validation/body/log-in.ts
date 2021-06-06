@@ -1,5 +1,5 @@
 import Ajv, { JTDDataType } from "ajv/dist/jtd";
-import createValidatorFunction from ".";
+import createPayloadValidator from ".";
 
 const ajv = new Ajv();
 
@@ -14,6 +14,6 @@ type LogInSchema = JTDDataType<typeof logInSchema>;
 
 const validator = ajv.compile<LogInSchema>(logInSchema);
 
-const logInValidator = createValidatorFunction(validator);
+const logInValidator = createPayloadValidator(validator);
 
 export default logInValidator;

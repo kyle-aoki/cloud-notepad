@@ -1,5 +1,10 @@
 import { Severity } from "../log";
 
+export interface ErrorResponseEntity {
+  ok: false;
+  message: string;
+}
+
 export interface ErrorMessageObject {
   message: string;
   serverMessage?: {
@@ -7,11 +12,6 @@ export interface ErrorMessageObject {
     message: string;
   };
   statusCode?: number;
-}
-
-export interface ErrorResponseEntity {
-  ok: false;
-  message: string;
 }
 
 export interface SuccessResponseEntity {

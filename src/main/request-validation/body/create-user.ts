@@ -1,12 +1,12 @@
 import Ajv, { JTDDataType } from "ajv/dist/jtd";
-import createValidatorFunction from ".";
+import createPayloadValidator from ".";
 
 const ajv = new Ajv();
 
 const createUserSchema = {
   properties: {
-    firstName: { type: "string" },
-    lastName: { type: "string" },
+    username: { type: "string" },
+    password: { type: "string" },
   },
 } as const;
 
@@ -14,6 +14,6 @@ type CreateUserSchema = JTDDataType<typeof createUserSchema>;
 
 const validator = ajv.compile<CreateUserSchema>(createUserSchema);
 
-const createUserValidator = createValidatorFunction(validator);
+const createUserValidator = createPayloadValidator(validator);
 
 export default createUserValidator;

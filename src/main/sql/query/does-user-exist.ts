@@ -2,12 +2,11 @@ import SQL from "../pool";
 import ErrorResponse from "../../error-response/class";
 import Logger from "../../log";
 
-const doesUserExistSQL = "SELECT username FROM users where password = $1;";
+const doesUserExistSQL = "SELECT username FROM users where username = $1;";
 
-export default async function doesUserExist(password: string): Promise<boolean> {
-  const result = await SQL.query(doesUserExistSQL, [password]).catch(handleError);
-  if (result.rows.length === 0) return false;
-  return true;
+export default async function doesUserExist(username: string) {
+  const result = await SQL.query(doesUserExistSQL, [username]).catch(handleError);
+  if (result.rows.length !== 0) throw ErrorResponse.UserAlreadyExists();
 }
 
 const handleError = (error: any) => {
