@@ -5,7 +5,8 @@ import { ErrorMessageObject, ErrorResponseEntity } from "../types/response";
 const errorHandler = (error: ErrorMessageObject, req: Request, res: Response, next: NextFunction) => {
   const errorResponseEntity: ErrorResponseEntity = {
     ok: false,
-    message: error.message || 'Something went wrong.',
+    errorOrigin: "user-svc",
+    message: error.message || "Something went wrong.",
   };
 
   if (error.serverMessage) Logger.log(error.serverMessage.severity, error.serverMessage.message);
