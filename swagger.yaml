@@ -4,11 +4,11 @@ info:
   version: "1.0.0"
   description: "User API"
 host: "user-api.company.com"
-basePath: "/v1"
+basePath: "/"
 schemes:
 - "https"
 paths:
-  /create-user:
+  /v1/create-user:
     post:
       summary: "Create a new user."
       operationId: "createUser"
