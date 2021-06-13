@@ -6,10 +6,7 @@
   "scripts": {
     "test": "npx jest",
     "build": "rimraf build && tsc && rimraf build/test/",
-    "start:dev": "cross-env NODE_ENV=dev node build/main/server/",
-    "start:stage": "cross-env NODE_ENV=stage node build/main/server/",
-    "start:prod": "cross-env NODE_ENV=prod node build/main/server/",
-    "dev": "cross-env NODE_ENV=dev ts-node-dev src/main/server/"
+    "dev": "doppler run -- ts-node-dev src/main/server/"
   },
   "keywords": [],
   "author": "Kyle Aoki",

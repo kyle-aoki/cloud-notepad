@@ -1,10 +1,3 @@
-// First to run...
-import dotenv from "dotenv";
-import checkEnvVars from "../env/check-env-vars";
-
-dotenv.config();
-checkEnvVars();
-
 import app from "..";
 import chalk from "chalk";
 
