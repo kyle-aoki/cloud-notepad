@@ -13,6 +13,7 @@ export interface ErrorMessageObject {
     message: string;
   };
   statusCode?: number;
+  type?: string;
 }
 
 export interface SuccessResponseEntity {

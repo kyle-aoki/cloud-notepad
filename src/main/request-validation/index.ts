@@ -1,6 +1,7 @@
 import { PayloadValidator } from "./body";
 import createUserPayloadValidator from "./body/create-user";
 import deleteUserPayloadValidator from "./body/delete-user";
+import doesUserExistValidator from "./body/does-user-exist";
 import logInPayloadValidator from "./body/log-in";
 import { HeaderValidator } from "./headers";
 import authorizationHeaderValidator from "./headers/authorization-headers";
@@ -24,6 +25,11 @@ const requestSchema: RequestSchema = {
   "/log-in": {
     method: "POST",
     validatePayload: logInPayloadValidator,
+    validateHeaders: () => true,
+  },
+  "/does-user-exist": {
+    method: "POST",
+    validatePayload: doesUserExistValidator,
     validateHeaders: () => true,
   },
   "/user/authenticate": {

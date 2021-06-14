@@ -5,8 +5,6 @@ import errorHandler from "./error-response/error-handler";
 import v1Routes from "./v1/route";
 import welcome from "./misc/welcome";
 import RouteNotFound from "./misc/route-not-found";
-import swaggerRouter from "./swagger";
-import cookieParser from "cookie-parser";
 import cors from 'cors';
 
 const app = express();
@@ -17,9 +15,7 @@ if (process.env.NODE_ENV === "dev" || process.env.NODE_ENV === "stage") {
 
 app.use(cors());
 app.use(helmet());
-app.use(cookieParser());
 app.use(express.json());
-app.use(swaggerRouter);
 
 app.use(/\//, welcome);
 

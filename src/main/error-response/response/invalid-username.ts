@@ -21,6 +21,7 @@ export default function InvalidUsername(type: InvalidUsernameType): ErrorMessage
       };
     case InvalidUsernameType.INVALID_SYMBOLS_PRESENT:
       return {
+        type: "INVALID_SYMBOLS_PRESENT",
         message: "Username contains invalid characters. Username cannot contain symbols other than '-' and '_'.",
         statusCode: 400,
       };
