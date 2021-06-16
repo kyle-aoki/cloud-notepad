@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import Logger from "../log";
+import Log from "../log";
 import { ErrorMessageObject, ErrorResponseEntity } from "../types/response";
 
 const errorHandler = (error: ErrorMessageObject, req: Request, res: Response, next: NextFunction) => {
@@ -9,7 +9,7 @@ const errorHandler = (error: ErrorMessageObject, req: Request, res: Response, ne
     message: error.message || "Something went wrong.",
   };
 
-  if (error.serverMessage) Logger.log(error.serverMessage.severity, error.serverMessage.message);
+  if (error.serverMessage) Log.log(error.serverMessage.severity, error.serverMessage.message);
 
   res.status(error.statusCode || 400);
   res.send(errorResponseEntity);

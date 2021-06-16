@@ -1,6 +1,6 @@
 import SQL from "../pool";
 import ErrorResponse from "../../error-response/class";
-import Logger from "../../log";
+import Log from "../../log";
 
 const createUserSQL = "INSERT INTO users (username, password) VALUES ($1, $2);";
 
@@ -9,6 +9,6 @@ export default async function createUser(username: string, password: string): Pr
 }
 
 const handleError = (error: any) => {
-  Logger.error(JSON.stringify(error));
+  Log.error(JSON.stringify(error));
   throw ErrorResponse.QueryError();
 };

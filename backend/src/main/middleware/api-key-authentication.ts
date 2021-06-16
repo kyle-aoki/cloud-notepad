@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import ErrorResponse from "../error-response/class";
-import Logger from "../log";
+import Log from "../log";
 
 const correctApiKey = process.env.USER_API_API_KEY;
 
 if (!correctApiKey) {
-  Logger.error("Missing 'USER_API_API_KEY' Environment Variable.");
+  Log.error("Missing 'USER_API_API_KEY' Environment Variable.");
   process.exit(1);
 }
 

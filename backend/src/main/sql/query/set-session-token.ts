@@ -1,5 +1,5 @@
 import ErrorResponse from "../../error-response/class";
-import Logger from "../../log";
+import Log from "../../log";
 import SQL from "../pool";
 
 const setSessionTokenSQL = `
@@ -15,6 +15,6 @@ export default async function setSessionToken(sessionToken: string, username: st
 }
 
 const handleError = (error: any) => {
-  Logger.error(JSON.stringify(error));
+  Log.error(JSON.stringify(error));
   throw ErrorResponse.FailedToSetSessionToken();
 };

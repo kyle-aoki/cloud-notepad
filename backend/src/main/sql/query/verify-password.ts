@@ -1,6 +1,6 @@
 import SQL from "../pool";
 import ErrorResponse from "../../error-response/class";
-import Logger from "../../log";
+import Log from "../../log";
 
 const verifyPasswordSQL = "SELECT username FROM users WHERE username = $1 and password = $2;";
 
@@ -10,6 +10,6 @@ export default async function verifyPassword(username: string, password: string)
 }
 
 const handleError = (error: any) => {
-  Logger.error(JSON.stringify(error));
+  Log.error(JSON.stringify(error));
   throw ErrorResponse.QueryError();
 };

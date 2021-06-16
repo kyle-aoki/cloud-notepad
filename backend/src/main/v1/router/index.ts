@@ -1,6 +1,6 @@
 import express from "express";
 import Middleware from "../../middleware";
-import RouteNotFound from "../../misc/route-not-found";
+import RouteNotFound from "../../utility/route-not-found";
 import protectedRouter from "./protected";
 import publicRouter from "./public";
 

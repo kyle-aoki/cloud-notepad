@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import { Pool, PoolConfig } from "pg";
-import Logger from "../../log";
+import Log from "../../log";
 
 const env = process.env;
 
@@ -10,7 +10,7 @@ const user = env.USER_DB_USERNAME;
 const password = env.USER_DB_PASSWORD;
 
 if (!(host && port && user && password)) {
-  Logger.error("Database environment variables are missing (host, port, user, password).");
+  Log.error("Database environment variables are missing (host, port, user, password).");
   process.exit(1);
 }
 
