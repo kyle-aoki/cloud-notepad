@@ -1,12 +1,13 @@
 import { Request, Response, NextFunction } from "express";
 import Log from "../log";
-import { ErrorMessageObject, ErrorResponseEntity } from "../types/response";
+import { ErrorResponseEntity } from "../types/response";
 
-const errorHandler = (error: ErrorMessageObject, req: Request, res: Response, next: NextFunction) => {
+const errorHandler = (error: any, req: Request, res: Response, next: NextFunction) => {
+  const errorIsString = typeof error === "string";
+
   const errorResponseEntity: ErrorResponseEntity = {
     ok: false,
-    errorOrigin: "user-svc",
-    message: error.message || "Something went wrong.",
+    message: errorIsString ? error : error.message || "Something went wrong.",
   };
 
   if (error.serverMessage) Log.log(error.serverMessage.severity, error.serverMessage.message);
