@@ -9,8 +9,8 @@ export default async function CreateUser(req: Request, res: Response, next: Next
   const username = req.body.username;
   const password = req.body.password;
 
-  Validator.validateUsername(username);
-  Validator.validatePassword(password);
+  Validator.validateUsername(username, true);
+  Validator.validatePassword(password, true);
 
   await Query.doesUserExist(username);
 

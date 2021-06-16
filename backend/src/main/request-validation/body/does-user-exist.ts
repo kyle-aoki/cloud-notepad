@@ -3,7 +3,7 @@ import createPayloadValidator from ".";
 
 const ajv = new Ajv();
 
-const DoesUserExistSchema = {
+export const DoesUserExistSchema = {
   properties: {
     username: { type: "string" },
   },

@@ -7,7 +7,7 @@ import publicRouter from "./public";
 const v1Routes = express.Router();
 
 v1Routes.use(Middleware.ApiKeyAuthentication);
-v1Routes.use(Middleware.ValidateRequest);
+// v1Routes.use(Middleware.ValidateRequest);
 
 // Public Routes
 v1Routes.use(publicRouter);

@@ -1,17 +1,21 @@
-import ErrorResponse from "../error-response/class";
-import { InvalidUsernameType } from "../error-response/response/invalid-username";
-
 const ValidSymbols = "abcdefghijklmnopqrstuvwxyz1234567890-_".split("");
 
-export const usernameMaxLength = 100;
-export const usernameMinLength = 2;
+export const unMaxLength = 100;
+export const unMinLength = 2;
 
-export default function validateUsername(username: string) {
-  if (username.length >= usernameMaxLength) throw ErrorResponse.InvalidUsername(InvalidUsernameType.TOO_LONG);
-  if (username.length <= usernameMinLength) throw ErrorResponse.InvalidUsername(InvalidUsernameType.TOO_SHORT);
+export default function validateUsername(username: string, full?: boolean) {
+  if (!username || typeof username !== "string") throw "Missing string 'username' from request body.";
+  if (!full) return;
+
+  if (username.length >= unMaxLength) throw `String 'username' is too long. ${unMaxLength} is the maximum length.`;
+  if (username.length <= unMinLength) throw `String 'username' is too short. ${unMinLength} is the minimum length.`;
+
   const usernameLetters = username.split("");
   for (const usernameLetter of usernameLetters) {
     if (ValidSymbols.includes(usernameLetter)) continue;
-    throw ErrorResponse.InvalidUsername(InvalidUsernameType.INVALID_SYMBOLS_PRESENT);
+    throw {
+      type: "INVALID_USERNAME_SYMBOLS_PRESENT",
+      message: "Username contains invalid characters. Username cannot contain symbols other than '-' and '_'.",
+    };
   }
 }

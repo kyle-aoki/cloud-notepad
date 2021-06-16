@@ -1,4 +1,4 @@
-import { passwordMaxLength, passwordMinLength } from "../../validation/password-validation";
+import { pwMaxLength, pwMinLength } from "../../validation/password-validation";
 import { ErrorMessageObject } from "../../types/response";
 
 export enum InvalidPasswordType {
@@ -11,12 +11,12 @@ export default function InvalidPassword(type: InvalidPasswordType): ErrorMessage
   switch (type) {
     case InvalidPasswordType.TOO_LONG:
       return {
-        message: `Password too long. Cannot be larger than ${passwordMaxLength} characters.`,
+        message: `Password too long. Cannot be larger than ${pwMaxLength} characters.`,
         statusCode: 400,
       };
     case InvalidPasswordType.TOO_SHORT:
       return {
-        message: `Password too short. Must not be smaller than ${passwordMinLength} characters.`,
+        message: `Password too short. Must not be smaller than ${pwMinLength} characters.`,
         statusCode: 400,
       };
     case InvalidPasswordType.INVALID_SYMBOLS_PRESENT:

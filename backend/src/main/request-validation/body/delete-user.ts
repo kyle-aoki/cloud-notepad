@@ -3,7 +3,7 @@ import createPayloadValidator from ".";
 
 const ajv = new Ajv();
 
-const DeleteUserSchema = {
+export const DeleteUserSchema = {
   properties: {
     password: { type: "string" },
   },

@@ -1,17 +1,21 @@
-import ErrorResponse from "../error-response/class";
-import { InvalidPasswordType } from "../error-response/response/invalid-password";
-
 const ValidPasswordSymbols = "abcdefghijklmnopqrstuvwxyz1234567890-_`~!@#$%^&*()+[]{}|;:'?/>.<,".split("");
 
-export const passwordMaxLength = 100;
-export const passwordMinLength = 3;
+export const pwMaxLength = 100;
+export const pwMinLength = 3;
 
-export default function validatePassword(password: string) {
-  if (password.length >= passwordMaxLength) throw ErrorResponse.InvalidPassword(InvalidPasswordType.TOO_LONG);
-  if (password.length <= passwordMinLength) throw ErrorResponse.InvalidPassword(InvalidPasswordType.TOO_SHORT);
+export default function validatePassword(password: string, full?: boolean) {
+  if (!password || typeof password !== "string") throw "Missing string 'password' from request body.";
+  if (!full) return;
+
+  if (password.length >= pwMaxLength) throw `String 'password' is too long. ${pwMaxLength} is the maximum length.`;
+  if (password.length <= pwMinLength) throw `String 'password' is too short. ${pwMinLength} is the minimum length.`;
+
   const passwordCharacters = password.split("");
   for (const passwordCharacter of passwordCharacters) {
     if (ValidPasswordSymbols.includes(passwordCharacter)) continue;
-    throw ErrorResponse.InvalidPassword(InvalidPasswordType.INVALID_SYMBOLS_PRESENT);
+    throw {
+      type: "INVALID_PASSWORD_SYMBOLS_PRESENT",
+      message: `Password contains invalid characters. Password cannot have the symbol '${passwordCharacter}'.`,
+    };
   }
 }

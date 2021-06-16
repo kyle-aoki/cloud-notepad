@@ -10,7 +10,7 @@ const user = env.USER_DB_USERNAME;
 const password = env.USER_DB_PASSWORD;
 
 if (!(host && port && user && password)) {
-  Log.error("Database environment variables are missing (host, port, user, password).");
+  Log.error("One or more database environment variables are missing (host, port, user, password).");
   process.exit(1);
 }
 
@@ -24,5 +24,5 @@ const poolConfig: PoolConfig = {
 
 const SQL = new Pool(poolConfig);
 
-console.log(chalk.green("Successfully created connection pool..."));
+Log.info("Successfully created connection pool...");
 export default SQL;

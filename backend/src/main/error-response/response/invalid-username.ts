@@ -1,4 +1,4 @@
-import { usernameMaxLength, usernameMinLength } from "../../validation/username-validation";
+import { unMaxLength, unMinLength } from "../../validation/username-validation";
 import { ErrorMessageObject } from "../../types/response";
 
 export enum InvalidUsernameType {
@@ -11,12 +11,12 @@ export default function InvalidUsername(type: InvalidUsernameType): ErrorMessage
   switch (type) {
     case InvalidUsernameType.TOO_LONG:
       return {
-        message: `Username too long. Cannot be larger than ${usernameMaxLength} characters.`,
+        message: `Username too long. Cannot be larger than ${unMaxLength} characters.`,
         statusCode: 400,
       };
     case InvalidUsernameType.TOO_SHORT:
       return {
-        message: `Username too short. Must not be smaller than ${usernameMinLength} characters.`,
+        message: `Username too short. Must not be smaller than ${unMinLength} characters.`,
         statusCode: 400,
       };
     case InvalidUsernameType.INVALID_SYMBOLS_PRESENT:

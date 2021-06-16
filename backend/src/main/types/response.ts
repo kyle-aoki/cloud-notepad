@@ -5,15 +5,15 @@ export interface ErrorResponseEntity {
   message: string;
 }
 
-// export interface ErrorMessageObject {
-//   message: string;
-//   serverMessage?: {
-//     severity: Severity;
-//     message: string;
-//   };
-//   statusCode?: number;
-//   type?: string;
-// }
+export interface ErrorMessageObject {
+  message: string;
+  serverMessage?: {
+    severity: Severity;
+    message: string;
+  };
+  statusCode?: number;
+  type?: string;
+}
 
 export interface SuccessResponseEntity {
   ok: true;

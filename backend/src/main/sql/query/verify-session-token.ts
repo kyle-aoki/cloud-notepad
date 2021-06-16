@@ -12,7 +12,7 @@ const verifySessionTokenSQL = `
 
 export default async function verifySessioinToken(username: string, session_token: string): Promise<void> {
   const result = await SQL.query(verifySessionTokenSQL, [username, session_token]).catch(handleError);
-  if (result.rows.length === 0) throw ErrorResponse.NotAuthorized();
+  if (result.rows.length === 0) throw { statusCode: 401, message: "User unauthorized." };
 }
 
 const handleError = (error: any) => {

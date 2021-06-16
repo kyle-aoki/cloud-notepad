@@ -10,8 +10,6 @@ const errorHandler = (error: any, req: Request, res: Response, next: NextFunctio
     message: errorIsString ? error : error.message || "Something went wrong.",
   };
 
-  if (error.serverMessage) Log.log(error.serverMessage.severity, error.serverMessage.message);
-
   res.status(error.statusCode || 400);
   res.send(errorResponseEntity);
 };

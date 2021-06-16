@@ -1,6 +1,10 @@
 import { ValidateFunction } from "ajv";
 import ErrorResponse from "../../error-response/class";
 import { Request } from "express";
+import { createUserSchema } from "./create-user";
+import { DeleteUserSchema } from "./delete-user";
+import { DoesUserExistSchema } from "./does-user-exist";
+import { logInSchema } from "./log-in";
 
 export type PayloadValidator = (req: Request) => void;
 
@@ -13,3 +17,5 @@ const createPayloadValidator = (validator: ValidateFunction) => {
 };
 
 export default createPayloadValidator;
+
+const schemas = [createUserSchema, DeleteUserSchema, DoesUserExistSchema, logInSchema];

@@ -8,13 +8,25 @@ export enum Severity {
 }
 
 export default class Log {
-  private static logToConsole(logObj: any) {
+  private static severityColor(severity: string) {
+    if (severity === "INFO") return chalk.cyan(severity);
+    return severity;
+  }
+
+  private static logToConsole(logObj: any, color?: string) {
     if (inProduction) return;
 
-    const syslogFormat = `[${logObj.datetime}][${logObj.severity}] ${logObj.msg}.`;
+    const syslogFormat = `[${Log.severityColor(logObj.severity)}][${logObj.datetime}] ${logObj.msg}.`;
     const errorObject = Log.stringifyErrorObject(logObj.err);
 
-    console.log(chalk.red(`${syslogFormat} ${errorObject}`));
+    switch (color) {
+      case "red":
+        return console.log(chalk.red(`${syslogFormat} ${errorObject}`));
+      case "yellow":
+        return console.log(chalk.yellow(`${syslogFormat} ${errorObject}`));
+      default:
+        return console.log(`${syslogFormat} ${errorObject}`);
+    }
   }
 
   static stringifyErrorObject(err: any) {
@@ -38,12 +50,12 @@ export default class Log {
 
   public static error(msg: string, err?: any) {
     const logObj = Log.getLogObj(Severity.ERROR, msg, err);
-    Log.logToConsole(logObj);
+    Log.logToConsole(logObj, "red");
   }
 
   public static warn(msg: string, err?: any) {
     const logObj = Log.getLogObj(Severity.WARN, msg, err);
-    Log.logToConsole(logObj);
+    Log.logToConsole(logObj, "yellow");
   }
 
   public static info(msg: string, err?: any) {
@@ -54,11 +66,11 @@ export default class Log {
   public static log(severity: Severity, msg: string, err?: any) {
     switch (severity) {
       case Severity.ERROR:
-        Log.error(msg, err);
+        return Log.error(msg, err);
       case Severity.WARN:
-        Log.warn(msg, err);
+        return Log.warn(msg, err);
       case Severity.INFO:
-        Log.info(msg, err);
+        return Log.info(msg, err);
     }
   }
 }
