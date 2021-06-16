@@ -1,6 +1,6 @@
 import express from "express";
-import Middleware from "../../../middleware";
-import V1Handler from "../../handler";
+import Middleware from "../../../../middleware";
+import V1Handler from "../../../handler";
 
 const userRouter = express.Router();
 

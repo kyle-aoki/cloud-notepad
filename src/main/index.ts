@@ -2,10 +2,10 @@ import express from "express";
 import logger from "morgan";
 import helmet from "helmet";
 import errorHandler from "./error-response/error-handler";
-import v1Routes from "./v1/route";
+import v1Routes from "./v1/router";
 import welcome from "./misc/welcome";
 import RouteNotFound from "./misc/route-not-found";
-import cors from 'cors';
+import cors from "cors";
 
 const app = express();
 

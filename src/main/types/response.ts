@@ -24,6 +24,7 @@ export interface SuccessResponseEntity {
 }
 
 export interface SuccessMessageObject {
+  type?: string;
   message?: string;
   serverMessage?: {
     severity: Severity;
