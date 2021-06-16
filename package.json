@@ -1,5 +1,5 @@
 {
-  "name": "user-api",
+  "name": "cloud-notepad",
   "version": "1.0.0",
   "scripts": {
     "test": "npx jest",
