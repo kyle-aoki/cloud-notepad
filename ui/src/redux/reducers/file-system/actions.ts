@@ -1,0 +1,5 @@
+
+export enum FileSystemActions {
+  OPEN_FILE_SYSTEM = "OPEN_FILE_SYSTEM",
+  CLOSE_FILE_SYSTEM = "CLOSE_FILE_SYSTEM",
+}
