@@ -1,11 +1,16 @@
-import React, { FC } from 'react';
+import React, { FC, useReducer } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as XButtonSVG } from '../../assets/cancel.svg';
 import { XButton, XButtonSVGContainer } from '../file-system/file-system';
+import { useAccountCreationState } from './use-account-creation-state';
+import { useCreateAccount } from './use-create-account';
 
 interface AccountCreationPaneProps {}
 
 const AccountCreationPane: FC<AccountCreationPaneProps> = ({}) => {
+  const [state, handleInputChange] = useAccountCreationState();
+  const triggerAccountCreation = useCreateAccount(state);
+
   return (
     <AccountCreationPaneElement>
       <AccountCreationTaskbar>
@@ -15,9 +20,9 @@ const AccountCreationPane: FC<AccountCreationPaneProps> = ({}) => {
         </XButton>
       </AccountCreationTaskbar>
       <ContentPane>
-        <UsernameInput />
-        <PasswordInput />
-        <CreateAccountButton>Create Account</CreateAccountButton>
+        <UsernameInput id="username" value={state.username} onChange={handleInputChange} />
+        <PasswordInput id="password" value={state.password} onChange={handleInputChange} />
+        <CreateAccountButton onClick={triggerAccountCreation}>Create Account</CreateAccountButton>
       </ContentPane>
     </AccountCreationPaneElement>
   );

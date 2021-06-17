@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import sendResponse from "../../response/send-response";
 import Query from "../../sql/query";
 import hashPassword from "../../crypto/hash-password";
-import Validator from "../../validation";
 import PayloadValidator from "../../validation/payload";
 
 export default async function CreateUser(req: Request, res: Response, next: NextFunction) {

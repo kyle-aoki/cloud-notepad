@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import inProduction from "../utility/in-production";
+import { inProduction } from "../utility/environment";
 
 export enum Severity {
   ERROR = "ERROR",
