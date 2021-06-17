@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import Query from "../sql/query";
-import Validator from "../validation";
+import Validator from "../validation/general";
 import PayloadValidator from "../validation/payload";
 
 export default async function SessionTokenAuthorization(req: Request, res: Response, next: NextFunction) {

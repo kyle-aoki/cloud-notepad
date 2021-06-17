@@ -3,7 +3,7 @@ import generateSessionToken from "../../crypto/generate-session-token";
 import hashPassword from "../../crypto/hash-password";
 import Query from "../../sql/query";
 import sendResponse from "../../response/send-response";
-import Validator from "../../validation";
+import Validator from "../../validation/general";
 import { cookieOptions } from "../../utility/session-token-constants";
 
 export default async function LogIn(req: Request, res: Response, next: NextFunction) {
