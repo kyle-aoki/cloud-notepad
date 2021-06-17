@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import Log from "../log";
 import { ErrorResponseEntity } from "../types/response";
 
-const errorHandler = (error: any, req: Request, res: Response, next: NextFunction) => {
+export default function errorResponse(error: any, req: Request, res: Response, next: NextFunction) {
   const errorIsString = typeof error === "string";
 
   const errorResponseEntity: ErrorResponseEntity = {
@@ -10,8 +9,8 @@ const errorHandler = (error: any, req: Request, res: Response, next: NextFunctio
     message: errorIsString ? error : error.message || "Something went wrong.",
   };
 
+  if (error.type) errorResponseEntity.type = error.type;
+
   res.status(error.statusCode || 400);
   res.send(errorResponseEntity);
-};
-
-export default errorHandler;
+}

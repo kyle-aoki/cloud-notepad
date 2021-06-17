@@ -1,6 +1,6 @@
 import SQL from "../pool";
-import ErrorResponse from "../../error-response/class";
 import Log from "../../log";
+import Err from "../../response/err";
 
 const verifySessionTokenSQL = `
   SELECT username
@@ -16,6 +16,5 @@ export default async function verifySessioinToken(username: string, session_toke
 }
 
 const handleError = (error: any) => {
-  Log.error(JSON.stringify(error));
-  throw ErrorResponse.QueryError();
+  throw Err.QueryError(error);
 };

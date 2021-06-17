@@ -1,6 +1,6 @@
 import sha256 from "crypto-js/sha256";
-import ErrorResponse from "../error-response/class";
 import Log from "../log";
+import Err from "../response/err";
 
 const salt = process.env.PASS_HASH_SALT;
 
@@ -15,7 +15,7 @@ export default function hashPassword(password: string) {
     const hashDigest = sha256(saltedPassword);
     return hashDigest.toString();
   } catch (error) {
-    Log.error('Error hashing passwords.', error);
-    throw ErrorResponse.GenericError();
+    Log.error("Error hashing passwords.", error);
+    throw Err.GenericError();
   }
 }

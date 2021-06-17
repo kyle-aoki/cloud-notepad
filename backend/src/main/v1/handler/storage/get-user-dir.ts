@@ -1,8 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import AWS, { S3 } from "aws-sdk";
-import ErrorResponse from "../../../error-response/class";
-import sendResponse from "../../../success-response/send-response";
-import SuccessResponse from "../../../success-response/class";
+import sendResponse from "../../../response/send-response";
 import s3 from "../../../S3";
 
 interface NewItem {

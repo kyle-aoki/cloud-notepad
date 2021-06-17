@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import sendResponse from "../../../success-response/send-response";
-import SuccessResponse from "../../../success-response/class";
+import sendResponse from "../../../response/send-response";
 import Query from "../../../sql/query";
 import hashPassword from "../../../crypto/hash-password";
 import Validator from "../../../validation";
@@ -17,5 +16,5 @@ export default async function CreateUser(req: Request, res: Response, next: Next
   const hashedPassword = hashPassword(password);
   await Query.createUser(username, hashedPassword);
 
-  sendResponse(res, SuccessResponse.UserCreatedResponse());
+  sendResponse(res, { message: "User successfully created.", type: "USER_CREATED" });
 }

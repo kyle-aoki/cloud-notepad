@@ -1,6 +1,7 @@
 import SQL from "../pool";
-import ErrorResponse from "../../error-response/class";
+
 import Log from "../../log";
+import Err from "../../response/err";
 
 const doesUserExistSQL = "SELECT username FROM users where username = $1;";
 
@@ -10,6 +11,5 @@ export default async function doesUserExist(username: string) {
 }
 
 const handleError = (error: any) => {
-  Log.error(JSON.stringify(error));
-  throw ErrorResponse.QueryError();
+  throw Err.QueryError(error);
 };

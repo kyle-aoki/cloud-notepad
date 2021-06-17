@@ -7,14 +7,11 @@ import publicRouter from "./public";
 const v1Routes = express.Router();
 
 v1Routes.use(Middleware.ApiKeyAuthentication);
-// v1Routes.use(Middleware.ValidateRequest);
 
 // Public Routes
 v1Routes.use(publicRouter);
 
 // Protected Routes
-v1Routes.use(protectedRouter);
-
-v1Routes.use("/", RouteNotFound);
+v1Routes.use("/protected", protectedRouter);
 
 export default v1Routes;

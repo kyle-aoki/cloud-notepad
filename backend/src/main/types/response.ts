@@ -3,30 +3,23 @@ import { Severity } from "../log";
 export interface ErrorResponseEntity {
   ok: false;
   message: string;
+  type?: string;
 }
 
 export interface ErrorMessageObject {
   message: string;
-  serverMessage?: {
-    severity: Severity;
-    message: string;
-  };
   statusCode?: number;
   type?: string;
 }
 
-export interface SuccessResponseEntity {
+export interface ResponseEntity {
   ok: true;
   message?: string;
+  type?: string;
   data?: any;
-  successOrigin: "user-svc";
 }
 
-export interface SuccessMessageObject {
+export interface ResponseMessage {
   type?: string;
-  message?: string;
-  serverMessage?: {
-    severity: Severity;
-    message: string;
-  };
+  message: string;
 }

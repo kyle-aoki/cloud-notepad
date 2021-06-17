@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import generateSessionToken from "../../../crypto/generate-session-token";
 import hashPassword from "../../../crypto/hash-password";
 import Query from "../../../sql/query";
-import sendResponse from "../../../success-response/send-response";
+import sendResponse from "../../../response/send-response";
 import Validator from "../../../validation";
 
 export default async function LogIn(req: Request, res: Response, next: NextFunction) {

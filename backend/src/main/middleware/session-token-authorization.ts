@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import ErrorResponse from "../error-response/class";
 import Query from "../sql/query";
 
 export default async function SessionTokenAuthorization(req: Request, res: Response, next: NextFunction) {

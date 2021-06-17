@@ -1,6 +1,6 @@
 import SQL from "../pool";
-import ErrorResponse from "../../error-response/class";
 import Log from "../../log";
+import Err from "../../response/err";
 
 const deleteUserSQL = `
   DELETE FROM users 
@@ -16,6 +16,5 @@ export default async function deleteUser(username: string, hashedPassword: strin
 }
 
 const handleError = (error: any) => {
-  Log.error("Error deleting user.", error);
-  throw ErrorResponse.QueryError();
+  throw Err.QueryError(error);
 };

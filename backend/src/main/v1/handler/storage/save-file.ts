@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import AWS, { S3 } from "aws-sdk";
-import sendResponse from "../../../success-response/send-response";
+import sendResponse from "../../../response/send-response";
 import s3 from "../../../S3";
 
 const S3_BUCKET_NAME = process.env.AWS_S3_BUCKET_NAME as string;

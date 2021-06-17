@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import hashPassword from "../../../crypto/hash-password";
 import Query from "../../../sql/query";
-import sendResponse from "../../../success-response/send-response";
+import sendResponse from "../../../response/send-response";
 import Validator from "../../../validation";
 
 export default async function DeleteUser(req: Request, res: Response, next: NextFunction) {

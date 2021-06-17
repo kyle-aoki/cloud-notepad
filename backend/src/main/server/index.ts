@@ -5,5 +5,5 @@ import Log from "../log";
 const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
-  Log.info(`CLOUD-NOTEPAD listening on port ${PORT}`);
+  Log.info(chalk.green(`CLOUD-NOTEPAD listening on port ${PORT}`));
 });
