@@ -1,13 +1,13 @@
 import SQL from "../pool";
-import Log from "../../log";
 import Err from "../../response/err";
+import { POSTGRESQL_INTERVAL_STRING } from "../../utility/session-token-constants";
 
 const verifySessionTokenSQL = `
   SELECT username
   FROM users 
   WHERE username = $1 AND
   session_token = $2 AND
-  session_token_timestamp > (now() - INTERVAL '1 day');
+  session_token_timestamp > (now() - INTERVAL '${POSTGRESQL_INTERVAL_STRING}');
 `;
 
 export default async function verifySessioinToken(username: string, session_token: string): Promise<void> {
