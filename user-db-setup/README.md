@@ -6,10 +6,6 @@ This repository executes a list of ddl files located in the `ddl` directory. The
 
 Create a development database (an AWS RDS) and write the host, port, username, password into `env.dev.json` in the `env` directory.
 
-Then, run:
-
-```
-npm run dev
-```
+Then, run 
 
 You will then have an up-to-date development database to develop with.

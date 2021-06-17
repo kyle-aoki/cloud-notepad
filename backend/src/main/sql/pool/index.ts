@@ -1,13 +1,10 @@
-import chalk from "chalk";
 import { Pool, PoolConfig } from "pg";
 import Log from "../../log";
 
-const env = process.env;
-
-const host = env.USER_DB_HOST;
-const port = env.USER_DB_PORT;
-const user = env.USER_DB_USERNAME;
-const password = env.USER_DB_PASSWORD;
+const host = process.env.USER_DB_HOST;
+const port = process.env.USER_DB_PORT;
+const user = process.env.USER_DB_USERNAME;
+const password = process.env.USER_DB_PASSWORD;
 
 if (!(host && port && user && password)) {
   Log.error("One or more database environment variables are missing (host, port, user, password).");

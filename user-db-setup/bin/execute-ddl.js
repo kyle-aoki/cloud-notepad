@@ -8,18 +8,22 @@ const getConfig = require("../../obtain-config");
 const { Console } = require("console");
 
 async function Main() {
-  let envJSON;
-  try {
-    envJSON = getConfig();
-  } catch (ignored) {
-    return;
+  const host = process.env.USER_DB_HOST;
+  const port = process.env.USER_DB_PORT;
+  const user = process.env.USER_DB_USERNAME;
+  const password = process.env.USER_DB_PASSWORD;
+
+  if (!(host && port && user && password)) {
+    throw "Missing database environment variables.";
   }
 
+  const portAsNumber = parseInt(port);
+
   const sqlConnectionConfig = {
-    host: envJSON["user-db-host"],
-    port: envJSON["user-db-port"],
-    user: envJSON["user-db-username"],
-    password: envJSON["user-db-password"],
+    host: host,
+    port: portAsNumber,
+    user: user,
+    password: password,
   };
 
   const ddlDirPath = path.join(process.cwd(), "ddl");
@@ -32,24 +36,27 @@ async function Main() {
     allDdl.push(fileText);
   }
 
-  console.log(chalk.bold.blue("Attemping to connect to database..."));
+  console.log(chalk.blue("Attemping to connect to database..."));
 
   const sqlClient = new Client(sqlConnectionConfig);
   await sqlClient.connect();
 
   console.log("Connected to database.");
-  console.log(chalk.bold.blue("Executing DDL..."));
+  console.log(chalk.blue("Executing DDL..."));
 
   try {
     for (const ddl of allDdl) await sqlClient.query(ddl);
   } catch (error) {
-    writeToErrorLog(error)
-
-    console.log(chalk.bold.red(`Failed to execute DDL. Check ${errorFileName} for details on failure.`));
+    writeToErrorLog(error);
+    console.log(
+      chalk.red(
+        `Failed to execute DDL. Check ${errorFileName} for details on failure.`
+      )
+    );
     return await sqlClient.end();
   }
 
-  console.log(chalk.bold.green("Successfully executed DDL."));
+  console.log(chalk.green("Successfully executed DDL."));
   await sqlClient.end();
 }
 
