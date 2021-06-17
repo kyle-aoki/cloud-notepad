@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import generateSessionToken from "../../../crypto/generate-session-token";
-import hashPassword from "../../../crypto/hash-password";
-import Query from "../../../sql/query";
-import sendResponse from "../../../response/send-response";
-import Validator from "../../../validation";
+import generateSessionToken from "../../crypto/generate-session-token";
+import hashPassword from "../../crypto/hash-password";
+import Query from "../../sql/query";
+import sendResponse from "../../response/send-response";
+import Validator from "../../validation";
+import { cookieOptions } from "../../utility/session-token-constants";
 
 export default async function LogIn(req: Request, res: Response, next: NextFunction) {
   const username = req.body.username;
@@ -18,5 +19,8 @@ export default async function LogIn(req: Request, res: Response, next: NextFunct
   const session_token = generateSessionToken();
   await Query.setSessionToken(username, hashedPassword, session_token);
 
-  sendResponse(res, { type: "LOG_IN_SUCCESS", message: "Successfully logged in." }, { username, session_token });
+  res.cookie("username", username, cookieOptions);
+  res.cookie("session_token", session_token, cookieOptions);
+
+  sendResponse(res, { type: "LOG_IN_SUCCESS", message: "Successfully logged in." });
 }

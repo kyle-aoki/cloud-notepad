@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import AWS, { S3 } from "aws-sdk";
-import sendResponse from "../../../response/send-response";
-import s3 from "../../../S3";
+import sendResponse from "../../response/send-response";
+import s3 from "../../S3";
 
 interface NewItem {
   isFolder: boolean;

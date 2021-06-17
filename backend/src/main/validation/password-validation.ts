@@ -3,9 +3,7 @@ const ValidPasswordSymbols = "abcdefghijklmnopqrstuvwxyz1234567890-_`~!@#$%^&*()
 export const pwMaxLength = 100;
 export const pwMinLength = 3;
 
-export default function validatePassword(password: string, full?: boolean) {
-  if (!password || typeof password !== "string") throw "Missing string 'password' from request body.";
-  if (!full) return;
+export default function validatePassword(password: string) {
 
   if (password.length >= pwMaxLength) throw `String 'password' is too long. ${pwMaxLength} is the maximum length.`;
   if (password.length <= pwMinLength) throw `String 'password' is too short. ${pwMinLength} is the minimum length.`;

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import Query from "../../../sql/query";
-import sendResponse from "../../../response/send-response";
-import Validator from "../../../validation";
+import Query from "../../sql/query";
+import sendResponse from "../../response/send-response";
+import Validator from "../../validation";
 
 export default async function DoesUserExist(req: Request, res: Response, next: NextFunction) {
   const username = req.body.username;
