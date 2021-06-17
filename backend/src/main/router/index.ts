@@ -4,16 +4,16 @@ import RouteNotFound from "../utility/route-not-found";
 import protectedRouter from "./protected";
 import publicRouter from "./public";
 
-const v1Routes = express.Router();
+const mainRouter = express.Router();
 
-v1Routes.use(Middleware.ApiKeyAuthentication);
+mainRouter.use(Middleware.ApiKeyAuthentication);
 
 // Public Routes
-v1Routes.use(publicRouter);
+mainRouter.use(publicRouter);
 
 // Protected Routes
-v1Routes.use("/protected", protectedRouter);
+mainRouter.use("/protected", protectedRouter);
 
-v1Routes.use("/", RouteNotFound);
+mainRouter.use("/", RouteNotFound);
 
-export default v1Routes;
+export default mainRouter;

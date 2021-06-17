@@ -1,4 +1,3 @@
 export const inProduction = process.env.NODE_ENV === "prd";
-export const inStage = process.env.NODE_ENV === "stg";
-
-export const inStageOrProduction = inProduction || inStage;
+export const inStaging = process.env.NODE_ENV === "stg";
+export const inDevelopment = process.env.NODE_ENV === "dev";

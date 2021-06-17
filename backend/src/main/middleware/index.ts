@@ -1,9 +1,36 @@
-import SessionTokenAuthorization from "./session-token-authorization";
-import ApiKeyAuthentication from "./api-key-authentication";
 import withCatchAsyncError from "../async-catch";
+import Log from "../log";
+import PayloadValidator from "../validation/payload";
+import Query from "../sql/query";
+import { Request, Response, NextFunction } from "express";
+
+const CLOUD_NOTEPAD_API_KEY = process.env.CLOUD_NOTEPAD_API_KEY;
+
+if (!CLOUD_NOTEPAD_API_KEY) {
+  Log.error("Missing 'CLOUD_NOTEPAD_API_KEY' Environment Variable.");
+  process.exit(1);
+}
 
 @withCatchAsyncError
 export default class Middleware {
-  static SessionTokenAuthorization = SessionTokenAuthorization;
-  static ApiKeyAuthentication = ApiKeyAuthentication;
+  static async SessionTokenAuthorization(req: Request, res: Response, next: NextFunction) {
+    const username = req.cookies.username as string;
+    const session_token = req.cookies.session_token as string;
+
+    PayloadValidator.usernameExists(username, "cookie");
+    PayloadValidator.sessionTokenExists(session_token);
+
+    await Query.verifySessioinToken(username, session_token);
+
+    next();
+  }
+
+  static async ApiKeyAuthentication(req: Request, res: Response, next: NextFunction) {
+    const apiKey = req.headers["api_key"];
+
+    if (!apiKey) throw { statusCode: 401, message: "Missing header 'api_key'." };
+    if (apiKey !== CLOUD_NOTEPAD_API_KEY) throw { statusCode: 401, message: "Incorrect value for header 'api_key'." };
+
+    next();
+  }
 }
