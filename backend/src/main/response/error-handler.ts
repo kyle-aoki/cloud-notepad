@@ -1,5 +1,16 @@
 import { Request, Response, NextFunction } from "express";
-import { ErrorResponseEntity } from "../types/response";
+
+export interface ErrorResponseEntity {
+  ok: false;
+  message: string;
+  type?: string;
+}
+
+export interface ErrorMessageObject {
+  message: string;
+  statusCode?: number;
+  type?: string;
+}
 
 export default function errorResponse(error: any, req: Request, res: Response, next: NextFunction) {
   const errorIsString = typeof error === "string";

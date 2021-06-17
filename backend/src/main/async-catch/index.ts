@@ -1,5 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { Indexable } from "../types";
+
+interface Indexable {
+  [x: string]: any;
+}
 
 const catchAsyncError = (func: Function) => {
   const funcWithCatchAsyncError = (req: Request, res: Response, next: NextFunction) => {
@@ -10,10 +13,10 @@ const catchAsyncError = (func: Function) => {
 
 const withCatchAsyncError = (constructor: Indexable) => {
   for (let key of Object.keys(constructor)) {
-    if (typeof constructor[key] === 'function') {
+    if (typeof constructor[key] === "function") {
       constructor[key] = catchAsyncError(constructor[key]);
     }
   }
-}
+};
 
 export default withCatchAsyncError;

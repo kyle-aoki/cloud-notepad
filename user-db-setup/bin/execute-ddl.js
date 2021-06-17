@@ -1,10 +1,7 @@
 const fs = require("fs");
 const path = require("path");
-
 const { Client } = require("pg");
 const chalk = require("chalk");
-
-const getConfig = require("../../obtain-config");
 const { Console } = require("console");
 
 async function Main() {
