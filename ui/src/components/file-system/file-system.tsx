@@ -162,7 +162,7 @@ const ArrowsContainer = styled.div`
   display: flex;
 `;
 
-const ArrowButton = styled.div`
+export const ArrowButton = styled.div`
   user-select: none;
   cursor: default;
   width: 45px;
@@ -297,7 +297,7 @@ const Button = styled.div`
 
 interface FileSystemProps {}
 
-const Arrow: FC<any> = ({ right, onClick }) => {
+export const Arrow: FC<any> = ({ right, onClick }) => {
   return (
     <ArrowButton className="ArrowContainer" onClick={onClick}>
       {right ? <RightArrow className="Arrow" /> : <LeftArrow className="Arrow" />}

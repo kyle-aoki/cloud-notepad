@@ -10,17 +10,23 @@ import { Provider } from 'react-redux';
 import { accountReducer, AccountState } from './redux/reducers/account';
 import { fileSystemReducer, FileSystemState } from './redux/reducers/file-system';
 import { menuReducer, MenuState } from './redux/reducers/menu';
+import {
+  createAccountModalReducer,
+  CreateAccountModalState,
+} from './redux/reducers/create-account';
 
 export interface GlobalState {
   fileSystem: FileSystemState;
   menu: MenuState;
   account: AccountState;
+  createAccountModal: CreateAccountModalState;
 }
 
 const combinedReducers = combineReducers({
   account: accountReducer,
   fileSystem: fileSystemReducer,
   menu: menuReducer,
+  createAccountModal: createAccountModalReducer,
 });
 export const store = createStore(combinedReducers);
 

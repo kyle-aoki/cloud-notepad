@@ -1,5 +1,5 @@
-import { Reducer } from "redux";
-import { AccountAction, AccountActions, CLOSE_ACCOUNT_DROPDOWN, OPEN_ACCOUNT_DROPDOWN } from ".";
+import { Reducer } from 'redux';
+import { AccountAction, AccountActions, TOGGLE_ACCOUNT_DROPDOWN } from '.';
 
 export interface AccountState {
   accountMenuOpen: boolean;
@@ -11,10 +11,14 @@ const initialState: AccountState = {
   userLoggedIn: false,
 };
 
-export const accountReducer: Reducer<AccountState, AccountAction> = (state = initialState, action) => {
+export const accountReducer: Reducer<AccountState, AccountAction> = (
+  state = initialState,
+  action
+) => {
   switch (action.type) {
-    case AccountActions.OPEN_ACCOUNT_DROPDOWN: return OPEN_ACCOUNT_DROPDOWN(state);
-    case AccountActions.CLOSE_ACCOUNT_DROPDOWN: return CLOSE_ACCOUNT_DROPDOWN(state);
+    case AccountActions.TOGGLE_ACCOUNT_DROPDOWN:
+      return TOGGLE_ACCOUNT_DROPDOWN(state);
+    default:
+      return state;
   }
-  return state;
 };

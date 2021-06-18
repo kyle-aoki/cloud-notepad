@@ -19,12 +19,8 @@ const createAccountFetcher = async (username: string, password: string) => {
 };
 const fetchCreateAccount = async () => {};
 export const useCreateAccount = (state: AccountCreationState) => {
-  const [createAccount, setCreateAccount] = useState<boolean>(false);
-  const triggerAccountCreation = () => setCreateAccount(true);
   useEffect(() => {
-    if (!createAccount) return;
+    if (!state.triggerCreateAccount) return;
     createAccountFetcher(state.username, state.password);
-    setCreateAccount(false);
-  }, [createAccount, state]);
-  return triggerAccountCreation;
+  }, [state]);
 };
