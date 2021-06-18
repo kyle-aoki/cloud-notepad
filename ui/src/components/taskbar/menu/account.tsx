@@ -14,6 +14,7 @@ const AccountContainer = styled(MenuContainer)`
 `;
 
 const AccountDropDown = styled.div`
+  // From Dropdown
   user-select: none;
   cursor: default;
   position: absolute;
@@ -23,6 +24,7 @@ const AccountDropDown = styled.div`
   background-color: #292a2d;
   border-radius: 1px;
   padding: 30px;
+  // From Dropdown
 
   display: flex;
   flex-direction: column;
@@ -68,9 +70,7 @@ const Account: any = () => {
       </AccountContainer>
       {accountMenuOpen && (
         <AccountDropDown>
-          <AccountMenuButton>
-            Log In
-          </AccountMenuButton>
+          <AccountMenuButton>Log In</AccountMenuButton>
           <AccountMenuButton onClick={handleCreateAccountButtonClick}>
             Create Account
           </AccountMenuButton>
