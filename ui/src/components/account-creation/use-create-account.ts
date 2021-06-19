@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { hostURL } from '../../constants/host';
+import { Dispatch } from 'redux';
+import { CreateAccountModalActions } from '../../redux/reducers/create-account/reducer';
+
 import { AccountCreationState } from './use-account-creation-state';
 
 const createAccountFetcher = async (username: string, password: string) => {
-  const body = JSON.stringify({ username, password });
-  console.log(body);
-  const response = await fetch(hostURL + '/api/create-user', {
+  const response = await fetch('/api/create-user', {
     method: 'POST',
     body: JSON.stringify({ username, password }),
     headers: {
@@ -13,14 +13,27 @@ const createAccountFetcher = async (username: string, password: string) => {
       api_key: '123',
     },
   });
-  console.log(response);
   const json = await response.json();
   console.log(json);
+  return json;
 };
-const fetchCreateAccount = async () => {};
-export const useCreateAccount = (state: AccountCreationState) => {
+
+const fetchCreateAccount = async (state: AccountCreationState, dispatch: Dispatch) => {
+  const res = await createAccountFetcher(state.username, state.password);
+  if (res.ok) {
+    dispatch({ type: CreateAccountModalActions.CLOSE_CREATE_ACCOUNT_MODAL });
+    return;
+  }
+};
+
+export const useCreateAccount = (
+  state: AccountCreationState,
+  dispatch: Dispatch,
+  resetAccountCreationBoolean: Function
+) => {
   useEffect(() => {
     if (!state.triggerCreateAccount) return;
-    createAccountFetcher(state.username, state.password);
+    fetchCreateAccount(state, dispatch);
+    resetAccountCreationBoolean();
   }, [state]);
 };

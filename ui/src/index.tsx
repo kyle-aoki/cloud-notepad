@@ -13,7 +13,7 @@ import { menuReducer, MenuState } from './redux/reducers/menu';
 import {
   createAccountModalReducer,
   CreateAccountModalState,
-} from './redux/reducers/create-account';
+} from './redux/reducers/create-account/reducer';
 
 export interface GlobalState {
   fileSystem: FileSystemState;

@@ -11,9 +11,12 @@ export interface AccountCreationState {
 }
 
 enum AccountCreationActionType {
-  UPDATE_INPUT,
-  USERNAME_TO_PASSWORD_SCREEN,
-  PASSWORD_TO_USERNAME_SCREEN,
+  UPDATE_INPUT = 'UPDATE_INPUT',
+  USERNAME_TO_PASSWORD_SCREEN = 'USERNAME_TO_PASSWORD_SCREEN',
+  PASSWORD_TO_USERNAME_SCREEN = 'PASSWORD_TO_USERNAME_SCREEN',
+  TRIGGER_ACCOUNT_CREATION = 'TRIGGER_ACCOUNT_CREATION',
+  RESET_ACCOUNT_CREATION_BOOLEAN = 'RESET_ACCOUNT_CREATION_BOOLEAN',
+  RESET_ACCOUNT_CREATION_STATE = 'RESET_ACCOUNT_CREATION_STATE',
 }
 
 interface AccountCreationAction {
@@ -46,6 +49,15 @@ const AccountCreationReducer = (state: AccountCreationState, action: AccountCrea
       state.screen = 'USERNAME_INPUT';
       state.password = '';
       return { ...state };
+    case AccountCreationActionType.TRIGGER_ACCOUNT_CREATION:
+      state.triggerCreateAccount = true;
+      return { ...state };
+    case AccountCreationActionType.RESET_ACCOUNT_CREATION_BOOLEAN:
+      state.triggerCreateAccount = false;
+      return { ...state };
+    case AccountCreationActionType.RESET_ACCOUNT_CREATION_STATE:
+      console.log(state);
+      return initialState;
     default:
       return state;
   }
@@ -54,6 +66,9 @@ const AccountCreationReducer = (state: AccountCreationState, action: AccountCrea
 export const useAccountCreationState = (): [
   AccountCreationState,
   (event: ChangeEvent<HTMLInputElement>) => void,
+  () => void,
+  () => void,
+  () => void,
   () => void,
   () => void
 ] => {
@@ -79,5 +94,25 @@ export const useAccountCreationState = (): [
     dispatch({ type: AccountCreationActionType.PASSWORD_TO_USERNAME_SCREEN });
   };
 
-  return [state, handleInputChange, handleNextClick, handleBackArrowClick];
+  const triggerAccountCreation = () => {
+    dispatch({ type: AccountCreationActionType.TRIGGER_ACCOUNT_CREATION });
+  };
+
+  const resetAccountCreationBoolean = () => {
+    dispatch({ type: AccountCreationActionType.RESET_ACCOUNT_CREATION_BOOLEAN });
+  };
+
+  const resetAccountCreationState = () => {
+    dispatch({ type: AccountCreationActionType.RESET_ACCOUNT_CREATION_STATE });
+  };
+
+  return [
+    state,
+    handleInputChange,
+    handleNextClick,
+    handleBackArrowClick,
+    triggerAccountCreation,
+    resetAccountCreationBoolean,
+    resetAccountCreationState,
+  ];
 };

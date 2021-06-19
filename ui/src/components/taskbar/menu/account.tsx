@@ -6,7 +6,7 @@ import { DropdownMenu } from './components/dropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { AccountActions } from '../../../redux/reducers/account';
 import { GlobalState } from '../../..';
-import { CreateAccountModalActions } from '../../../redux/reducers/create-account/';
+import { CreateAccountModalActions } from '../../../redux/reducers/create-account/reducer';
 
 const AccountContainer = styled(MenuContainer)`
   margin-left: auto;
@@ -59,7 +59,7 @@ const Account: any = () => {
 
   const handleCreateAccountButtonClick = () => {
     dispatch({ type: AccountActions.TOGGLE_ACCOUNT_DROPDOWN });
-    dispatch({ type: CreateAccountModalActions.OPEN_REATE_ACCOUNT_MODAL });
+    dispatch({ type: CreateAccountModalActions.OPEN_CREATE_ACCOUNT_MODAL });
   };
 
   return (

@@ -1,24 +1,35 @@
-import React, { FC, useReducer } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
-import { ReactComponent as XButtonSVG } from '../../assets/cancel.svg';
-import { Arrow, XButton, XButtonSVGContainer } from '../file-system/file-system';
+import { XButton, XButtonSVGContainer } from '../file-system/file-system';
 import { useAccountCreationState } from './use-account-creation-state';
 import { useCreateAccount } from './use-create-account';
 import { ReactComponent as LeftArrow } from '../../assets/left-arrow.svg';
-import { CreateAccountModalActions } from '../../redux/reducers/create-account';
 import { useDispatch } from 'react-redux';
+import { CreateAccountModalActions } from '../../redux/reducers/create-account/reducer';
 
 interface AccountCreationPaneProps {}
 
 const AccountCreationModal: FC<AccountCreationPaneProps> = ({}) => {
-  const [state, handleInputChange, handleNextClick, handleBackArrowClick] =
-    useAccountCreationState();
-  const triggerAccountCreation = useCreateAccount(state);
+  const [
+    state,
+    handleInputChange,
+    handleNextClick,
+    handleBackArrowClick,
+    triggerAccountCreation,
+    resetAccountCreationBoolean,
+    resetAccountCreationState,
+  ] = useAccountCreationState();
 
   const dispatch = useDispatch();
-  const handleCreateAccountButtonClick = () => {
+
+  useCreateAccount(state, dispatch, resetAccountCreationBoolean);
+
+  const handleXButtonClick = () => {
     dispatch({ type: CreateAccountModalActions.CLOSE_CREATE_ACCOUNT_MODAL });
+    resetAccountCreationState();
   };
+
+  console.log(state.username);
 
   return (
     <>
@@ -26,8 +37,7 @@ const AccountCreationModal: FC<AccountCreationPaneProps> = ({}) => {
       <AccountCreationPaneElement>
         <AccountCreationTaskbar>
           <CloudNotepadTitle>☁️ Cloud Notepad</CloudNotepadTitle>
-          {/* <Title>Create An Account</Title> */}
-          <XButton onClick={handleCreateAccountButtonClick}>
+          <XButton onClick={handleXButtonClick}>
             <XButtonSVGContainer />
           </XButton>
         </AccountCreationTaskbar>
@@ -35,6 +45,7 @@ const AccountCreationModal: FC<AccountCreationPaneProps> = ({}) => {
           {state.screen === 'USERNAME_INPUT' ? (
             <>
               <CreateAccountTitle>Create Account</CreateAccountTitle>
+
               <UsernameInput id="username" value={state.username} onChange={handleInputChange} />
 
               <Spacer />
@@ -56,7 +67,7 @@ const AccountCreationModal: FC<AccountCreationPaneProps> = ({}) => {
               <PasswordInput id="password" value={state.password} onChange={handleInputChange} />
 
               <ButtonContainer>
-                <CreateAccountButton clicked={false} onClick={handleNextClick}>
+                <CreateAccountButton clicked={false} onClick={triggerAccountCreation}>
                   Create Account
                 </CreateAccountButton>
               </ButtonContainer>
