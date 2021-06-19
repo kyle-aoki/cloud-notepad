@@ -59,7 +59,7 @@ const Account: any = () => {
 
   const handleCreateAccountButtonClick = () => {
     dispatch({ type: AccountActions.TOGGLE_ACCOUNT_DROPDOWN });
-    dispatch({ type: CreateAccountModalActions.OPEN_CREATE_ACCOUNT_MODAL });
+    dispatch({ type: CreateAccountModalActions.OPEN_MODAL });
   };
 
   return (

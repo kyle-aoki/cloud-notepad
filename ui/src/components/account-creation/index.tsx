@@ -1,35 +1,15 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { XButton, XButtonSVGContainer } from '../file-system/file-system';
-import { useAccountCreationState } from './use-account-creation-state';
-import { useCreateAccount } from './use-create-account';
 import { ReactComponent as LeftArrow } from '../../assets/left-arrow.svg';
-import { useDispatch } from 'react-redux';
-import { CreateAccountModalActions } from '../../redux/reducers/create-account/reducer';
+import { AccountCreationScreen } from '../../redux/reducers/create-account/reducer';
+import { useAccountCreationControl } from '../../redux/reducers/create-account/control';
 
 interface AccountCreationPaneProps {}
 
 const AccountCreationModal: FC<AccountCreationPaneProps> = ({}) => {
-  const [
-    state,
-    handleInputChange,
-    handleNextClick,
-    handleBackArrowClick,
-    triggerAccountCreation,
-    resetAccountCreationBoolean,
-    resetAccountCreationState,
-  ] = useAccountCreationState();
-
-  const dispatch = useDispatch();
-
-  useCreateAccount(state, dispatch, resetAccountCreationBoolean);
-
-  const handleXButtonClick = () => {
-    dispatch({ type: CreateAccountModalActions.CLOSE_CREATE_ACCOUNT_MODAL });
-    resetAccountCreationState();
-  };
-
-  console.log(state.username);
+  const AccountCreationControl = useAccountCreationControl();
+  const state = AccountCreationControl.state;
 
   return (
     <>
@@ -37,39 +17,56 @@ const AccountCreationModal: FC<AccountCreationPaneProps> = ({}) => {
       <AccountCreationPaneElement>
         <AccountCreationTaskbar>
           <CloudNotepadTitle>☁️ Cloud Notepad</CloudNotepadTitle>
-          <XButton onClick={handleXButtonClick}>
+          <XButton onClick={() => AccountCreationControl.CLOSE_MODAL()}>
             <XButtonSVGContainer />
           </XButton>
         </AccountCreationTaskbar>
         <ContentPane>
-          {state.screen === 'USERNAME_INPUT' ? (
+          {state.accountCreationScreen === AccountCreationScreen.USERNAME_INPUT ? (
             <>
               <CreateAccountTitle>Create Account</CreateAccountTitle>
 
-              <UsernameInput id="username" value={state.username} onChange={handleInputChange} />
+              <UsernameInput
+                id="username"
+                value={state.username}
+                onChange={(e) => AccountCreationControl.UPDATE_INPUT(e.target.id, e.target.value)}
+              />
 
               <Spacer />
               <ButtonContainer>
-                <CreateAccountButton clicked={false} onClick={handleNextClick}>
-                  Next
-                </CreateAccountButton>
+                <ActionButton
+                  clicked={false}
+
+                >
+                  {state.usernameLoading ? <Spinner /> : 'Next'}
+                </ActionButton>
               </ButtonContainer>
             </>
           ) : (
             <>
               <CreateAccountTitle>Select Password</CreateAccountTitle>
               <ArrowContainer>
-                <ArrowButton className="ArrowContainer" onClick={handleBackArrowClick}>
+                <ArrowButton
+                  className="ArrowContainer"
+                  onClick={() => AccountCreationControl.GO_BACK_TO_USERNAME_SCREEN()}
+                >
                   <LeftArrow className="Arrow" />
                 </ArrowButton>
                 {state.username}
               </ArrowContainer>
-              <PasswordInput id="password" value={state.password} onChange={handleInputChange} />
+              <PasswordInput
+                id="password"
+                value={state.password}
+                onChange={(e) => AccountCreationControl.UPDATE_INPUT(e.target.id, e.target.value)}
+              />
 
               <ButtonContainer>
-                <CreateAccountButton clicked={false} onClick={triggerAccountCreation}>
+                <ActionButton
+                  clicked={false}
+                  onClick={() => AccountCreationControl.TRIGGER_ACCOUNT_CREATION()}
+                >
                   Create Account
-                </CreateAccountButton>
+                </ActionButton>
               </ButtonContainer>
             </>
           )}
@@ -80,6 +77,10 @@ const AccountCreationModal: FC<AccountCreationPaneProps> = ({}) => {
 };
 
 export default AccountCreationModal;
+
+export const Spinner: FC = () => {
+  return <div className="spinner-border" />;
+};
 
 const OpaqueScreen = styled.div`
   z-index: 50;
@@ -169,7 +170,7 @@ const Button = styled.div<any>`
   }
 `;
 
-const CreateAccountButton = styled(Button)`
+const ActionButton = styled(Button)`
   margin-left: auto;
 `;
 

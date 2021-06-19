@@ -5,39 +5,56 @@ import {
   CreateAccountModalState,
 } from './reducer';
 
-export const OPEN_CREATE_ACCOUNT_MODAL = (state: CreateAccountModalState) => {
+export const OPEN_MODAL = (state: CreateAccountModalState, action: CreateAccountModalAction) => {
   state.createAccountModalOpen = true;
   return { ...state };
 };
 
-export const CLOSE_CREATE_ACCOUNT_MODAL = (state: CreateAccountModalState) => {
+export const CLOSE_MODAL = (state: CreateAccountModalState, action: CreateAccountModalAction) => {
   state.createAccountModalOpen = false;
   return { ...state };
 };
 
-export const CHECK_USERNAME_LOADING = (state: CreateAccountModalState) => {
+export const USERNAME_LOADING = (
+  state: CreateAccountModalState,
+  action: CreateAccountModalAction
+) => {
   state.usernameLoading = true;
   return { ...state };
 };
 
-export const CHECK_PASSWORD_LOADING = (state: CreateAccountModalState) => {
+export const PASSWORD_LOADING = (
+  state: CreateAccountModalState,
+  action: CreateAccountModalAction
+) => {
   state.usernameLoading = false;
   state.passwordLoading = true;
   return { ...state };
 };
 
-export const TRIGGER_ACCOUNT_CREATION = (state: CreateAccountModalState) => {
-  state.passwordLoading = false;
-  state.createAccountAttempt += 1;
-  return { ...state };
-};
+// export const TRIGGER_ACCOUNT_CREATION = (
+//   state: CreateAccountModalState,
+//   action: CreateAccountModalAction
+// ) => {
+//   state.passwordLoading = false;
+//   state.createAccountAttempt += 1;
+//   return { ...state };
+// };
 
-export const ACCOUNT_CREATED_SUCCESS = (state: CreateAccountModalState) => {
+export const ACCOUNT_CREATED_SUCCESS = (
+  state: CreateAccountModalState,
+  action: CreateAccountModalAction
+) => {
+  state.accountCreateFailiure = false;
   state.accountCreatedSuccess = true;
   return { ...state };
 };
 
-export const ACCOUNT_FAILED_TO_CREATE = (state: CreateAccountModalState) => {
+export const ACCOUNT_FAILED_TO_CREATE = (
+  state: CreateAccountModalState,
+  action: CreateAccountModalAction
+) => {
+  state.accountCreatedSuccess = false;
   state.accountCreateFailiure = true;
   return { ...state };
 };
@@ -50,20 +67,29 @@ export const UPDATE_INPUT = (state: CreateAccountModalState, action: CreateAccou
   return { ...state };
 };
 
-export const USERNAME_TO_PASSWORD_SCREEN = (state: CreateAccountModalState) => {
+export const GO_TO_PASSWORD_SCREEN = (
+  state: CreateAccountModalState,
+  action: CreateAccountModalAction
+) => {
   return {
     ...state,
     accountCreationScreen: AccountCreationScreen.PASSWORD_INPUT,
   };
 };
 
-export const PASSWORD_TO_USERNAME_SCREEN = (state: CreateAccountModalState) => {
+export const GO_BACK_TO_USERNAME_SCREEN = (
+  state: CreateAccountModalState,
+  action: CreateAccountModalAction
+) => {
   return {
     ...state,
     accountCreationScreen: AccountCreationScreen.USERNAME_INPUT,
   };
 };
 
-export const RESET_ACCOUNT_CREATION_STATE = (state: CreateAccountModalState) => {
+export const RESET_ACCOUNT_CREATION_STATE = (
+  state: CreateAccountModalState,
+  action: CreateAccountModalAction
+) => {
   return accountCreationInitialState;
 };

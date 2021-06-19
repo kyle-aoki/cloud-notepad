@@ -4,8 +4,10 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
 
-import { combineReducers, createStore } from 'redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
+
+import createSagaMiddleware from 'redux-saga';
 
 import { accountReducer, AccountState } from './redux/reducers/account';
 import { fileSystemReducer, FileSystemState } from './redux/reducers/file-system';
@@ -14,6 +16,7 @@ import {
   createAccountModalReducer,
   CreateAccountModalState,
 } from './redux/reducers/create-account/reducer';
+import { createAccountSaga } from './redux/reducers/create-account/saga';
 
 export interface GlobalState {
   fileSystem: FileSystemState;
@@ -22,13 +25,17 @@ export interface GlobalState {
   createAccountModal: CreateAccountModalState;
 }
 
+const sagaMiddleware = createSagaMiddleware();
+
 const combinedReducers = combineReducers({
   account: accountReducer,
   fileSystem: fileSystemReducer,
   menu: menuReducer,
   createAccountModal: createAccountModalReducer,
 });
-export const store = createStore(combinedReducers);
+export const store = createStore(combinedReducers, applyMiddleware(sagaMiddleware));
+
+sagaMiddleware.run(createAccountSaga);
 
 ReactDOM.render(
   <Provider store={store}>

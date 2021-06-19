@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 
 export default async function simulateDelay(req: Request, res: Response, next: NextFunction) {
-  await sleep(2000);
+  await sleep(500);
   next();
 }
 

@@ -19,9 +19,9 @@ body,
   --gray: #323233;
   --border: 0.75px solid #585858;
   --placeHolderColor: rgb(179, 179, 179);
-  --blue: #0078D7;
+  --blue: #0078d7;
   --blueHovered: #0065b3;
-  --bluePressed: scale(.975);
+  --bluePressed: scale(0.975);
 }
 
 * {
@@ -166,4 +166,21 @@ body,
   color: var(--placeHolderColor);
 }
 
+/* SPINNER */
 
+.spinner-border {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  vertical-align: text-bottom;
+  border: 2px solid;
+  border-right: 2px solid transparent;
+  border-radius: 50%;
+  animation: spinner-border 0.50s linear infinite;
+}
+
+@keyframes spinner-border {
+  100% {
+    transform: rotate(1turn);
+  }
+}
