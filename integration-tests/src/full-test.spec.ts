@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 
-const userServiceHost = "http://localhost:4000";
+const host = "http://localhost";
 
 async function fetchJson(url: string, options?: any) {
   const response = await fetch(url, options || {});
@@ -9,12 +9,12 @@ async function fetchJson(url: string, options?: any) {
 }
 
 test("Ping user-svc", async () => {
-  const res = await fetchJson(userServiceHost);
+  const res = await fetchJson(host);
   expect(res.ok).toBe(true);
 });
 
 test("Test full suite of requests", async () => {
-  let res = await fetchJson(userServiceHost + "/v1/create-user", {
+  let res = await fetchJson(host + "/v1/create-user", {
     method: "POST",
     body: JSON.stringify({ username: "testuser", password: "testpass" }),
     headers: {
@@ -24,7 +24,7 @@ test("Test full suite of requests", async () => {
   });
   expect(res.ok).toBe(true);
 
-  res = await fetchJson(userServiceHost + "/v1/log-in", {
+  res = await fetchJson(host + "/v1/log-in", {
     method: "POST",
     body: JSON.stringify({ username: "testuser", password: "testpass" }),
     headers: {
@@ -37,7 +37,7 @@ test("Test full suite of requests", async () => {
   const username = res.data.username;
   const session_token = res.data.session_token;
 
-  res = await fetchJson(userServiceHost + "/v1/user/authenticate", {
+  res = await fetchJson(host + "/v1/user/authenticate", {
     method: "POST",
     headers: {
       api_key: "123",
@@ -48,7 +48,7 @@ test("Test full suite of requests", async () => {
   });
   expect(res.ok).toBe(true);
 
-  res = await fetchJson(userServiceHost + "/v1/user/delete-user", {
+  res = await fetchJson(host + "/v1/user/delete-user", {
     method: "DELETE",
     body: JSON.stringify({ password: "testpass" }),
     headers: {
