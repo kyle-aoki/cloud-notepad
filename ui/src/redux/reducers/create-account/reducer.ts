@@ -85,8 +85,6 @@ export const createAccountModalReducer: Reducer<CreateAccountModalState, CreateA
         return USERNAME_LOADING(state, action);
       case CreateAccountModalActions.PASSWORD_LOADING:
         return PASSWORD_LOADING(state, action);
-      // case CreateAccountModalActions.TRIGGER_ACCOUNT_CREATION:
-      //   return TRIGGER_ACCOUNT_CREATION(state, action);
       case CreateAccountModalActions.ACCOUNT_CREATED_SUCCESS:
         return ACCOUNT_CREATED_SUCCESS(state, action);
       case CreateAccountModalActions.ACCOUNT_FAILED_TO_CREATE:

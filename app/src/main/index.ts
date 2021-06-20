@@ -5,10 +5,8 @@ import RouteNotFound from "./utility/route-not-found";
 
 const app = express();
 
-app.get(/\//, ReactApp);
-
 app.use("/api", apiRouter);
 
-app.use("/", RouteNotFound);
+app.use(ReactApp);
 
 export default app;

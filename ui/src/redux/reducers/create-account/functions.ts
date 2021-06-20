@@ -32,15 +32,6 @@ export const PASSWORD_LOADING = (
   return { ...state };
 };
 
-// export const TRIGGER_ACCOUNT_CREATION = (
-//   state: CreateAccountModalState,
-//   action: CreateAccountModalAction
-// ) => {
-//   state.passwordLoading = false;
-//   state.createAccountAttempt += 1;
-//   return { ...state };
-// };
-
 export const ACCOUNT_CREATED_SUCCESS = (
   state: CreateAccountModalState,
   action: CreateAccountModalAction
