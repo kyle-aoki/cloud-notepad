@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "test": "npx jest",
-    "build": "rimraf build && tsc && rimraf build/test/",
-    "start": "doppler run -- node build/main/server/",
+    "build": "rimraf build && tsc && build/app/src/test/",
+    "start": "doppler run -- node build/app/src/main/server/",
     "dev": "doppler run -- ts-node-dev src/main/server/"
   },
   "dependencies": {

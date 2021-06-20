@@ -16,7 +16,8 @@ export default class Log {
   private static logToConsole(logObj: any, color?: string) {
     if (inProduction) return;
 
-    const syslogFormat = `[${Log.severityColor(logObj.severity)}][${logObj.datetime}] ${logObj.msg}.`;
+    const errorMessage = logObj.msg ? ` ${logObj.msg}.` : "";
+    const syslogFormat = `[${Log.severityColor(logObj.severity)}][${logObj.datetime}]${errorMessage}`;
     const errorObject = Log.stringifyErrorObject(logObj.err);
 
     switch (color) {

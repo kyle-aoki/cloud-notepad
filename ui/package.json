@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.21.1",
+    "craco": "^0.0.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-draggable": "^4.4.3",
@@ -28,9 +29,9 @@
     "@types/styled-components": "^5.1.7"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import Query from "../../sql/query";
 import sendResponse from "../../response/send-response";
 import Validator from "../../validation/general";
+import { DoesUserExistResponse } from "../../shared";
 
 export default async function DoesUserExist(req: Request, res: Response, next: NextFunction) {
   const username = req.body.username;
@@ -9,5 +10,5 @@ export default async function DoesUserExist(req: Request, res: Response, next: N
 
   await Query.doesUserExist(username);
 
-  sendResponse(res, { message: "User does not exist.", type: "NOT_EXIST" });
+  sendResponse(res, { type: DoesUserExistResponse.USER_DOES_NOT_EXIST });
 }

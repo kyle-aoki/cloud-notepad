@@ -7,6 +7,8 @@ import Editor from './components/editor/editor';
 import FileSystem from './components/file-system/file-system';
 import StatusBar from './components/statusbar/status-bar';
 import Taskbar from './components/taskbar/taskbar';
+import { DoesUserExistResponse } from './shared';
+
 
 const AppContainer = styled.div`
   display: flex;
@@ -20,6 +22,7 @@ const App: FC = () => {
   const createAccountModalOpen = useSelector(
     (state: GlobalState) => state.createAccountModal.createAccountModalOpen
   );
+
   return (
     <AppContainer>
       {fileSystemOpen && <FileSystem />}

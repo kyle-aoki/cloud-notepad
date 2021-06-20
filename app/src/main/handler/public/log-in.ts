@@ -5,6 +5,7 @@ import Query from "../../sql/query";
 import sendResponse from "../../response/send-response";
 import Validator from "../../validation/general";
 import { cookieOptions } from "../../utility/session-token-constants";
+import { LogInResponse } from "../../shared";
 
 export default async function LogIn(req: Request, res: Response, next: NextFunction) {
   const username = req.body.username;
@@ -22,5 +23,5 @@ export default async function LogIn(req: Request, res: Response, next: NextFunct
   res.cookie("username", username, cookieOptions);
   res.cookie("session_token", session_token, cookieOptions);
 
-  sendResponse(res, { type: "LOG_IN_SUCCESS", message: "Successfully logged in." });
+  sendResponse(res, { type: LogInResponse.SUCCESSFUL_LOG_IN });
 }

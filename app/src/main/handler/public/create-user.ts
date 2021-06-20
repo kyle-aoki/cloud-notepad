@@ -20,5 +20,5 @@ export default async function CreateUser(req: Request, res: Response, next: Next
   const hashedPassword = hashPassword(password);
   await Query.createUser(username, hashedPassword);
 
-  sendResponse(res, { message: "User successfully created.", type: "USER_CREATED" });
+  next();
 }

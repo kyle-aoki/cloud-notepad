@@ -9,7 +9,11 @@ function* createAccountGenerator(action: CreateAccountModalAction): Generator<an
       action.payload.username,
       action.payload.password
     );
-    console.log(result);
+    if (!result.ok) {
+      switch(result.type) {
+
+      }
+    }
     yield put({ type: CreateAccountModalActions.ACCOUNT_CREATED_SUCCESS });
   } catch (e) {
     yield put({ type: CreateAccountModalActions.ACCOUNT_FAILED_TO_CREATE });

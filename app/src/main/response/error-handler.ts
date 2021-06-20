@@ -1,4 +1,6 @@
 import { Request, Response, NextFunction } from "express";
+import Log from "../log";
+import { inDevelopment, inStaging } from "../utility/environment";
 
 export interface ErrorResponseEntity {
   ok: false;
@@ -12,6 +14,8 @@ export default function errorResponse(error: any, req: Request, res: Response, n
     ok: false,
     ...error,
   };
+
+  if (inDevelopment || inStaging) Log.error("", errorResponseEntity);
 
   res.send(errorResponseEntity);
 }
