@@ -74,6 +74,7 @@ export default class AccountCreationControl {
   }
 
   CHECK_USERNAME() {
+    this.USERNAME_LOADING();
     this.dispatch({
       type: CreateAccountModalActions.CHECK_USERNAME,
       payload: {

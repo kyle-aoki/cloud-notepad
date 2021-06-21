@@ -26,8 +26,19 @@ export function* createAccountSaga() {
 // click next button
 function* checkUsernameGenerator(action: CreateAccountModalAction): Generator<any, any, any> {
   try {
+    if (!action.payload.username) {
+      return yield put({
+        type: CreateAccountModalActions.BAD_USERNAME,
+      });
+    }
     const result: any = yield call(UserAPI.checkUsername, action.payload.username);
-    if (!result.ok) yield put({ type: CreateAccountModalActions.BAD_USERNAME });
+    if (!result.ok)
+      return yield put({
+        type: CreateAccountModalActions.BAD_USERNAME,
+        payload: {
+          ...result,
+        },
+      });
     yield put({ type: CreateAccountModalActions.GO_TO_PASSWORD_SCREEN });
   } catch (e) {
     yield put({ type: CreateAccountModalActions.BAD_USERNAME });

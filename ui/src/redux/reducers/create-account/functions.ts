@@ -1,3 +1,4 @@
+import { CheckUsernameResponse, ValidationResponse } from '../../../shared';
 import {
   accountCreationInitialState,
   AccountCreationScreen,
@@ -64,6 +65,7 @@ export const GO_TO_PASSWORD_SCREEN = (
 ) => {
   return {
     ...state,
+    usernameLoading: false,
     accountCreationScreen: AccountCreationScreen.PASSWORD_INPUT,
   };
 };
@@ -74,6 +76,7 @@ export const GO_BACK_TO_USERNAME_SCREEN = (
 ) => {
   return {
     ...state,
+    usernameLoading: false,
     accountCreationScreen: AccountCreationScreen.USERNAME_INPUT,
   };
 };
@@ -83,4 +86,33 @@ export const RESET_ACCOUNT_CREATION_STATE = (
   action: CreateAccountModalAction
 ) => {
   return accountCreationInitialState;
+};
+
+export const BAD_USERNAME = (state: CreateAccountModalState, action: CreateAccountModalAction) => {
+  if (!action.payload) {
+    return { ...state, usernameLoading: false };
+  }
+  switch (action.payload.type) {
+    case ValidationResponse.USERNAME_SHORT:
+      state.badUsernameReason = `Username is too short.\nMinimum length is ${action.payload.minLength} characters.`;
+      break;
+    case ValidationResponse.USERNAME_LONG:
+      state.badUsernameReason = `Username is too long.\nMaximum length is ${action.payload.maxLength} characters.`;
+      break;
+    case ValidationResponse.INVALID_USERNAME_SYMBOLS:
+      state.badUsernameReason = `Username contains invalid symbols.\nYou may only use ${action.payload.validSymbols.reduce(
+        (acc: string, symbol: string, index: number) => {
+          if (index === 0) return `${symbol}`;
+          return `${acc}, ${symbol}`;
+        },
+        ''
+      )}.`;
+      break;
+    case CheckUsernameResponse.USER_EXISTS:
+      state.badUsernameReason = 'Someone already has this username.\nTry another username.';
+      break;
+    default:
+      return { ...state, usernameLoading: false };
+  }
+  return { ...state, usernameLoading: false, badUsername: (state.badUsername += 1) };
 };

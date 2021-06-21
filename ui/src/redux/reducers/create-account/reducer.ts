@@ -10,6 +10,7 @@ import {
   GO_TO_PASSWORD_SCREEN,
   GO_BACK_TO_USERNAME_SCREEN,
   RESET_ACCOUNT_CREATION_STATE,
+  BAD_USERNAME,
 } from './functions';
 
 export enum CreateAccountModalActions {
@@ -36,7 +37,7 @@ export interface CreateAccountModalState {
   usernameLoading: boolean;
   passwordLoading: boolean;
 
-  badUsername: boolean;
+  badUsername: number;
   badUsernameReason: string;
 
   createAccountAttempt: number;
@@ -57,7 +58,7 @@ export const accountCreationInitialState: CreateAccountModalState = {
   usernameLoading: false,
   passwordLoading: false,
 
-  badUsername: false,
+  badUsername: 0,
   badUsernameReason: '',
 
   createAccountAttempt: 0,
@@ -96,6 +97,8 @@ export const createAccountModalReducer: Reducer<CreateAccountModalState, CreateA
         return GO_BACK_TO_USERNAME_SCREEN(state, action);
       case CreateAccountModalActions.RESET_ACCOUNT_CREATION_STATE:
         return RESET_ACCOUNT_CREATION_STATE(state, action);
+      case CreateAccountModalActions.BAD_USERNAME:
+        return BAD_USERNAME(state, action);
       default:
         return state;
     }

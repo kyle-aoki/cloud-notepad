@@ -1,17 +1,31 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
 import { XButton, XButtonSVGContainer } from '../file-system/file-system';
 import { ReactComponent as LeftArrow } from '../../assets/left-arrow.svg';
 import { AccountCreationScreen } from '../../redux/reducers/create-account/reducer';
 import { useAccountCreationControl } from '../../redux/reducers/create-account/control';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface AccountCreationPaneProps {}
 
 const AccountCreationModal: FC<AccountCreationPaneProps> = ({}) => {
   const AccountCreationControl = useAccountCreationControl();
+  useEffect(() => {
+    if (!AccountCreationControl.state.badUsername) return;
+    toast.error(AccountCreationControl.state.badUsernameReason, {
+      duration: 4000,
+      position: 'top-right',
+      // Styling
+      style: {
+        whiteSpace: 'pre-line',
+      },
+      className: '',
+    });
+  }, [AccountCreationControl.state.badUsername]);
 
   return (
     <>
+      <Toaster />
       <OpaqueScreen />
       <AccountCreationPaneElement>
         <AccountCreationTaskbar>
@@ -37,6 +51,7 @@ const AccountCreationModal: FC<AccountCreationPaneProps> = ({}) => {
                 <ActionButton
                   clicked={false}
                   onClick={() => AccountCreationControl.CHECK_USERNAME()}
+                  // onClick={notify}
                 >
                   {AccountCreationControl.state.usernameLoading ? <Spinner /> : 'Next'}
                 </ActionButton>
@@ -162,6 +177,7 @@ const Button = styled.div<any>`
   place-items: center;
   cursor: pointer;
   user-select: none;
+  min-width: 150px;
   &:hover {
     background-color: ${(props) => (props.clicked ? 'gray' : '#0065b3')};
   }
