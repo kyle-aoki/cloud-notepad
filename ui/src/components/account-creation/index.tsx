@@ -9,7 +9,6 @@ interface AccountCreationPaneProps {}
 
 const AccountCreationModal: FC<AccountCreationPaneProps> = ({}) => {
   const AccountCreationControl = useAccountCreationControl();
-  const state = AccountCreationControl.state;
 
   return (
     <>
@@ -22,13 +21,14 @@ const AccountCreationModal: FC<AccountCreationPaneProps> = ({}) => {
           </XButton>
         </AccountCreationTaskbar>
         <ContentPane>
-          {state.accountCreationScreen === AccountCreationScreen.USERNAME_INPUT ? (
+          {AccountCreationControl.state.accountCreationScreen ===
+          AccountCreationScreen.USERNAME_INPUT ? (
             <>
               <CreateAccountTitle>Create Account</CreateAccountTitle>
 
               <UsernameInput
                 id="username"
-                value={state.username}
+                value={AccountCreationControl.state.username}
                 onChange={(e) => AccountCreationControl.UPDATE_INPUT(e.target.id, e.target.value)}
               />
 
@@ -36,9 +36,9 @@ const AccountCreationModal: FC<AccountCreationPaneProps> = ({}) => {
               <ButtonContainer>
                 <ActionButton
                   clicked={false}
-
+                  onClick={() => AccountCreationControl.CHECK_USERNAME()}
                 >
-                  {state.usernameLoading ? <Spinner /> : 'Next'}
+                  {AccountCreationControl.state.usernameLoading ? <Spinner /> : 'Next'}
                 </ActionButton>
               </ButtonContainer>
             </>
@@ -52,11 +52,11 @@ const AccountCreationModal: FC<AccountCreationPaneProps> = ({}) => {
                 >
                   <LeftArrow className="Arrow" />
                 </ArrowButton>
-                {state.username}
+                {AccountCreationControl.state.username}
               </ArrowContainer>
               <PasswordInput
                 id="password"
-                value={state.password}
+                value={AccountCreationControl.state.password}
                 onChange={(e) => AccountCreationControl.UPDATE_INPUT(e.target.id, e.target.value)}
               />
 

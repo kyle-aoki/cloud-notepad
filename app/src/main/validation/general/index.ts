@@ -8,6 +8,7 @@ export default class Validator {
   static ValidPasswordSymbols = "abcdefghijklmnopqrstuvwxyz1234567890-_`~!@#$%^&*()+[]{}|;:'?/>.<,".split("");
 
   static validateUsername(username: string) {
+    if (!username) throw { type: ValidationResponse.USERNAME_MISSING };
     if (username.length >= this.maxLength) throw { type: ValidationResponse.USERNAME_LONG, maxLength: this.maxLength };
     if (username.length <= this.minLength) throw { type: ValidationResponse.USERNAME_SHORT, minLength: this.minLength };
 
@@ -19,6 +20,7 @@ export default class Validator {
   }
 
   static validatePassword(password: string) {
+    if (!password) throw { type: ValidationResponse.PASSWORD_MISSING };
     if (password.length >= this.maxLength) throw { type: ValidationResponse.PASSWORD_LONG, maxLength: this.maxLength };
     if (password.length <= this.minLength) throw { type: ValidationResponse.PASSWORD_SHORT, minLength: this.minLength };
 

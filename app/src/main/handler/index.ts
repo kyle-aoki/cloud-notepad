@@ -1,6 +1,6 @@
 import CreateUser from "./public/create-user";
 import LogIn from "./public/log-in";
-import DoesUserExist from "./public/does-user-exist";
+import CheckUsername from "./public/check-username";
 import AuthenticateWithSessionToken from "./user/authenticate-with-session-token";
 import withCatchAsyncError from "../async-catch";
 import DeleteUser from "./user/delete-user";
@@ -14,7 +14,7 @@ class V1Handler {
   static LogIn = LogIn;
   static AuthenticateWithSessionToken = AuthenticateWithSessionToken;
   static DeleteUser = DeleteUser;
-  static DoesUserExist = DoesUserExist;
+  static CheckUsername = CheckUsername;
   static GetUserDir = GetUserDir;
   static SaveFile = SaveFile;
   static GetFile = GetFile;

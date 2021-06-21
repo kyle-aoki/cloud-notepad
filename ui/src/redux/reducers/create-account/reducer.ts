@@ -75,7 +75,6 @@ export interface CreateAccountModalAction {
 
 export const createAccountModalReducer: Reducer<CreateAccountModalState, CreateAccountModalAction> =
   (state = accountCreationInitialState, action) => {
-    console.log(state);
     switch (action.type) {
       case CreateAccountModalActions.OPEN_MODAL:
         return OPEN_MODAL(state, action);

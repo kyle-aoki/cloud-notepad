@@ -16,7 +16,7 @@ import {
   createAccountModalReducer,
   CreateAccountModalState,
 } from './redux/reducers/create-account/reducer';
-import { createAccountSaga } from './redux/reducers/create-account/saga';
+import { checkUsernameSaga, createAccountSaga } from './redux/reducers/create-account/saga';
 
 export interface GlobalState {
   fileSystem: FileSystemState;
@@ -36,6 +36,7 @@ const combinedReducers = combineReducers({
 export const store = createStore(combinedReducers, applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(createAccountSaga);
+sagaMiddleware.run(checkUsernameSaga);
 
 ReactDOM.render(
   <Provider store={store}>

@@ -7,7 +7,7 @@ import Editor from './components/editor/editor';
 import FileSystem from './components/file-system/file-system';
 import StatusBar from './components/statusbar/status-bar';
 import Taskbar from './components/taskbar/taskbar';
-import { DoesUserExistResponse } from './shared';
+import { CheckUsernameResponse } from './shared';
 
 
 const AppContainer = styled.div`

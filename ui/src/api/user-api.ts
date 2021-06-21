@@ -1,10 +1,11 @@
 export default class UserAPI {
-  static api_key = { api_key: '123' };
+  static api_key = '123';
 
   static async createUser(username: string, password: string) {
     const res = await fetch('/api/create-user', {
       headers: {
-        ...this.api_key,
+        api_key: UserAPI.api_key,
+        'content-type': 'application/json',
       },
       method: 'POST',
       body: JSON.stringify({ username, password }),
@@ -14,14 +15,19 @@ export default class UserAPI {
   }
 
   static async checkUsername(username: string) {
-    const res = await fetch('/api/check-username', {
-      headers: {
-        ...this.api_key,
-      },
-      method: 'POST',
-      body: JSON.stringify({ username }),
-    });
-    const json = await res.json();
-    return json;
+    try {
+      const res = await fetch('/api/check-username', {
+        headers: {
+          api_key: UserAPI.api_key,
+          'content-type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify({ username: username }),
+      });
+      const json = await res.json();
+      return json;
+    } catch (error) {
+      return 'FETCH_ERROR';
+    }
   }
 }

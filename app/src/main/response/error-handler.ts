@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import Log from "../log";
 import { inDevelopment, inStaging } from "../utility/environment";
 
-export interface ErrorResponseEntity {
+interface ErrorResponseEntity {
   ok: false;
 }
 

@@ -72,4 +72,13 @@ export default class AccountCreationControl {
   RESET_ACCOUNT_CREATION_STATE() {
     this.dispatch({ type: CreateAccountModalActions.RESET_ACCOUNT_CREATION_STATE });
   }
+
+  CHECK_USERNAME() {
+    this.dispatch({
+      type: CreateAccountModalActions.CHECK_USERNAME,
+      payload: {
+        username: this.state.username,
+      },
+    });
+  }
 }
