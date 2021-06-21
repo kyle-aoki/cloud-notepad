@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { GlobalState } from '.';
@@ -7,8 +8,8 @@ import Editor from './components/editor/editor';
 import FileSystem from './components/file-system/file-system';
 import StatusBar from './components/statusbar/status-bar';
 import Taskbar from './components/taskbar/taskbar';
-import { CheckUsernameResponse } from './shared';
-
+import useNotifications from './hooks/use-notifications';
+import { useNotificationControl } from './redux/reducers/notifications/control';
 
 const AppContainer = styled.div`
   display: flex;
@@ -19,19 +20,24 @@ const AppContainer = styled.div`
 
 const App: FC = () => {
   const fileSystemOpen = useSelector((state: GlobalState) => state.fileSystem.fileSystemOpen);
-  const createAccountModalOpen = useSelector(
-    (state: GlobalState) => state.createAccountModal.createAccountModalOpen
-  );
+  const createAccountModalOpen = useSelector((state: GlobalState) => state.createAccountModal.createAccountModalOpen);
+
+  const NotificationControl = useNotificationControl();
+  useNotifications(NotificationControl);
 
   return (
-    <AppContainer>
-      {fileSystemOpen && <FileSystem />}
-      {createAccountModalOpen && <AccountCreationModal />}
+    <>
+      <Toaster />
 
-      <Taskbar />
-      <Editor />
-      <StatusBar />
-    </AppContainer>
+      <AppContainer>
+        {fileSystemOpen && <FileSystem />}
+        <AccountCreationModal />
+
+        <Taskbar />
+        <Editor />
+        <StatusBar />
+      </AppContainer>
+    </>
   );
 };
 

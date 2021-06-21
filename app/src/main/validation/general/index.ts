@@ -29,7 +29,7 @@ export default class Validator {
       if (this.ValidPasswordSymbols.includes(passwordCharacter)) continue;
       throw {
         type: ValidationResponse.INVALID_PASSWORD_SYMBOLS,
-        validSymbols: "`~!@#$%^&*()+[]{}|;:'?/>.<,".split(""),
+        invalidSymbols: '\\"'.split(""),
       };
     }
   }

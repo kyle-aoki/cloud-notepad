@@ -17,12 +17,14 @@ import {
   CreateAccountModalState,
 } from './redux/reducers/create-account/reducer';
 import { checkUsernameSaga, createAccountSaga } from './redux/reducers/create-account/saga';
+import { notificationReducer, NotificationState } from './redux/reducers/notifications/reducer';
 
 export interface GlobalState {
   fileSystem: FileSystemState;
   menu: MenuState;
   account: AccountState;
   createAccountModal: CreateAccountModalState;
+  notifications: NotificationState
 }
 
 const sagaMiddleware = createSagaMiddleware();
@@ -32,6 +34,7 @@ const combinedReducers = combineReducers({
   fileSystem: fileSystemReducer,
   menu: menuReducer,
   createAccountModal: createAccountModalReducer,
+  notifications: notificationReducer,
 });
 export const store = createStore(combinedReducers, applyMiddleware(sagaMiddleware));
 

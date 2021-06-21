@@ -23,5 +23,5 @@ export default async function LogIn(req: Request, res: Response, next: NextFunct
   res.cookie("username", username, cookieOptions);
   res.cookie("session_token", session_token, cookieOptions);
 
-  sendResponse(res, { type: LogInResponse.SUCCESSFUL_LOG_IN });
+  sendResponse(res, { type: LogInResponse.SUCCESSFUL_LOG_IN, username: username });
 }

@@ -4,29 +4,19 @@ import { XButton, XButtonSVGContainer } from '../file-system/file-system';
 import { ReactComponent as LeftArrow } from '../../assets/left-arrow.svg';
 import { AccountCreationScreen } from '../../redux/reducers/create-account/reducer';
 import { useAccountCreationControl } from '../../redux/reducers/create-account/control';
-import toast, { Toaster } from 'react-hot-toast';
+import { useNotificationControl } from '../../redux/reducers/notifications/control';
+import useAccountCreationNotifs from './use-account-creation-notifs';
 
 interface AccountCreationPaneProps {}
 
 const AccountCreationModal: FC<AccountCreationPaneProps> = ({}) => {
   const AccountCreationControl = useAccountCreationControl();
-  useEffect(() => {
-    if (!AccountCreationControl.state.badUsername) return;
-    toast.error(AccountCreationControl.state.badUsernameReason, {
-      duration: 4000,
-      position: 'top-right',
-      // Styling
-      style: {
-        whiteSpace: 'pre-line',
-      },
-      className: '',
-    });
-  }, [AccountCreationControl.state.badUsername]);
+  const NotificationControl = useNotificationControl();
+
+  useAccountCreationNotifs(AccountCreationControl, NotificationControl);
 
   return (
-    <>
-      <Toaster />
-      <OpaqueScreen />
+    <AccountCreationContainer className={AccountCreationControl.state.createAccountModalOpen ? 'Show' : 'Hidden'}>
       <AccountCreationPaneElement>
         <AccountCreationTaskbar>
           <CloudNotepadTitle>☁️ Cloud Notepad</CloudNotepadTitle>
@@ -35,8 +25,7 @@ const AccountCreationModal: FC<AccountCreationPaneProps> = ({}) => {
           </XButton>
         </AccountCreationTaskbar>
         <ContentPane>
-          {AccountCreationControl.state.accountCreationScreen ===
-          AccountCreationScreen.USERNAME_INPUT ? (
+          {AccountCreationControl.state.accountCreationScreen === AccountCreationScreen.USERNAME_INPUT ? (
             <>
               <CreateAccountTitle>Create Account</CreateAccountTitle>
 
@@ -49,9 +38,8 @@ const AccountCreationModal: FC<AccountCreationPaneProps> = ({}) => {
               <Spacer />
               <ButtonContainer>
                 <ActionButton
-                  clicked={false}
+                  clicked={AccountCreationControl.state.usernameLoading}
                   onClick={() => AccountCreationControl.CHECK_USERNAME()}
-                  // onClick={notify}
                 >
                   {AccountCreationControl.state.usernameLoading ? <Spinner /> : 'Next'}
                 </ActionButton>
@@ -76,18 +64,15 @@ const AccountCreationModal: FC<AccountCreationPaneProps> = ({}) => {
               />
 
               <ButtonContainer>
-                <ActionButton
-                  clicked={false}
-                  onClick={() => AccountCreationControl.TRIGGER_ACCOUNT_CREATION()}
-                >
-                  Create Account
+                <ActionButton clicked={false} onClick={() => AccountCreationControl.TRIGGER_ACCOUNT_CREATION()}>
+                  {AccountCreationControl.state.passwordLoading ? <Spinner /> : 'Create Account'}
                 </ActionButton>
               </ButtonContainer>
             </>
           )}
         </ContentPane>
       </AccountCreationPaneElement>
-    </>
+    </AccountCreationContainer>
   );
 };
 
@@ -97,24 +82,26 @@ export const Spinner: FC = () => {
   return <div className="spinner-border" />;
 };
 
-const OpaqueScreen = styled.div`
+const AccountCreationContainer = styled.div`
   z-index: 50;
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
-  opacity: 0.75;
-  background-color: #0c0c0c;
+  background-color: #e3f2ff;
+  transition: opacity 0.3s ease-in;
 `;
 
 const AccountCreationPaneElement = styled.div`
+  box-shadow: 0 2px 6px rgb(0 0 0 / 20%);
   z-index: 100;
   position: absolute;
   top: 30%;
   left: 50%;
   transform: translate(-50%, -30%);
-  background-color: #35363a;
+  background-color: #fff;
+  color: black;
   display: flex;
   flex-direction: column;
   /* align-items: center; */
@@ -134,6 +121,7 @@ const AccountCreationTaskbar = styled.div`
   padding-left: 10px;
   margin-bottom: 20px;
   background-color: #0078d7;
+  color: white;
 `;
 
 const ContentPane = styled.div`
@@ -149,14 +137,14 @@ const Input = styled.input.attrs((props) => ({
   spellCheck: false,
 }))`
   background-color: inherit;
-  color: white;
+  color: black;
   outline: none;
   width: 300px;
   height: 40px;
   font-size: 20px;
   border: none;
   border-bottom: 2px solid;
-  border-color: #e4e4e4;
+  border-color: #bdbdbd;
   width: 100%;
 `;
 
@@ -169,15 +157,15 @@ const PasswordInput = styled(Input).attrs((props) => ({
 }))``;
 
 const Button = styled.div<any>`
-  /* width: 115px; */
   padding: 0 50px;
   height: 32px;
   background-color: ${(props) => (props.clicked ? 'gray' : '#0078D7')};
+  color: white;
   display: grid;
   place-items: center;
   cursor: pointer;
   user-select: none;
-  min-width: 150px;
+  min-width: 210px;
   &:hover {
     background-color: ${(props) => (props.clicked ? 'gray' : '#0065b3')};
   }
@@ -210,6 +198,7 @@ const ArrowContainer = styled.div`
 `;
 
 export const ArrowButton = styled.div`
+  color: black;
   user-select: none;
   cursor: default;
   /* width: 45px; */

@@ -1,4 +1,5 @@
 import { Reducer } from 'redux';
+import { NotificationType } from '../notifications/reducer';
 import {
   OPEN_MODAL,
   CLOSE_MODAL,
@@ -20,8 +21,10 @@ export enum CreateAccountModalActions {
   USERNAME_LOADING = 'USERNAME_LOADING',
   CHECK_USERNAME = 'CHECK_USERNAME',
   BAD_USERNAME = 'BAD_USERNAME',
-  
+
   PASSWORD_LOADING = 'PASSWORD_LOADING',
+  BAD_PASSWORD = 'BAD_PASSWORD',
+
   TRIGGER_ACCOUNT_CREATION = 'TRIGGER_ACCOUNT_CREATION',
   ACCOUNT_CREATED_SUCCESS = 'ACCOUNT_CREATED_SUCCESS',
   ACCOUNT_FAILED_TO_CREATE = 'ACCOUNT_FAILED_TO_CREATE',
@@ -33,12 +36,14 @@ export enum CreateAccountModalActions {
 
 export interface CreateAccountModalState {
   [x: string]: any;
+  done: boolean;
   createAccountModalOpen: boolean;
   usernameLoading: boolean;
   passwordLoading: boolean;
 
-  badUsername: number;
-  badUsernameReason: string;
+  notificationCount: number;
+  notificationType: NotificationType;
+  notificationText: string;
 
   createAccountAttempt: number;
   accountCreatedSuccess: boolean;
@@ -54,12 +59,14 @@ export enum AccountCreationScreen {
 }
 
 export const accountCreationInitialState: CreateAccountModalState = {
+  done: false,
   createAccountModalOpen: false,
   usernameLoading: false,
   passwordLoading: false,
 
-  badUsername: 0,
-  badUsernameReason: '',
+  notificationCount: 0,
+  notificationType: NotificationType.INFO,
+  notificationText: '',
 
   createAccountAttempt: 0,
   accountCreatedSuccess: false,
@@ -74,32 +81,34 @@ export interface CreateAccountModalAction {
   payload: any;
 }
 
-export const createAccountModalReducer: Reducer<CreateAccountModalState, CreateAccountModalAction> =
-  (state = accountCreationInitialState, action) => {
-    switch (action.type) {
-      case CreateAccountModalActions.OPEN_MODAL:
-        return OPEN_MODAL(state, action);
-      case CreateAccountModalActions.CLOSE_MODAL:
-        return CLOSE_MODAL(state, action);
-      case CreateAccountModalActions.USERNAME_LOADING:
-        return USERNAME_LOADING(state, action);
-      case CreateAccountModalActions.PASSWORD_LOADING:
-        return PASSWORD_LOADING(state, action);
-      case CreateAccountModalActions.ACCOUNT_CREATED_SUCCESS:
-        return ACCOUNT_CREATED_SUCCESS(state, action);
-      case CreateAccountModalActions.ACCOUNT_FAILED_TO_CREATE:
-        return ACCOUNT_FAILED_TO_CREATE(state, action);
-      case CreateAccountModalActions.UPDATE_INPUT:
-        return UPDATE_INPUT(state, action);
-      case CreateAccountModalActions.GO_TO_PASSWORD_SCREEN:
-        return GO_TO_PASSWORD_SCREEN(state, action);
-      case CreateAccountModalActions.GO_BACK_TO_USERNAME_SCREEN:
-        return GO_BACK_TO_USERNAME_SCREEN(state, action);
-      case CreateAccountModalActions.RESET_ACCOUNT_CREATION_STATE:
-        return RESET_ACCOUNT_CREATION_STATE(state, action);
-      case CreateAccountModalActions.BAD_USERNAME:
-        return BAD_USERNAME(state, action);
-      default:
-        return state;
-    }
-  };
+export const createAccountModalReducer: Reducer<CreateAccountModalState, CreateAccountModalAction> = (
+  state = accountCreationInitialState,
+  action
+) => {
+  switch (action.type) {
+    case CreateAccountModalActions.OPEN_MODAL:
+      return OPEN_MODAL(state, action);
+    case CreateAccountModalActions.CLOSE_MODAL:
+      return CLOSE_MODAL(state, action);
+    case CreateAccountModalActions.USERNAME_LOADING:
+      return USERNAME_LOADING(state, action);
+    case CreateAccountModalActions.PASSWORD_LOADING:
+      return PASSWORD_LOADING(state, action);
+    case CreateAccountModalActions.ACCOUNT_CREATED_SUCCESS:
+      return ACCOUNT_CREATED_SUCCESS(state, action);
+    case CreateAccountModalActions.ACCOUNT_FAILED_TO_CREATE:
+      return ACCOUNT_FAILED_TO_CREATE(state, action);
+    case CreateAccountModalActions.UPDATE_INPUT:
+      return UPDATE_INPUT(state, action);
+    case CreateAccountModalActions.GO_TO_PASSWORD_SCREEN:
+      return GO_TO_PASSWORD_SCREEN(state, action);
+    case CreateAccountModalActions.GO_BACK_TO_USERNAME_SCREEN:
+      return GO_BACK_TO_USERNAME_SCREEN(state, action);
+    case CreateAccountModalActions.RESET_ACCOUNT_CREATION_STATE:
+      return RESET_ACCOUNT_CREATION_STATE(state, action);
+    case CreateAccountModalActions.BAD_USERNAME:
+      return BAD_USERNAME(state, action);
+    default:
+      return state;
+  }
+};

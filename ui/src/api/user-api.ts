@@ -30,4 +30,21 @@ export default class UserAPI {
       return 'FETCH_ERROR';
     }
   }
+
+  static async checkPassword(password: string) {
+    try {
+      const res = await fetch('/api/check-password', {
+        headers: {
+          api_key: UserAPI.api_key,
+          'content-type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify({ password: password }),
+      });
+      const json = await res.json();
+      return json;
+    } catch (error) {
+      return 'FETCH_ERROR';
+    }
+  }
 }

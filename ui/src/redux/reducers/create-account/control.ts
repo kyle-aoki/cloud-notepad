@@ -2,10 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 import { GlobalState } from '../../..';
 import { CreateAccountModalActions, CreateAccountModalState } from './reducer';
-
-// export const useAccountCreationState = () => {
-//   return useSelector((state: GlobalState) => state.createAccountModal);
-// };
+import NotificationControl, { useNotificationControl } from '../notifications/control';
 
 export const useAccountCreationControl = (): AccountCreationControl => {
   const dispatch = useDispatch();

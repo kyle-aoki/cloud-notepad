@@ -1,21 +1,25 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { CreateAccountModalAction, CreateAccountModalActions } from './reducer';
 import UserAPI from '../../../api/user-api';
+import { GenericError } from '../../../shared';
 
+// Click Create Account Button
 function* createAccountGenerator(action: CreateAccountModalAction): Generator<any, any, any> {
   try {
-    const result: any = yield call(
-      UserAPI.createUser,
-      action.payload.username,
-      action.payload.password
-    );
+    const result: any = yield call(UserAPI.createUser, action.payload.username, action.payload.password);
     if (!result.ok) {
-      switch (result.type) {
-      }
+      return yield put({ type: CreateAccountModalActions.ACCOUNT_FAILED_TO_CREATE, payload: { ...result } });
     }
-    yield put({ type: CreateAccountModalActions.ACCOUNT_CREATED_SUCCESS });
+    yield put({
+      type: CreateAccountModalActions.ACCOUNT_CREATED_SUCCESS,
+      payload: { ...result, username: result.username },
+    });
   } catch (e) {
-    yield put({ type: CreateAccountModalActions.ACCOUNT_FAILED_TO_CREATE });
+    console.log(e);
+    yield put({
+      type: CreateAccountModalActions.ACCOUNT_FAILED_TO_CREATE,
+      payload: { type: GenericError.NETWORK_ERROR },
+    });
   }
 }
 
@@ -31,17 +35,22 @@ function* checkUsernameGenerator(action: CreateAccountModalAction): Generator<an
         type: CreateAccountModalActions.BAD_USERNAME,
       });
     }
-    const result: any = yield call(UserAPI.checkUsername, action.payload.username);
-    if (!result.ok)
+    const checkUsernameResult: any = yield call(UserAPI.checkUsername, action.payload.username);
+    if (!checkUsernameResult.ok)
       return yield put({
         type: CreateAccountModalActions.BAD_USERNAME,
         payload: {
-          ...result,
+          ...checkUsernameResult,
         },
       });
     yield put({ type: CreateAccountModalActions.GO_TO_PASSWORD_SCREEN });
   } catch (e) {
-    yield put({ type: CreateAccountModalActions.BAD_USERNAME });
+    yield put({
+      type: CreateAccountModalActions.BAD_USERNAME,
+      payload: {
+        type: GenericError.NETWORK_ERROR,
+      },
+    });
   }
 }
 

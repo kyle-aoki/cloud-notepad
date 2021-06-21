@@ -1,4 +1,5 @@
-import { CheckUsernameResponse, ValidationResponse } from '../../../shared';
+import { CheckUsernameResponse, GenericError, LogInResponse, ValidationResponse } from '../../../shared';
+import { NotificationType } from '../notifications/reducer';
 import {
   accountCreationInitialState,
   AccountCreationScreen,
@@ -7,8 +8,7 @@ import {
 } from './reducer';
 
 export const OPEN_MODAL = (state: CreateAccountModalState, action: CreateAccountModalAction) => {
-  state.createAccountModalOpen = true;
-  return { ...state };
+  return { ...accountCreationInitialState, createAccountModalOpen: true };
 };
 
 export const CLOSE_MODAL = (state: CreateAccountModalState, action: CreateAccountModalAction) => {
@@ -16,39 +16,54 @@ export const CLOSE_MODAL = (state: CreateAccountModalState, action: CreateAccoun
   return { ...state };
 };
 
-export const USERNAME_LOADING = (
-  state: CreateAccountModalState,
-  action: CreateAccountModalAction
-) => {
+export const USERNAME_LOADING = (state: CreateAccountModalState, action: CreateAccountModalAction) => {
   state.usernameLoading = true;
   return { ...state };
 };
 
-export const PASSWORD_LOADING = (
-  state: CreateAccountModalState,
-  action: CreateAccountModalAction
-) => {
+export const PASSWORD_LOADING = (state: CreateAccountModalState, action: CreateAccountModalAction) => {
   state.usernameLoading = false;
   state.passwordLoading = true;
   return { ...state };
 };
 
-export const ACCOUNT_CREATED_SUCCESS = (
-  state: CreateAccountModalState,
-  action: CreateAccountModalAction
-) => {
-  state.accountCreateFailiure = false;
-  state.accountCreatedSuccess = true;
-  return { ...state };
+export const ACCOUNT_CREATED_SUCCESS = (state: CreateAccountModalState, action: CreateAccountModalAction) => {
+  switch (action.payload.type) {
+    case LogInResponse.SUCCESSFUL_LOG_IN:
+      state.notificationText = `Successfully logged in as ${action.payload.username}.`;
+      state.notificationType = NotificationType.INFO;
+      state.notificationCount += 1;
+      break;
+  }
+  return { ...state, passwordLoading: false, done: true };
 };
 
-export const ACCOUNT_FAILED_TO_CREATE = (
-  state: CreateAccountModalState,
-  action: CreateAccountModalAction
-) => {
-  state.accountCreatedSuccess = false;
-  state.accountCreateFailiure = true;
-  return { ...state };
+export const ACCOUNT_FAILED_TO_CREATE = (state: CreateAccountModalState, action: CreateAccountModalAction) => {
+  if (!action.payload) {
+    return { ...state, passwordLoading: false };
+  }
+  switch (action.payload.type) {
+    case GenericError.NETWORK_ERROR:
+      state.notificationType = NotificationType.ERROR;
+      state.notificationText =
+        'Network Error.\nEither the server is down, or your internet connection may be defective.';
+      break;
+    case ValidationResponse.PASSWORD_SHORT:
+      state.notificationType = NotificationType.ERROR;
+      state.notificationText = `Password is too short.\nMinimum length is ${action.payload.minLength} characters.`;
+      break;
+    case ValidationResponse.PASSWORD_LONG:
+      state.notificationType = NotificationType.ERROR;
+      state.notificationText = `Password is too long.\nMaximum length is ${action.payload.maxLength} characters.`;
+      break;
+    case ValidationResponse.INVALID_PASSWORD_SYMBOLS:
+      state.notificationType = NotificationType.ERROR;
+      state.notificationText = `Password contains invalid symbols.\nYou CANNOT use ${action.payload.invalidSymbols[0]} or ${action.payload.invalidSymbols[1]}.`;
+      break;
+    default:
+      return { ...state, passwordLoading: false };
+  }
+  return { ...state, passwordLoading: false, notificationCount: (state.notificationCount += 1) };
 };
 
 export const UPDATE_INPUT = (state: CreateAccountModalState, action: CreateAccountModalAction) => {
@@ -59,10 +74,7 @@ export const UPDATE_INPUT = (state: CreateAccountModalState, action: CreateAccou
   return { ...state };
 };
 
-export const GO_TO_PASSWORD_SCREEN = (
-  state: CreateAccountModalState,
-  action: CreateAccountModalAction
-) => {
+export const GO_TO_PASSWORD_SCREEN = (state: CreateAccountModalState, action: CreateAccountModalAction) => {
   return {
     ...state,
     usernameLoading: false,
@@ -70,10 +82,7 @@ export const GO_TO_PASSWORD_SCREEN = (
   };
 };
 
-export const GO_BACK_TO_USERNAME_SCREEN = (
-  state: CreateAccountModalState,
-  action: CreateAccountModalAction
-) => {
+export const GO_BACK_TO_USERNAME_SCREEN = (state: CreateAccountModalState, action: CreateAccountModalAction) => {
   return {
     ...state,
     usernameLoading: false,
@@ -81,10 +90,7 @@ export const GO_BACK_TO_USERNAME_SCREEN = (
   };
 };
 
-export const RESET_ACCOUNT_CREATION_STATE = (
-  state: CreateAccountModalState,
-  action: CreateAccountModalAction
-) => {
+export const RESET_ACCOUNT_CREATION_STATE = (state: CreateAccountModalState, action: CreateAccountModalAction) => {
   return accountCreationInitialState;
 };
 
@@ -93,26 +99,69 @@ export const BAD_USERNAME = (state: CreateAccountModalState, action: CreateAccou
     return { ...state, usernameLoading: false };
   }
   switch (action.payload.type) {
+    case GenericError.NETWORK_ERROR:
+      state.notificationText =
+        'Network Error.\nEither the server is down, or your internet connection may be defective.';
+      state.notificationType = NotificationType.ERROR;
+      break;
     case ValidationResponse.USERNAME_SHORT:
-      state.badUsernameReason = `Username is too short.\nMinimum length is ${action.payload.minLength} characters.`;
+      state.notificationText = `Username is too short.\nMinimum length is ${action.payload.minLength} characters.`;
+      state.notificationType = NotificationType.ERROR;
       break;
     case ValidationResponse.USERNAME_LONG:
-      state.badUsernameReason = `Username is too long.\nMaximum length is ${action.payload.maxLength} characters.`;
+      state.notificationText = `Username is too long.\nMaximum length is ${action.payload.maxLength} characters.`;
+      state.notificationType = NotificationType.ERROR;
       break;
     case ValidationResponse.INVALID_USERNAME_SYMBOLS:
-      state.badUsernameReason = `Username contains invalid symbols.\nYou may only use ${action.payload.validSymbols.reduce(
+      state.notificationText = `Username contains invalid symbols.\nYou may only use ${action.payload.validSymbols.reduce(
         (acc: string, symbol: string, index: number) => {
           if (index === 0) return `${symbol}`;
           return `${acc}, ${symbol}`;
         },
         ''
       )}.`;
+      state.notificationType = NotificationType.ERROR;
       break;
     case CheckUsernameResponse.USER_EXISTS:
-      state.badUsernameReason = 'Someone already has this username.\nTry another username.';
+      state.notificationText = 'Someone already has this username.\nTry another username.';
+      state.notificationType = NotificationType.ERROR;
       break;
     default:
       return { ...state, usernameLoading: false };
   }
-  return { ...state, usernameLoading: false, badUsername: (state.badUsername += 1) };
+  return { ...state, usernameLoading: false, notificationCount: (state.notificationCount += 1) };
 };
+
+// export const BAD_PASSWORD = (state: CreateAccountModalState, action: CreateAccountModalAction) => {
+//   if (!action.payload) {
+//     return { ...state, usernameLoading: false };
+//   }
+//   switch (action.payload.type) {
+//     case GenericError.NETWORK_ERROR:
+//       state.notificationText =
+//         'Network Error.\nEither the server is down, or your internet connection may be defective.';
+//       state.notificationType = NotificationType.ERROR;
+//       break;
+//     case ValidationResponse.PASSWORD_SHORT:
+//       state.notificationText = `Username is too short.\nMinimum length is ${action.payload.minLength} characters.`;
+//       state.notificationType = NotificationType.ERROR;
+//       break;
+//     case ValidationResponse.PASSWORD_LONG:
+//       state.notificationText = `Username is too long.\nMaximum length is ${action.payload.maxLength} characters.`;
+//       state.notificationType = NotificationType.ERROR;
+//       break;
+//     case ValidationResponse.INVALID_PASSWORD_SYMBOLS:
+//       state.notificationText = `Password contains invalid symbols.\nYou may only use ${action.payload.validSymbols.reduce(
+//         (acc: string, symbol: string, index: number) => {
+//           if (index === 0) return `${symbol}`;
+//           return `${acc}, ${symbol}`;
+//         },
+//         ''
+//       )}.`;
+//       state.notificationType = NotificationType.ERROR;
+//       break;
+//     default:
+//       return { ...state, passwordLoading: false };
+//   }
+//   return { ...state, passwordLoading: false };
+// };

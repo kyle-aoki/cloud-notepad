@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AccountActions } from '../../../redux/reducers/account';
 import { GlobalState } from '../../..';
 import { CreateAccountModalActions } from '../../../redux/reducers/create-account/reducer';
+import { useAccountCreationControl } from '../../../redux/reducers/create-account/control';
 
 const AccountContainer = styled(MenuContainer)`
   margin-left: auto;
@@ -31,9 +32,7 @@ const AccountDropDown = styled.div`
   gap: 20px;
 `;
 
-const AccountDownChevron: FC = () => (
-  <DownChevron width="8px" style={{ marginLeft: '5px', marginTop: '2px' }} />
-);
+const AccountDownChevron: FC = () => <DownChevron width="8px" style={{ marginLeft: '5px', marginTop: '2px' }} />;
 
 const AccountMenuButton = styled.div`
   display: grid;
@@ -53,13 +52,15 @@ const Account: any = () => {
   const dispatch = useDispatch();
   const accountMenuOpen = useSelector((state: GlobalState) => state.account.accountMenuOpen);
 
+  const AccountCreationControl = useAccountCreationControl();
+
   const handleAccountClick = () => {
     dispatch({ type: AccountActions.TOGGLE_ACCOUNT_DROPDOWN });
   };
 
   const handleCreateAccountButtonClick = () => {
     dispatch({ type: AccountActions.TOGGLE_ACCOUNT_DROPDOWN });
-    dispatch({ type: CreateAccountModalActions.OPEN_MODAL });
+    AccountCreationControl.OPEN_MODAL();
   };
 
   return (
@@ -71,9 +72,7 @@ const Account: any = () => {
       {accountMenuOpen && (
         <AccountDropDown>
           <AccountMenuButton>Log In</AccountMenuButton>
-          <AccountMenuButton onClick={handleCreateAccountButtonClick}>
-            Create Account
-          </AccountMenuButton>
+          <AccountMenuButton onClick={handleCreateAccountButtonClick}>Create Account</AccountMenuButton>
         </AccountDropDown>
       )}
     </>
