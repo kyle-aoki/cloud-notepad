@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
-import NotificationControl from '../redux/reducers/notifications/control';
+import { useNotificationControl } from '../redux/reducers/notifications/control';
 import { NotificationType } from '../redux/reducers/notifications/reducer';
 
-export default function useNotifications(NotificationControl: NotificationControl) {
+export default function useNotifications() {
+  const NotificationControl = useNotificationControl();
   useEffect(() => {
     if (!NotificationControl.state.notificationType) return;
     if (!NotificationControl.state.notificationText) return;

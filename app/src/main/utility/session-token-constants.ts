@@ -6,7 +6,4 @@ export const POSTGRESQL_INTERVAL_STRING = "1 DAY";
 // username & session_token cookies will expire in 1 day
 const COOKIE_ONE_DAY_MILLISECONDS = 1000 * 60 * 60 * 24;
 
-// use sameSite cookie in staging and production only
-const sameSite = inStaging || inProduction;
-
 export const cookieOptions = { httpOnly: true, sameSite: true, maxAge: COOKIE_ONE_DAY_MILLISECONDS };

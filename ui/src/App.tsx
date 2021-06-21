@@ -9,7 +9,6 @@ import FileSystem from './components/file-system/file-system';
 import StatusBar from './components/statusbar/status-bar';
 import Taskbar from './components/taskbar/taskbar';
 import useNotifications from './hooks/use-notifications';
-import { useNotificationControl } from './redux/reducers/notifications/control';
 
 const AppContainer = styled.div`
   display: flex;
@@ -20,10 +19,8 @@ const AppContainer = styled.div`
 
 const App: FC = () => {
   const fileSystemOpen = useSelector((state: GlobalState) => state.fileSystem.fileSystemOpen);
-  const createAccountModalOpen = useSelector((state: GlobalState) => state.createAccountModal.createAccountModalOpen);
 
-  const NotificationControl = useNotificationControl();
-  useNotifications(NotificationControl);
+  useNotifications();
 
   return (
     <>
