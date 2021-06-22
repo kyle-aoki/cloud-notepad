@@ -48,9 +48,12 @@ export interface CreateAccountModalState {
   createAccountAttempt: number;
   accountCreatedSuccess: boolean;
   accountCreateFailiure: boolean;
+  
   username: string;
   password: string;
   accountCreationScreen: AccountCreationScreen;
+
+  newUserUsername: string;
 }
 
 export enum AccountCreationScreen {
@@ -74,6 +77,8 @@ export const accountCreationInitialState: CreateAccountModalState = {
   username: '',
   password: '',
   accountCreationScreen: AccountCreationScreen.USERNAME_INPUT,
+
+  newUserUsername: '',
 };
 
 export interface CreateAccountModalAction {

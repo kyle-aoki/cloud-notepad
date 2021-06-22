@@ -15,6 +15,7 @@ import { createAccountModalReducer, CreateAccountModalState } from './redux/redu
 import { checkUsernameSaga, createAccountSaga } from './redux/reducers/create-account/saga';
 import { notificationReducer, NotificationState } from './redux/reducers/notifications/reducer';
 import { FileSystemState, fileSystemReducer } from './redux/reducers/file-system/reducer';
+import { CurrentUserReducer, CurrentUserState } from './redux/reducers/current-user/reducer';
 
 export interface GlobalState {
   fileSystem: FileSystemState;
@@ -22,6 +23,7 @@ export interface GlobalState {
   account: AccountState;
   createAccountModal: CreateAccountModalState;
   notifications: NotificationState;
+  currentUser: CurrentUserState;
 }
 
 const sagaMiddleware = createSagaMiddleware();
@@ -32,6 +34,7 @@ const combinedReducers = combineReducers({
   menu: menuReducer,
   createAccountModal: createAccountModalReducer,
   notifications: notificationReducer,
+  currentUser: CurrentUserReducer,
 });
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

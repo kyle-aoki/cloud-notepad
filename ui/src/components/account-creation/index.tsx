@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { XButtonSVGContainer } from '../file-system/file-system';
 import { ReactComponent as LeftArrow } from '../../assets/left-arrow.svg';
@@ -7,72 +7,82 @@ import { useAccountCreationControl } from '../../redux/reducers/create-account/c
 import { useNotificationControl } from '../../redux/reducers/notifications/control';
 import useAccountCreationNotifs from './use-account-creation-notifs';
 import { XButton } from '../file-system/styled-components';
+import { useSetUserOnAccountCreation } from './use-set-user-on-acc-creation';
+import { useCurrentUserControl } from '../../redux/reducers/current-user/control';
+import useCloseModalOnDone from './use-close-modal-on-done';
 
 interface AccountCreationPaneProps {}
 
 const AccountCreationModal: FC<AccountCreationPaneProps> = ({}) => {
   const AccountCreationControl = useAccountCreationControl();
   const NotificationControl = useNotificationControl();
+  const CurrentUserControl = useCurrentUserControl();
 
+  useSetUserOnAccountCreation(CurrentUserControl, AccountCreationControl);
   useAccountCreationNotifs(AccountCreationControl, NotificationControl);
+  useCloseModalOnDone(AccountCreationControl);
 
   return (
     <AccountCreationContainer className={AccountCreationControl.state.createAccountModalOpen ? 'Show' : 'Hidden'}>
-      <AccountCreationPaneElement>
-        <AccountCreationTaskbar>
-          <CloudNotepadTitle>☁️ Cloud Notepad</CloudNotepadTitle>
-          <XButton onClick={() => AccountCreationControl.CLOSE_MODAL()}>
-            <XButtonSVGContainer />
-          </XButton>
-        </AccountCreationTaskbar>
-        <ContentPane>
-          {AccountCreationControl.state.accountCreationScreen === AccountCreationScreen.USERNAME_INPUT ? (
-            <>
-              <CreateAccountTitle>Create Account</CreateAccountTitle>
+      {AccountCreationControl.state.createAccountModalOpen ? (
+        <AccountCreationPaneElement>
+          <AccountCreationTaskbar>
+            <CloudNotepadTitle>☁️ Cloud Notepad</CloudNotepadTitle>
+            <XButton onClick={() => AccountCreationControl.CLOSE_MODAL()}>
+              <XButtonSVGContainer />
+            </XButton>
+          </AccountCreationTaskbar>
+          <ContentPane>
+            {AccountCreationControl.state.accountCreationScreen === AccountCreationScreen.USERNAME_INPUT ? (
+              <>
+                <CreateAccountTitle>Create Account</CreateAccountTitle>
 
-              <UsernameInput
-                id="username"
-                value={AccountCreationControl.state.username}
-                onChange={(e) => AccountCreationControl.UPDATE_INPUT(e.target.id, e.target.value)}
-              />
+                <UsernameInput
+                  id="username"
+                  value={AccountCreationControl.state.username}
+                  onChange={(e) => AccountCreationControl.UPDATE_INPUT(e.target.id, e.target.value)}
+                />
 
-              <Spacer />
-              <ButtonContainer>
-                <ActionButton
-                  clicked={AccountCreationControl.state.usernameLoading}
-                  onClick={() => AccountCreationControl.CHECK_USERNAME()}
-                >
-                  {AccountCreationControl.state.usernameLoading ? <Spinner /> : 'Next'}
-                </ActionButton>
-              </ButtonContainer>
-            </>
-          ) : (
-            <>
-              <CreateAccountTitle>Select Password</CreateAccountTitle>
-              <ArrowContainer>
-                <ArrowButton
-                  className="ArrowContainer"
-                  onClick={() => AccountCreationControl.GO_BACK_TO_USERNAME_SCREEN()}
-                >
-                  <LeftArrow className="Arrow" />
-                </ArrowButton>
-                {AccountCreationControl.state.username}
-              </ArrowContainer>
-              <PasswordInput
-                id="password"
-                value={AccountCreationControl.state.password}
-                onChange={(e) => AccountCreationControl.UPDATE_INPUT(e.target.id, e.target.value)}
-              />
+                <Spacer />
+                <ButtonContainer>
+                  <ActionButton
+                    clicked={AccountCreationControl.state.usernameLoading}
+                    onClick={() => AccountCreationControl.CHECK_USERNAME()}
+                  >
+                    {AccountCreationControl.state.usernameLoading ? <Spinner /> : 'Next'}
+                  </ActionButton>
+                </ButtonContainer>
+              </>
+            ) : (
+              <>
+                <CreateAccountTitle>Select Password</CreateAccountTitle>
+                <ArrowContainer>
+                  <ArrowButton
+                    className="ArrowContainer"
+                    onClick={() => AccountCreationControl.GO_BACK_TO_USERNAME_SCREEN()}
+                  >
+                    <LeftArrow className="Arrow" />
+                  </ArrowButton>
+                  {AccountCreationControl.state.username}
+                </ArrowContainer>
+                <PasswordInput
+                  id="password"
+                  value={AccountCreationControl.state.password}
+                  onChange={(e) => AccountCreationControl.UPDATE_INPUT(e.target.id, e.target.value)}
+                />
 
-              <ButtonContainer>
-                <ActionButton clicked={false} onClick={() => AccountCreationControl.TRIGGER_ACCOUNT_CREATION()}>
-                  {AccountCreationControl.state.passwordLoading ? <Spinner /> : 'Create Account'}
-                </ActionButton>
-              </ButtonContainer>
-            </>
-          )}
-        </ContentPane>
-      </AccountCreationPaneElement>
+                <ButtonContainer>
+                  <ActionButton clicked={false} onClick={() => AccountCreationControl.TRIGGER_ACCOUNT_CREATION()}>
+                    {AccountCreationControl.state.passwordLoading ? <Spinner /> : 'Create Account'}
+                  </ActionButton>
+                </ButtonContainer>
+              </>
+            )}
+          </ContentPane>
+        </AccountCreationPaneElement>
+      ) : (
+        <></>
+      )}
     </AccountCreationContainer>
   );
 };
@@ -105,7 +115,6 @@ const AccountCreationPaneElement = styled.div`
   color: black;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   width: 500px;
   height: 270px;
 `;
@@ -198,11 +207,10 @@ const ArrowContainer = styled.div`
   align-items: center;
 `;
 
-export const ArrowButton = styled.div`
+const ArrowButton = styled.div`
   color: black;
   user-select: none;
   cursor: default;
-  /* width: 45px; */
   height: 100%;
   display: flex;
   justify-content: center;

@@ -1,7 +1,10 @@
 import { Request, Response, NextFunction } from "express";
+import { inDevelopment } from "./environment";
+
+const simulatedDelayLength: number = 0;
 
 export default async function simulateDelay(req: Request, res: Response, next: NextFunction) {
-  await sleep(500);
+  if (inDevelopment) await sleep(simulatedDelayLength);
   next();
 }
 

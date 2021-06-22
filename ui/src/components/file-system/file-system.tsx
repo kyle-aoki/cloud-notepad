@@ -7,7 +7,6 @@ import { ReactComponent as CloudIcon } from '../../assets/cloud.svg';
 import { ReactComponent as RightChevronIcon } from '../../assets/right-chevron.svg';
 import { useDispatch } from 'react-redux';
 import useUserDirectory from './use-user-directory';
-import { ArrowButton } from '../account-creation';
 import {
   HeaderContainer,
   HeaderName,
@@ -220,3 +219,15 @@ const SubPath: FC<any> = ({ children, last }) => {
     </SubPathContainer>
   );
 };
+
+const ArrowButton = styled.div`
+  color: black;
+  user-select: none;
+  cursor: default;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+  margin-left: 10px;
+`;

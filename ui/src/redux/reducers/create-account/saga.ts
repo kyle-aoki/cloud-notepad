@@ -3,31 +3,7 @@ import { CreateAccountModalAction, CreateAccountModalActions } from './reducer';
 import UserAPI from '../../../api/user-api';
 import { GenericError } from '../../../shared';
 
-// Click Create Account Button
-function* createAccountGenerator(action: CreateAccountModalAction): Generator<any, any, any> {
-  try {
-    const result: any = yield call(UserAPI.createUser, action.payload.username, action.payload.password);
-    if (!result.ok) {
-      return yield put({ type: CreateAccountModalActions.ACCOUNT_FAILED_TO_CREATE, payload: { ...result } });
-    }
-    yield put({
-      type: CreateAccountModalActions.ACCOUNT_CREATED_SUCCESS,
-      payload: { ...result, username: result.username },
-    });
-  } catch (e) {
-    console.log(e);
-    yield put({
-      type: CreateAccountModalActions.ACCOUNT_FAILED_TO_CREATE,
-      payload: { type: GenericError.NETWORK_ERROR },
-    });
-  }
-}
-
-export function* createAccountSaga() {
-  yield takeEvery(CreateAccountModalActions.TRIGGER_ACCOUNT_CREATION, createAccountGenerator);
-}
-
-// click next button
+// click 'Next' button
 function* checkUsernameGenerator(action: CreateAccountModalAction): Generator<any, any, any> {
   try {
     if (!action.payload.username) {
@@ -56,4 +32,27 @@ function* checkUsernameGenerator(action: CreateAccountModalAction): Generator<an
 
 export function* checkUsernameSaga() {
   yield takeEvery(CreateAccountModalActions.CHECK_USERNAME, checkUsernameGenerator);
+}
+
+// Click 'Create Account' Button
+function* createAccountGenerator(action: CreateAccountModalAction): Generator<any, any, any> {
+  try {
+    const result: any = yield call(UserAPI.createUser, action.payload.username, action.payload.password);
+    if (!result.ok) {
+      return yield put({ type: CreateAccountModalActions.ACCOUNT_FAILED_TO_CREATE, payload: { ...result } });
+    }
+    yield put({
+      type: CreateAccountModalActions.ACCOUNT_CREATED_SUCCESS,
+      payload: { ...result, username: result.username },
+    });
+  } catch (e) {
+    yield put({
+      type: CreateAccountModalActions.ACCOUNT_FAILED_TO_CREATE,
+      payload: { type: GenericError.NETWORK_ERROR },
+    });
+  }
+}
+
+export function* createAccountSaga() {
+  yield takeEvery(CreateAccountModalActions.TRIGGER_ACCOUNT_CREATION, createAccountGenerator);
 }

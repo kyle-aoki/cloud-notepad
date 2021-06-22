@@ -33,6 +33,7 @@ export const ACCOUNT_CREATED_SUCCESS = (state: CreateAccountModalState, action: 
       state.notificationText = `Successfully logged in as ${action.payload.username}.`;
       state.notificationType = NotificationType.INFO;
       state.notificationCount += 1;
+      state.newUserUsername = action.payload.username;
       break;
   }
   return { ...state, passwordLoading: false, done: true };
@@ -131,37 +132,3 @@ export const BAD_USERNAME = (state: CreateAccountModalState, action: CreateAccou
   }
   return { ...state, usernameLoading: false, notificationCount: (state.notificationCount += 1) };
 };
-
-// export const BAD_PASSWORD = (state: CreateAccountModalState, action: CreateAccountModalAction) => {
-//   if (!action.payload) {
-//     return { ...state, usernameLoading: false };
-//   }
-//   switch (action.payload.type) {
-//     case GenericError.NETWORK_ERROR:
-//       state.notificationText =
-//         'Network Error.\nEither the server is down, or your internet connection may be defective.';
-//       state.notificationType = NotificationType.ERROR;
-//       break;
-//     case ValidationResponse.PASSWORD_SHORT:
-//       state.notificationText = `Username is too short.\nMinimum length is ${action.payload.minLength} characters.`;
-//       state.notificationType = NotificationType.ERROR;
-//       break;
-//     case ValidationResponse.PASSWORD_LONG:
-//       state.notificationText = `Username is too long.\nMaximum length is ${action.payload.maxLength} characters.`;
-//       state.notificationType = NotificationType.ERROR;
-//       break;
-//     case ValidationResponse.INVALID_PASSWORD_SYMBOLS:
-//       state.notificationText = `Password contains invalid symbols.\nYou may only use ${action.payload.validSymbols.reduce(
-//         (acc: string, symbol: string, index: number) => {
-//           if (index === 0) return `${symbol}`;
-//           return `${acc}, ${symbol}`;
-//         },
-//         ''
-//       )}.`;
-//       state.notificationType = NotificationType.ERROR;
-//       break;
-//     default:
-//       return { ...state, passwordLoading: false };
-//   }
-//   return { ...state, passwordLoading: false };
-// };
