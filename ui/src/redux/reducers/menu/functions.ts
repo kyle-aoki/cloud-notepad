@@ -1,9 +1,8 @@
-import { MenuState } from '.';
-import { MenuAction, MenuType } from './types';
+import { MenuState, MenuAction, MenuType } from './reducer';
 
 export const OPEN = (state: MenuState, action: MenuAction) => {
   if (!action.payload) return state;
-  const menuType: MenuType = action.payload.menu;
+  const menuType: MenuType = action.payload.menuType;
   state[menuType] = !state[menuType];
   return { ...state };
 };
@@ -19,7 +18,7 @@ export const SWITCH = (state: MenuState, action: MenuAction) => {
   if (!action.payload) return state;
   if (menuOpen(state)) {
     closeAll(state);
-    state[action.payload.menu] = true;
+    state[action.payload.menuType] = true;
   }
   return { ...state };
 };

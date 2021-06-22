@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { GlobalState } from '../..';
-import { MenuActions } from '../../redux/reducers/menu';
+import { useMenuControl } from '../../redux/reducers/menu/control';
 import Account from './menu/account';
 import Edit from './menu/edit';
 import File from './menu/file';
@@ -31,19 +31,13 @@ const ClickOff = styled.div`
 `;
 
 const Taskbar: FC<TaskbarProps> = () => {
-  const menu = useSelector((state: GlobalState) => state.menu);
-  const dispatch = useDispatch();
-  const TaskbarActions = {
-    CLOSE_ALL: () => dispatch({ type: MenuActions.CLOSE_ALL }),
-  };
+  const MenuControl = useMenuControl();
 
-  const handleClickOff = () => TaskbarActions.CLOSE_ALL();
-
-  const open = Object.keys(menu).filter((key: string) => menu[key] === true).length > 0;
+  const open = Object.keys(MenuControl.state).filter((key: string) => MenuControl.state[key] === true).length > 0;
 
   return (
     <>
-      {open && <ClickOff onClick={handleClickOff} />}
+      {open && <ClickOff onClick={() => MenuControl.CLOSE_ALL()} />}
       <TaskbarContainer>
         <File />
         {/* <Edit /> */}

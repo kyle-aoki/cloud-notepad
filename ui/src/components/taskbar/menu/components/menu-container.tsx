@@ -10,12 +10,12 @@ const MenuContainer = styled.div<any>`
 
   border-radius: 1px;
 
-  border: 1px solid ${(props: any) => props.selected ? "#505050" : "transparent"};
-  background-color: ${(props: any) => props.selected && "#606060"};
+  border: 1px solid ${(props: any) => (props.isSelected ? '#505050' : 'transparent')};
+  background-color: ${(props: any) => props.isSelected && '#606060'};
 
   &:hover {
-    border: 1px solid ${(props: any) => props.selected ? "#505050" : "#404040"};
-  background-color: ${(props: any) => props.selected ? "#606060" : "#505050"};
+    border: 1px solid ${(props: any) => (props.isSelected ? '#505050' : '#404040')};
+    background-color: ${(props: any) => (props.isSelected ? '#606060' : '#505050')};
   }
 `;
 

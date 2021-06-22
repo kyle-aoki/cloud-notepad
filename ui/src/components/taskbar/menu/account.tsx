@@ -3,11 +3,8 @@ import styled from 'styled-components';
 import MenuContainer from './components/menu-container';
 import { ReactComponent as DownChevron } from '../../../assets/down-chevron.svg';
 import { DropdownMenu } from './components/dropdown';
-import { useDispatch, useSelector } from 'react-redux';
-import { AccountActions } from '../../../redux/reducers/account';
-import { GlobalState } from '../../..';
-import { CreateAccountModalActions } from '../../../redux/reducers/create-account/reducer';
 import { useAccountCreationControl } from '../../../redux/reducers/create-account/control';
+import { useAccountDropdownControl } from '../../../redux/reducers/account/control';
 
 const AccountContainer = styled(MenuContainer)`
   margin-left: auto;
@@ -32,7 +29,7 @@ const AccountDropDown = styled.div`
   gap: 20px;
 `;
 
-const AccountDownChevron: FC = () => <DownChevron width="8px" style={{ marginLeft: '5px', marginTop: '2px' }} />;
+const AccountDownChevron: FC = () => <DownChevron width="8px" height="8px" style={{ marginLeft: '5px', marginTop: '2px' }} />;
 
 const AccountMenuButton = styled.div`
   display: grid;
@@ -49,17 +46,15 @@ const AccountMenuButton = styled.div`
 `;
 
 const Account: any = () => {
-  const dispatch = useDispatch();
-  const accountMenuOpen = useSelector((state: GlobalState) => state.account.accountMenuOpen);
-
+  const AccountDropdownControl = useAccountDropdownControl();
   const AccountCreationControl = useAccountCreationControl();
 
   const handleAccountClick = () => {
-    dispatch({ type: AccountActions.TOGGLE_ACCOUNT_DROPDOWN });
+    AccountDropdownControl.TOGGLE_ACCOUNT_DROPDOWN();
   };
 
   const handleCreateAccountButtonClick = () => {
-    dispatch({ type: AccountActions.TOGGLE_ACCOUNT_DROPDOWN });
+    AccountDropdownControl.TOGGLE_ACCOUNT_DROPDOWN();
     AccountCreationControl.OPEN_MODAL();
   };
 
@@ -69,7 +64,7 @@ const Account: any = () => {
         Account
         <AccountDownChevron />
       </AccountContainer>
-      {accountMenuOpen && (
+      {AccountDropdownControl.state.accountMenuOpen && (
         <AccountDropDown>
           <AccountMenuButton>Log In</AccountMenuButton>
           <AccountMenuButton onClick={handleCreateAccountButtonClick}>Create Account</AccountMenuButton>

@@ -1,3 +1,0 @@
-export enum AccountActions {
-  TOGGLE_ACCOUNT_DROPDOWN = 'TOGGLE_ACCOUNT_DROPDOWN',
-}

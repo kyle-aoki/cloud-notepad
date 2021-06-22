@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useFileSystemControl } from '../../../redux/reducers/file-system/control';
-import { MenuActions, MenuType } from '../../../redux/reducers/menu';
+import { useMenuControl } from '../../../redux/reducers/menu/control';
+import { MenuType } from '../../../redux/reducers/menu/reducer';
 import { DropdownMenuItem, DropdownMenuSeperator } from './components/dropdown';
 import MenuItem from './components/menu-item';
 
@@ -9,11 +10,11 @@ interface FileProps {}
 
 const File: FC<FileProps> = () => {
   const FileSystemControl = useFileSystemControl();
-  const dispatch = useDispatch();
+  const MenuControl = useMenuControl();
 
   const handleOpenClick = () => {
     FileSystemControl.OPEN_FILE_SYSTEM();
-    dispatch({ type: MenuActions.CLOSE_ALL });
+    MenuControl.CLOSE_ALL();
   };
 
   return (

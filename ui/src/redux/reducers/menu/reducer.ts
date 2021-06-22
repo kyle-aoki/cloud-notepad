@@ -1,5 +1,5 @@
 import { Reducer } from 'redux';
-import { CLOSE_ALL, MenuAction, MenuActions, OPEN, SWITCH } from '.';
+import { CLOSE_ALL, OPEN, SWITCH } from './functions';
 
 export interface MenuState {
   [file: string]: boolean;
@@ -16,6 +16,26 @@ const initialState: MenuState = {
   view: false,
   help: false,
 };
+export enum MenuType {
+  file = 'file',
+  edit = 'edit',
+  format = 'format',
+  view = 'view',
+  help = 'help',
+}
+
+export interface MenuAction {
+  type: MenuActions;
+  payload?: {
+    menuType: MenuType;
+  };
+}
+
+export enum MenuActions {
+  OPEN_MENU = 'OPEN_MENU',
+  CLOSE_ALL = 'CLOSE_ALL',
+  SWITCH_MENU = 'SWITCH_MENU',
+}
 
 export const menuReducer: Reducer<MenuState, MenuAction> = (state = initialState, action) => {
   switch (action.type) {
