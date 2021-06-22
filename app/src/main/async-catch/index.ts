@@ -12,6 +12,7 @@ const catchAsyncError = (func: Function) => {
   return funcWithCatchAsyncError;
 };
 
+// Decorator
 const withCatchAsyncError = (constructor: Indexable) => {
   for (let key of Object.keys(constructor)) {
     if (typeof constructor[key] === "function") {

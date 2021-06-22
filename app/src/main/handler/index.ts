@@ -9,7 +9,7 @@ import SaveFile from "./storage/save-file";
 import GetFile from "./storage/get-file";
 
 @withCatchAsyncError
-class V1Handler {
+class Handler {
   static CreateUser = CreateUser;
   static LogIn = LogIn;
   static AuthenticateWithSessionToken = AuthenticateWithSessionToken;
@@ -20,4 +20,4 @@ class V1Handler {
   static GetFile = GetFile;
 }
 
-export default V1Handler;
+export default Handler;

@@ -4,27 +4,24 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
 
-import { applyMiddleware, combineReducers, createStore } from 'redux';
+import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
 import { Provider } from 'react-redux';
 
 import createSagaMiddleware from 'redux-saga';
 
 import { accountReducer, AccountState } from './redux/reducers/account';
-import { fileSystemReducer, FileSystemState } from './redux/reducers/file-system';
 import { menuReducer, MenuState } from './redux/reducers/menu';
-import {
-  createAccountModalReducer,
-  CreateAccountModalState,
-} from './redux/reducers/create-account/reducer';
+import { createAccountModalReducer, CreateAccountModalState } from './redux/reducers/create-account/reducer';
 import { checkUsernameSaga, createAccountSaga } from './redux/reducers/create-account/saga';
 import { notificationReducer, NotificationState } from './redux/reducers/notifications/reducer';
+import { FileSystemState, fileSystemReducer } from './redux/reducers/file-system/reducer';
 
 export interface GlobalState {
   fileSystem: FileSystemState;
   menu: MenuState;
   account: AccountState;
   createAccountModal: CreateAccountModalState;
-  notifications: NotificationState
+  notifications: NotificationState;
 }
 
 const sagaMiddleware = createSagaMiddleware();
@@ -36,7 +33,10 @@ const combinedReducers = combineReducers({
   createAccountModal: createAccountModalReducer,
   notifications: notificationReducer,
 });
-export const store = createStore(combinedReducers, applyMiddleware(sagaMiddleware));
+
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+export const store = createStore(combinedReducers, composeEnhancers(applyMiddleware(sagaMiddleware)));
 
 sagaMiddleware.run(createAccountSaga);
 sagaMiddleware.run(checkUsernameSaga);
@@ -47,8 +47,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

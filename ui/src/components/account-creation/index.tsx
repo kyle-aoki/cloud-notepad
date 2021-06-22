@@ -1,11 +1,12 @@
 import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
-import { XButton, XButtonSVGContainer } from '../file-system/file-system';
+import { XButtonSVGContainer } from '../file-system/file-system';
 import { ReactComponent as LeftArrow } from '../../assets/left-arrow.svg';
 import { AccountCreationScreen } from '../../redux/reducers/create-account/reducer';
 import { useAccountCreationControl } from '../../redux/reducers/create-account/control';
 import { useNotificationControl } from '../../redux/reducers/notifications/control';
 import useAccountCreationNotifs from './use-account-creation-notifs';
+import { XButton } from '../file-system/styled-components';
 
 interface AccountCreationPaneProps {}
 
@@ -90,7 +91,7 @@ const AccountCreationContainer = styled.div`
   height: 100%;
   width: 100%;
   background-color: #e3f2ff;
-  transition: opacity 0.3s ease-in;
+  transition: opacity 0.2s ease-in-out;
 `;
 
 const AccountCreationPaneElement = styled.div`

@@ -1,13 +1,11 @@
-import { FileSystemState } from ".";
-import { CLOSE_ALL, MenuActions } from "../menu";
-import { store } from '../../../';
+import { FileSystemState } from './reducer';
 
 export const OPEN_FILE_SYSTEM = (state: FileSystemState) => {
   state.fileSystemOpen = true;
-  return {...state};
-}
+  return { ...state };
+};
 
-export const CLOSE_FILE_SYETEM = (state: FileSystemState) => {
+export const CLOSE_FILE_SYSTEM = (state: FileSystemState) => {
   state.fileSystemOpen = false;
-  return {...state};
-}
+  return { ...state };
+};

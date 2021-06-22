@@ -34,7 +34,7 @@ export default class Log {
     if (!err) return "";
     let errorObject;
     try {
-      errorObject = `Error: ${JSON.stringify(err)}`;
+      errorObject = `${JSON.stringify(err)}`;
     } catch (_) {
       errorObject = "FAILED TO STRINGIFY ERROR.";
     }
