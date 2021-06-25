@@ -2,7 +2,7 @@ export default class UserAPI {
   static api_key = '123';
 
   static async createUser(username: string, password: string) {
-    const res = await fetch('/api/create-user', {
+    const res = await fetch('/api/user/create-user', {
       headers: {
         api_key: UserAPI.api_key,
         'content-type': 'application/json',
@@ -16,7 +16,7 @@ export default class UserAPI {
 
   static async checkUsername(username: string) {
     try {
-      const res = await fetch('/api/check-username', {
+      const res = await fetch('/api/user/check-username', {
         headers: {
           api_key: UserAPI.api_key,
           'content-type': 'application/json',
@@ -33,7 +33,7 @@ export default class UserAPI {
 
   static async checkPassword(password: string) {
     try {
-      const res = await fetch('/api/check-password', {
+      const res = await fetch('/api/user/check-password', {
         headers: {
           api_key: UserAPI.api_key,
           'content-type': 'application/json',
