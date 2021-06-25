@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import generateSessionToken from "../../crypto/generate-session-token";
 import hashPassword from "../../crypto/hash-password";
-import Query from "../../sql/query";
+import SQLQuery from "../../sql/query";
 import sendResponse from "../../response/send-response";
 import Validator from "../../validation/general";
 import { cookieOptions } from "../../utility/session-token-constants";
@@ -15,10 +15,10 @@ export default async function LogIn(req: Request, res: Response, next: NextFunct
   Validator.validatePassword(password);
 
   const hashedPassword = hashPassword(password);
-  await Query.verifyPassword(username, hashedPassword);
+  await SQLQuery.verifyPassword(username, hashedPassword);
 
   const session_token = generateSessionToken();
-  await Query.setSessionToken(username, hashedPassword, session_token);
+  await SQLQuery.setSessionToken(username, hashedPassword, session_token);
 
   res.cookie("username", username, cookieOptions);
   res.cookie("session_token", session_token, cookieOptions);

@@ -1,7 +1,7 @@
 import withCatchAsyncError from "../async-catch";
 import Log from "../log";
 import PayloadValidator from "../validation/payload";
-import Query from "../sql/query";
+import SQLQuery from "../sql/query";
 import { Request, Response, NextFunction } from "express";
 
 const CLOUD_NOTEPAD_API_KEY = process.env.CLOUD_NOTEPAD_API_KEY;
@@ -20,7 +20,7 @@ export default class Middleware {
     PayloadValidator.usernameExists(username, "cookie");
     PayloadValidator.sessionTokenExists(session_token);
 
-    await Query.verifySessioinToken(username, session_token);
+    await SQLQuery.verifySessioinToken(username, session_token);
 
     next();
   }

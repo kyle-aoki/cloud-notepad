@@ -4,6 +4,7 @@ import { inDevelopment, inStaging } from "../utility/environment";
 
 interface ErrorResponseEntity {
   ok: false;
+  type: any;
 }
 
 export default function errorResponse(error: any, req: Request, res: Response, next: NextFunction) {
@@ -12,7 +13,7 @@ export default function errorResponse(error: any, req: Request, res: Response, n
 
   const errorResponseEntity: ErrorResponseEntity = {
     ok: false,
-    ...error,
+    type: error.type,
   };
 
   if (inDevelopment || inStaging) Log.error("", errorResponseEntity);

@@ -30,3 +30,7 @@ export enum LogInResponse {
   SUCCESSFUL_LOG_IN = "SUCCESSFUL_LOG_IN",
   INCORRECT_UN_OR_PW = "INCORRECT_UN_OR_PW",
 }
+
+export enum FileResponse {
+  SUCCESSFULLY_SAVED_FILE = "FileResponse.SUCCESSFULLY_SAVED_FILE",
+}

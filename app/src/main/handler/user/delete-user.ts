@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import hashPassword from "../../crypto/hash-password";
-import Query from "../../sql/query";
+import SQLQuery from "../../sql/query";
 import sendResponse from "../../response/send-response";
 import PayloadValidator from "../../validation/payload";
 
@@ -15,7 +15,7 @@ export default async function DeleteUser(req: Request, res: Response, next: Next
 
   const hashedPassword = hashPassword(password);
 
-  await Query.deleteUser(username, hashedPassword, session_token);
+  await SQLQuery.deleteUser(username, hashedPassword, session_token);
 
   sendResponse(res, { message: "Successfully deleted user." });
 }

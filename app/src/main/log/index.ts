@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { inProduction } from "../utility/environment";
+import { inDevelopment, inProduction, inStaging } from "../utility/environment";
 
 export enum Severity {
   ERROR = "ERROR",
@@ -47,6 +47,10 @@ export default class Log {
 
   private static getLogObj(severity: string, msg: string, err?: any) {
     return { datetime: Log.dt(), severity, msg, err };
+  }
+
+  public static stackTrace(err: Error) {
+    if (inDevelopment || inStaging) console.log(err);
   }
 
   public static error(msg: string, err?: any) {

@@ -5,7 +5,7 @@ import setSessionToken from "./set-session-token";
 import verifySessioinToken from "./verify-session-token";
 import deleteUser from "./delete-user";
 
-export default class Query {
+export default class SQLQuery {
   static createUser = createUser;
   static doesUserExist = doesUserExist;
   static verifyPassword = verifyPassword;
