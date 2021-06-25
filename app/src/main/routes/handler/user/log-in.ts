@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from "express";
-import generateSessionToken from "../../crypto/generate-session-token";
-import hashPassword from "../../crypto/hash-password";
-import SQLQuery from "../../sql/query";
-import sendResponse from "../../response/send-response";
-import Validator from "../../validation/general";
-import { cookieOptions } from "../../utility/session-token-constants";
-import { LogInResponse } from "../../shared";
+import generateSessionToken from "../../../crypto/generate-session-token";
+import hashPassword from "../../../crypto/hash-password";
+import SQLQuery from "../../../sql/query";
+import sendResponse from "../../../response/send-response";
+import Validator from "../../../validation/general";
+import { cookieOptions } from "../../../utility/session-token-constants";
+import { LogInResponse } from "../../../shared";
 
 export default async function LogIn(req: Request, res: Response, next: NextFunction) {
   const username = req.body.username;

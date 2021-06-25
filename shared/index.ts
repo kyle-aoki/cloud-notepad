@@ -24,6 +24,9 @@ export enum PayloadValidationResponse {
   PASSWORD_MISSING = "PASSWORD_MISSING",
   USERNAME_MISSING = "USERNAME_MISSING",
   NOT_LOGGED_IN = "NOT_LOGGED_IN",
+
+  FILEPATH_MISSING = "FILEPATH_MISSING",
+  FILEBODY_MISSING = "FILEBODY_MISSING",
 }
 
 export enum LogInResponse {
@@ -32,5 +35,7 @@ export enum LogInResponse {
 }
 
 export enum FileResponse {
-  SUCCESSFULLY_SAVED_FILE = "FileResponse.SUCCESSFULLY_SAVED_FILE",
+  FILE_SAVED = "FileResponse.FILE_SAVED",
+  FILE_SENT = "FileResponse.FILE_SENT",
+  FILE_ALREADY_EXISTS = "FileResponse.FILE_ALREADY_EXISTS",
 }

@@ -10,7 +10,7 @@ const verifySessionTokenSQL = `
   session_token_timestamp > (now() - INTERVAL '${POSTGRESQL_INTERVAL_STRING}');
 `;
 
-export default async function verifySessioinToken(username: string, session_token: string): Promise<void> {
+export default async function verifySessioinToken(username: string, session_token: string) {
   const result = await SQL.query(verifySessionTokenSQL, [username, session_token]).catch(handleError);
   if (result.rows.length === 0) throw { statusCode: 401, message: "User unauthorized." };
 }

@@ -1,3 +1,4 @@
+import withCatchAsyncError from "../../async-catch";
 import { PayloadValidationResponse } from "../../shared";
 
 type Location = "cookie" | "request body";
@@ -10,14 +11,28 @@ export default class PayloadValidator {
       };
     }
   }
+
   static usernameExists(username: string, location: Location) {
     if (!username || typeof username !== "string") {
       throw { type: PayloadValidationResponse.USERNAME_MISSING };
     }
   }
+
   static sessionTokenExists(session_token: string) {
     if (!session_token || typeof session_token !== "string") {
       throw { type: PayloadValidationResponse.NOT_LOGGED_IN };
+    }
+  }
+
+  static filePathExists(filePath: string) {
+    if (!filePath || typeof filePath !== "string") {
+      throw { type: PayloadValidationResponse.FILEPATH_MISSING };
+    }
+  }
+
+  static fileBodyExists(fileBody: string) {
+    if (!fileBody || typeof fileBody !== "string") {
+      throw { type: PayloadValidationResponse.FILEBODY_MISSING };
     }
   }
 }

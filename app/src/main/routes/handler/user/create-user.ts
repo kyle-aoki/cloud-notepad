@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import SQLQuery from "../../sql/query";
-import hashPassword from "../../crypto/hash-password";
-import PayloadValidator from "../../validation/payload";
-import Validator from "../../validation/general";
-import MongooseQuery from "../../mongoose/class";
+import SQLQuery from "../../../sql/query";
+import hashPassword from "../../../crypto/hash-password";
+import PayloadValidator from "../../../validation/payload";
+import Validator from "../../../validation/general";
+import MongooseQuery from "../../../mongoose/class";
 
 export default async function CreateUser(req: Request, res: Response, next: NextFunction) {
   const username = req.body.username;

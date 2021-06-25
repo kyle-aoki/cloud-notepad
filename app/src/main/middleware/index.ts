@@ -11,7 +11,6 @@ if (!CLOUD_NOTEPAD_API_KEY) {
   process.exit(1);
 }
 
-@withCatchAsyncError
 export default class Middleware {
   static async SessionTokenAuthorization(req: Request, res: Response, next: NextFunction) {
     const username = req.cookies.username as string;

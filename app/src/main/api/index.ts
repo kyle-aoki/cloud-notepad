@@ -2,7 +2,7 @@ import express from "express";
 import helmet from "helmet";
 import errorResponse from "../response/error-handler";
 import cookieParser from "cookie-parser";
-import mainRouter from "../router";
+import mainRouter from "../routes/router";
 import logger from "morgan";
 import { inDevelopment, inStaging } from "../utility/environment";
 import simulateDelay from "../utility/simulate-delay";

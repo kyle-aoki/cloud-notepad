@@ -20,7 +20,7 @@ function catchAsyncError(func: Function) {
       next(err);
     });
   };
-  return funcWithCatchAsyncError;
+  return func;
 }
 
 // Decorator
