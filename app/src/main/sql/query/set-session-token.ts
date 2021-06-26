@@ -15,5 +15,5 @@ export default async function setSessionToken(username: string, password: string
 }
 
 const handleError = (error: any) => {
-  throw Err.QueryError(error);
+  throw Err.MongooseQueryError(error);
 };

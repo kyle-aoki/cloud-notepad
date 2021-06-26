@@ -12,5 +12,5 @@ export default async function doesUserExist(username: string) {
 }
 
 const handleError = (error: any) => {
-  throw Err.QueryError(error);
+  throw Err.MongooseQueryError(error);
 };

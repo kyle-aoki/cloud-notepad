@@ -6,5 +6,5 @@ export default async function InitUserDir(username: string) {
 }
 
 function handleError(error: any) {
-  throw Err.QueryError(error);
+  throw Err.MongooseQueryError(error);
 }

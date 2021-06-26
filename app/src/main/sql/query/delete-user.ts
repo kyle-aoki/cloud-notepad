@@ -16,5 +16,5 @@ export default async function deleteUser(username: string, hashedPassword: strin
 }
 
 const handleError = (error: any) => {
-  throw Err.QueryError(error);
+  throw Err.MongooseQueryError(error);
 };

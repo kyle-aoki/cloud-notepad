@@ -9,5 +9,5 @@ export default async function createUser(username: string, password: string): Pr
 }
 
 const handleError = (error: any) => {
-  throw Err.QueryError(error);
+  throw Err.MongooseQueryError(error);
 };

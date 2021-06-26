@@ -33,18 +33,18 @@ import {
 } from './styled-components';
 import { File, Folder } from './objects';
 import { FileSystemActions } from '../../redux/reducers/file-system/reducer';
-import { useFileSystemControl } from '../../redux/reducers/file-system/control';
+import { useFileSystemControl, useFileSystemState } from '../../redux/reducers/file-system/control';
 
 export default function FileSystem() {
   let [response, setResponse] = useState<any>();
   let [path, setPath] = useState<string[]>([]);
   let [recent, setRecent] = useState<string[]>([]);
 
+  const fileSystemState = useFileSystemState();
   const FileSystemControl = useFileSystemControl();
 
-  const [loading, userDirectory] = useUserDirectory();
-
-  const dispatch = useDispatch();
+  const loading = false;
+  const userDirectory = fileSystemState.userDir;
 
   const handleXButtonClick = () => FileSystemControl.CLOSE_FILE_SYSTEM();
 

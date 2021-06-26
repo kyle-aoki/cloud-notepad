@@ -1,17 +1,25 @@
 import Mongoose from "..";
 import Err from "../../response/err";
-import { FileResponse } from "../../shared";
-import getCanonicalFilePath from "../../utility/full-file-path";
+import getFileSize, { getCanonicalFilePath, getFilePath } from "../../utility/file";
 
-export default async function SaveFile(username: string, filePath: string, fileContent: string) {
-  const CanonicalFilePath = getCanonicalFilePath(username, filePath);
+export default async function SaveFile(username: string, fileName: string, filePath: string[], fileContent: string) {
+  const CanonicalFilePath = getCanonicalFilePath(username, fileName, filePath);
 
-  const File = await Mongoose.Files.findOne({ path: CanonicalFilePath }).catch(handleError);
-  if (!File) throw { type: FileResponse.FILE_NOT_EXIST };
+  const fileSize = getFileSize(fileContent);
+  const lastModified = Date.now();
 
-  await Mongoose.Files.updateOne({ path: CanonicalFilePath }, { $set: { content: fileContent } }).catch(handleError);
+  const userDir = await Mongoose.UserDir.findOne({ username });
+  for (let obj of userDir.objects) {
+    if (obj.fileName === fileName && getFilePath(obj.filePath) === getFilePath(filePath)) {
+      obj.fileSize = fileSize;
+      obj.lastModified = lastModified;
+    }
+  }
+  await Mongoose.UserDir.replaceOne({ username }, userDir);
+
+  await Mongoose.Files.updateOne({ CanonicalFilePath }, { $set: { fileContent } }).catch(handleError);
 }
 
 function handleError(error: any) {
-  throw Err.QueryError(error);
+  throw Err.MongooseQueryError(error);
 }

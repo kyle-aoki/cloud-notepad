@@ -16,5 +16,5 @@ export default async function verifySessioinToken(username: string, session_toke
 }
 
 const handleError = (error: any) => {
-  throw Err.QueryError(error);
+  throw Err.MongooseQueryError(error);
 };

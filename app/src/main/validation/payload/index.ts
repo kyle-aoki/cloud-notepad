@@ -24,8 +24,14 @@ export default class PayloadValidator {
     }
   }
 
+  static fileNameExists(fileName: string) {
+    if (!fileName || typeof fileName !== "string") {
+      throw { type: PayloadValidationResponse.FILEPATH_MISSING };
+    }
+  }
+
   static filePathExists(filePath: string) {
-    if (!filePath || typeof filePath !== "string") {
+    if (!filePath || typeof filePath !== "object") {
       throw { type: PayloadValidationResponse.FILEPATH_MISSING };
     }
   }

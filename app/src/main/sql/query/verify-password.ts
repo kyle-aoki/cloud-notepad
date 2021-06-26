@@ -11,5 +11,5 @@ export default async function verifyPassword(username: string, password: string)
 }
 
 const handleError = (error: any) => {
-  throw Err.QueryError(error);
+  throw Err.MongooseQueryError(error);
 };

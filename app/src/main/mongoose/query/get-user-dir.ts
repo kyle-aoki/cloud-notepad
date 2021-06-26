@@ -8,5 +8,5 @@ export default async function GetUserDir(username: string) {
 }
 
 function handleError(error: any) {
-  throw Err.QueryError(error);
+  throw Err.MongooseQueryError(error);
 }

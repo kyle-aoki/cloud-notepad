@@ -1,20 +1,22 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 import { GlobalState } from '../../..';
-import { FileSystemActions, FileSystemState } from './reducer';
+import { FileSystemActions, FileSystemSagaActions, FileSystemState } from './reducer';
+
+export function useFileSystemState() {
+  const state = useSelector((state: GlobalState) => state.fileSystem);
+  return state;
+}
 
 export function useFileSystemControl() {
-  const state = useSelector((state: GlobalState) => state.fileSystem);
   const dispatch = useDispatch();
-  return new FileSystemControl(state, dispatch);
+  return new FileSystemControl(dispatch);
 }
 
 class FileSystemControl {
-  state: FileSystemState;
   dispatch: Dispatch<any>;
 
-  constructor(state: FileSystemState, dispatch: Dispatch<any>) {
-    this.state = state;
+  constructor(dispatch: Dispatch<any>) {
     this.dispatch = dispatch;
   }
 
@@ -24,5 +26,19 @@ class FileSystemControl {
 
   CLOSE_FILE_SYSTEM() {
     this.dispatch({ type: FileSystemActions.CLOSE_FILE_SYSTEM });
+  }
+
+  CREATE_FILE() {
+    this.dispatch({ type: FileSystemActions.CREATE_FILE });
+  }
+  SAVE_FILE() {
+    this.dispatch({ type: FileSystemActions.SAVE_FILE });
+  }
+  DELETE_FILE() {
+    this.dispatch({ type: FileSystemActions.DELETE_FILE });
+  }
+
+  GET_USER_DIR() {
+    this.dispatch({ type: FileSystemSagaActions.GET_USER_DIR });
   }
 }
