@@ -5,7 +5,7 @@ import getCanonicalFilePath from "../../utility/full-file-path";
 
 export default async function CreateFile(username: string, filePath: string, fileContent: string) {
   const CanonicalFilePath = getCanonicalFilePath(username, filePath);
-  const NewFile = { path: CanonicalFilePath, contents: fileContent };
+  const NewFile = { path: CanonicalFilePath, content: fileContent };
 
   // File already exists
   const file = await Mongoose.UserDir.findOne({ username, objects: { $in: [filePath] } }).catch(handleError);

@@ -50,10 +50,13 @@ export default class Log {
   }
 
   public static stackTrace(err: Error) {
-    if (inDevelopment || inStaging) console.log(err);
+    if (Object.keys(err).length === 0) {
+      if (inDevelopment || inStaging) console.log(err);
+    }
   }
 
   public static error(msg: string, err?: any) {
+    Log.stackTrace(err);
     const logObj = Log.getLogObj(Severity.ERROR, msg, err);
     Log.logToConsole(logObj, "red");
   }

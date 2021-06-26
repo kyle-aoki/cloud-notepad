@@ -16,7 +16,7 @@ export default function errorResponse(error: any, req: Request, res: Response, n
     type: error.type,
   };
 
-  if (inDevelopment || inStaging) Log.error("", errorResponseEntity);
+  if (inDevelopment || inStaging) Log.error(JSON.stringify(errorResponseEntity), error);
 
   res.send(errorResponseEntity);
 }

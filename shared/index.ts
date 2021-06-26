@@ -26,7 +26,7 @@ export enum PayloadValidationResponse {
   NOT_LOGGED_IN = "NOT_LOGGED_IN",
 
   FILEPATH_MISSING = "FILEPATH_MISSING",
-  FILEBODY_MISSING = "FILEBODY_MISSING",
+  FILE_CONTENT_MISSING = "FILE_CONTENT_MISSING",
 }
 
 export enum LogInResponse {
