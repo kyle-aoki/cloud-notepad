@@ -4,7 +4,10 @@ import Middleware from "../../middleware";
 
 const fileRouter = express.Router();
 
-fileRouter.post("/create-file", Middleware.SessionTokenAuthorization, FileHandler.CreateFile);
-fileRouter.post("/get-file", Middleware.SessionTokenAuthorization, FileHandler.GetFile);
+fileRouter.use(Middleware.SessionTokenAuthorization);
+fileRouter.post("/create-file", FileHandler.CreateFile);
+fileRouter.post("/get-file", FileHandler.GetFile);
+fileRouter.post("/get-user-dir", FileHandler.GetUserDir);
+fileRouter.post("/delete-file", FileHandler.DeleteFile);
 
 export default fileRouter;

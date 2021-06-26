@@ -30,7 +30,7 @@ export default class PayloadValidator {
     }
   }
 
-  static fileBodyExists(fileBody: string) {
+  static fileContentExists(fileBody: string) {
     if (!fileBody || typeof fileBody !== "string") {
       throw { type: PayloadValidationResponse.FILEBODY_MISSING };
     }

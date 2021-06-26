@@ -38,4 +38,7 @@ export enum FileResponse {
   FILE_SAVED = "FileResponse.FILE_SAVED",
   FILE_SENT = "FileResponse.FILE_SENT",
   FILE_ALREADY_EXISTS = "FileResponse.FILE_ALREADY_EXISTS",
+  USER_DIR_SENT = "FileResponse.USER_DIR_SENT",
+  FILE_DELETED = "FileResponse.FILE_DELETED",
+  FILE_NOT_EXIST = "FileResponse.FILE_NOT_EXIST",
 }

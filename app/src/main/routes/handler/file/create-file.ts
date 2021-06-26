@@ -9,12 +9,12 @@ export default async function CreateFile(req: Request, res: Response, next: Next
   const username = req.cookies.username;
 
   const filePath = req.body.filePath;
-  const fileBody = req.body.fileBody;
+  const fileContent = req.body.fileContent;
 
   PayloadValidator.filePathExists(filePath);
-  PayloadValidator.fileBodyExists(fileBody);
+  PayloadValidator.fileContentExists(fileContent);
 
-  await MongooseQuery.CreateFile(username, filePath, fileBody);
+  const newUserDir = await MongooseQuery.CreateFile(username, filePath, fileContent);
 
-  sendResponse(res, { type: FileResponse.FILE_SAVED });
+  sendResponse(res, { type: FileResponse.FILE_SAVED }, { newUserDir });
 }

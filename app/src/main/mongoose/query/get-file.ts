@@ -1,11 +1,13 @@
 import Mongoose from "..";
-import Log from "../../log";
 import Err from "../../response/err";
+import { FileResponse } from "../../shared";
+import getCanonicalFilePath from "../../utility/full-file-path";
 
 export default async function GetFile(username: string, filePath: string) {
-  const fullFilePath = `${username}${filePath}`;
+  const CanonicalFilePath = getCanonicalFilePath(username, filePath);
 
-  const file = await Mongoose.FileContents.findOne({ path: fullFilePath }).catch(handleError);
+  const file = await Mongoose.Files.findOne({ path: CanonicalFilePath }).catch(handleError);
+  if (!file) throw { type: FileResponse.FILE_NOT_EXIST };
 
   return file.contents;
 }
