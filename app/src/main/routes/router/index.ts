@@ -6,8 +6,6 @@ import userRouter from "./user";
 
 const mainRouter = express.Router();
 
-mainRouter.use(Middleware.ApiKeyAuthentication);
-
 mainRouter.use("/user", userRouter);
 mainRouter.use("/file", fileRouter);
 

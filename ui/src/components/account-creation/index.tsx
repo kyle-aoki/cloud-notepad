@@ -8,17 +8,17 @@ import { useNotificationControl } from '../../redux/reducers/notifications/contr
 import useAccountCreationNotifs from './use-account-creation-notifs';
 import { XButton } from '../file-system/styled-components';
 import { useSetUserOnAccountCreation } from './use-set-user-on-acc-creation';
-import { useCurrentUserControl } from '../../redux/reducers/current-user/control';
 import useCloseModalOnDone from './use-close-modal-on-done';
+import { useAccountControl } from '../../redux/reducers/account/control';
 
 interface AccountCreationPaneProps {}
 
 const AccountCreationModal: FC<AccountCreationPaneProps> = ({}) => {
   const AccountCreationControl = useAccountCreationControl();
   const NotificationControl = useNotificationControl();
-  const CurrentUserControl = useCurrentUserControl();
+  const AccountControl = useAccountControl();
 
-  useSetUserOnAccountCreation(CurrentUserControl, AccountCreationControl);
+  useSetUserOnAccountCreation(AccountControl, AccountCreationControl);
   useAccountCreationNotifs(AccountCreationControl, NotificationControl);
   useCloseModalOnDone(AccountCreationControl);
 
@@ -93,7 +93,7 @@ export const Spinner: FC = () => {
   return <div className="spinner-border" />;
 };
 
-const AccountCreationContainer = styled.div`
+export const AccountCreationContainer = styled.div`
   z-index: 50;
   position: absolute;
   top: 0;
@@ -104,7 +104,7 @@ const AccountCreationContainer = styled.div`
   transition: opacity 0.2s ease-in-out;
 `;
 
-const AccountCreationPaneElement = styled.div`
+export const AccountCreationPaneElement = styled.div`
   box-shadow: 0 2px 6px rgb(0 0 0 / 20%);
   z-index: 100;
   position: absolute;
@@ -124,7 +124,7 @@ const Spacer = styled.div`
   height: 20px;
 `;
 
-const AccountCreationTaskbar = styled.div`
+export const AccountCreationTaskbar = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
@@ -134,7 +134,7 @@ const AccountCreationTaskbar = styled.div`
   color: white;
 `;
 
-const ContentPane = styled.div`
+export const ContentPane = styled.div`
   height: 100%;
   padding: 0px 30px;
   display: flex;
@@ -143,7 +143,7 @@ const ContentPane = styled.div`
   padding-bottom: 25px;
 `;
 
-const Input = styled.input.attrs((props) => ({
+export const Input = styled.input.attrs((props) => ({
   spellCheck: false,
 }))`
   background-color: inherit;
@@ -166,7 +166,7 @@ const PasswordInput = styled(Input).attrs((props) => ({
   type: 'password',
 }))``;
 
-const Button = styled.div<any>`
+export const Button = styled.div<any>`
   padding: 0 50px;
   height: 32px;
   background-color: ${(props) => (props.clicked ? 'gray' : '#0078D7')};
@@ -198,7 +198,7 @@ const CreateAccountTitle = styled.div`
   font-size: 20px;
 `;
 
-const CloudNotepadTitle = styled.div`
+export const CloudNotepadTitle = styled.div`
   font-size: 14px;
 `;
 

@@ -12,9 +12,10 @@ import { createAccountModalReducer, CreateAccountModalState } from './redux/redu
 import { checkUsernameSaga, createAccountSaga } from './redux/reducers/create-account/saga';
 import { notificationReducer, NotificationState } from './redux/reducers/notifications/reducer';
 import { FileSystemState, fileSystemReducer } from './redux/reducers/file-system/reducer';
-import { CurrentUserReducer, CurrentUserState } from './redux/reducers/current-user/reducer';
 import { accountReducer, AccountState } from './redux/reducers/account/reducer';
 import { menuReducer, MenuState } from './redux/reducers/menu/reducer';
+import { GetUserDirSaga } from './redux/reducers/file-system/saga';
+import { LogInReducer, LogInState } from './redux/reducers/log-in/reducer';
 
 export interface GlobalState {
   fileSystem: FileSystemState;
@@ -22,7 +23,7 @@ export interface GlobalState {
   account: AccountState;
   createAccountModal: CreateAccountModalState;
   notifications: NotificationState;
-  currentUser: CurrentUserState;
+  LogIn: LogInState;
 }
 
 const sagaMiddleware = createSagaMiddleware();
@@ -33,7 +34,7 @@ const combinedReducers = combineReducers({
   menu: menuReducer,
   createAccountModal: createAccountModalReducer,
   notifications: notificationReducer,
-  currentUser: CurrentUserReducer,
+  LogIn: LogInReducer,
 });
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -42,6 +43,7 @@ export const store = createStore(combinedReducers, composeEnhancers(applyMiddlew
 
 sagaMiddleware.run(createAccountSaga);
 sagaMiddleware.run(checkUsernameSaga);
+sagaMiddleware.run(GetUserDirSaga);
 
 ReactDOM.render(
   <Provider store={store}>

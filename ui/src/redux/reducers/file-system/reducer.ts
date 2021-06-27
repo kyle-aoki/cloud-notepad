@@ -30,7 +30,7 @@ export interface FileSystemState {
 
 const initialState: FileSystemState = {
   fileSystemOpen: false,
-  userDir: {},
+  userDir: undefined,
 };
 
 export const fileSystemReducer: Reducer<FileSystemState, FileSystemAction> = (state = initialState, action) => {

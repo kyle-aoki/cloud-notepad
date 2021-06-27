@@ -23,13 +23,4 @@ export default class Middleware {
 
     next();
   }
-
-  static async ApiKeyAuthentication(req: Request, res: Response, next: NextFunction) {
-    const apiKey = req.headers["api_key"];
-
-    if (!apiKey) throw { statusCode: 401, type: "MISSING_API_KEY" };
-    if (apiKey !== CLOUD_NOTEPAD_API_KEY) throw { statusCode: 401, type: "INCORRECT_API_KEY" };
-
-    next();
-  }
 }

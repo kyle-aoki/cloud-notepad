@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
-import { CurrentUserControl } from '../../redux/reducers/current-user/control';
 import AccountCreationControl from '../../redux/reducers/create-account/control';
+import { AccountControl } from '../../redux/reducers/account/control';
 
 export const useSetUserOnAccountCreation = (
-  CurrentUserControl: CurrentUserControl,
+  AccountControl: AccountControl,
   AccountCreationControl: AccountCreationControl
 ) => {
   useEffect(() => {
-    CurrentUserControl.SET_CURRENT_USER(AccountCreationControl.state.newUserUsername);
-  }, [AccountCreationControl.state.newUserUsername]);
+    if (AccountCreationControl.state.done === false) return;
+    AccountControl.SET_USER(AccountCreationControl.state.newUserUsername);
+  }, [AccountCreationControl.state.done]);
 };

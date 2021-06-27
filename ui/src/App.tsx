@@ -6,6 +6,7 @@ import { GlobalState } from '.';
 import AccountCreationModal from './components/account-creation';
 import Editor from './components/editor/editor';
 import FileSystem from './components/file-system/file-system';
+import { LogInModal } from './components/log-in';
 import StatusBar from './components/statusbar/status-bar';
 import Taskbar from './components/taskbar/taskbar';
 import { inDevelopment } from './env/environment';
@@ -32,6 +33,7 @@ const App: FC = () => {
       <AppContainer>
         {fileSystemOpen && <FileSystem />}
         <AccountCreationModal />
+        <LogInModal />
 
         <Taskbar />
         <Editor />

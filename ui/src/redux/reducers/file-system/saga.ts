@@ -16,6 +16,6 @@ function* GetUserDir(action: FileSystemAction): Generator<any, any, any> {
   }
 }
 
-export function* checkUsernameSaga() {
+export function* GetUserDirSaga() {
   yield takeEvery(FileSystemSagaActions.GET_USER_DIR, GetUserDir);
 }

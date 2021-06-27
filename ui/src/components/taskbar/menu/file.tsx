@@ -14,6 +14,7 @@ const File: FC<FileProps> = () => {
 
   const handleOpenClick = () => {
     FileSystemControl.OPEN_FILE_SYSTEM();
+    FileSystemControl.GET_USER_DIR();
     MenuControl.CLOSE_ALL();
   };
 
