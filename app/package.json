@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "scripts": {
     "test": "npx jest",
+    "dev": "doppler run -- ts-node-dev src/main/server/",
     "build-backend": "rimraf build && tsc && rimraf build/app/src/test/",
     "build-frontend": "cd ../ui && npm run build",
     "build": "npm-run-all build-backend build-frontend",
-    "start": "doppler run -- node build/app/src/main/server/",
-    "dev": "doppler run -- ts-node-dev src/main/server/"
+    "start": "doppler run -- node build/app/src/main/server/"
   },
   "dependencies": {
     "chalk": "^4.1.1",

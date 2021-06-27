@@ -1,5 +1,3 @@
-import { inProduction, inStaging } from "./environment";
-
 // session_tokens older than 1 day will be invalid
 export const POSTGRESQL_INTERVAL_STRING = "1 DAY";
 
