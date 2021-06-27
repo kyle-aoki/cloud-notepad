@@ -1,44 +1,44 @@
-import withCatchAsyncError from "../../async-catch";
+import Err from "../../response/err";
 import { PayloadValidationResponse } from "../../shared";
 
-type Location = "cookie" | "request body";
-
 export default class PayloadValidator {
-  static passwordExists(password: string, location: Location) {
-    if (!password || typeof password !== "string") {
-      throw {
-        type: PayloadValidationResponse.PASSWORD_MISSING,
-      };
-    }
+  static passwordExists(password: string) {
+    if (this.notTruthyOrNotString(password)) throw new Err(PayloadValidationResponse.PASSWORD_MISSING);
   }
 
-  static usernameExists(username: string, location: Location) {
-    if (!username || typeof username !== "string") {
-      throw { type: PayloadValidationResponse.USERNAME_MISSING };
-    }
+  static usernameExists(username: string) {
+    if (this.notTruthyOrNotString(username)) throw new Err(PayloadValidationResponse.USERNAME_MISSING);
   }
 
   static sessionTokenExists(session_token: string) {
-    if (!session_token || typeof session_token !== "string") {
-      throw { type: PayloadValidationResponse.NOT_LOGGED_IN };
-    }
+    if (this.notTruthyOrNotString(session_token)) throw new Err(PayloadValidationResponse.NOT_LOGGED_IN);
   }
 
   static fileNameExists(fileName: string) {
-    if (!fileName || typeof fileName !== "string") {
-      throw { type: PayloadValidationResponse.FILEPATH_MISSING };
-    }
+    if (this.notTruthyOrNotString(fileName)) throw new Err(PayloadValidationResponse.FILEPATH_MISSING);
   }
 
   static filePathExists(filePath: string) {
-    if (!filePath || typeof filePath !== "object") {
-      throw { type: PayloadValidationResponse.FILEPATH_MISSING };
-    }
+    if (this.notTruthyOrNotObject(filePath)) throw new Err(PayloadValidationResponse.FILEPATH_MISSING);
   }
 
   static fileContentExists(fileContent: string) {
-    if (!fileContent || typeof fileContent !== "string") {
-      throw { type: PayloadValidationResponse.FILE_CONTENT_MISSING };
-    }
+    if (this.notTruthyOrNotString(fileContent)) throw new Err(PayloadValidationResponse.FILE_CONTENT_MISSING);
+  }
+
+  static notTruthyOrNotObject(obj: any) {
+    return !obj || !this.isObject(obj);
+  }
+
+  static notTruthyOrNotString(obj: any) {
+    return !obj || !this.isString(obj);
+  }
+
+  static isString(maybeString: any) {
+    return typeof maybeString === "string";
+  }
+
+  static isObject(maybeObject: any) {
+    return typeof maybeObject === "object";
   }
 }
