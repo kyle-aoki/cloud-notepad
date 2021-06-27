@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { GlobalState } from '../..';
+import { useAccountState } from '../../redux/reducers/account/control';
 import { useMenuControl } from '../../redux/reducers/menu/control';
 import Account from './menu/account';
 import Edit from './menu/edit';
@@ -39,12 +40,12 @@ const Taskbar: FC<TaskbarProps> = () => {
     <>
       {open && <ClickOff onClick={() => MenuControl.CLOSE_ALL()} />}
       <TaskbarContainer>
-        <File />
-        {/* <Edit /> */}
-        {/* <Format /> */}
-        {/* <View /> */}
-        {/* <Help /> */}
         <Account />
+        <File />
+        <Edit />
+        <Format />
+        <View />
+        <Help />
       </TaskbarContainer>
     </>
   );

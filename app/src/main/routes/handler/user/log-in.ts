@@ -6,13 +6,14 @@ import sendResponse from "../../../response/send-response";
 import Validator from "../../../validation/general";
 import { cookieOptions } from "../../../utility/session-token-constants";
 import { LogInResponse } from "../../../shared";
+import PayloadValidator from "../../../validation/payload";
 
 export default async function LogIn(req: Request, res: Response, next: NextFunction) {
   const username = req.body.username;
   const password = req.body.password;
 
-  Validator.validateUsername(username);
-  Validator.validatePassword(password);
+  PayloadValidator.usernameExists(username);
+  PayloadValidator.passwordExists(password);
 
   const hashedPassword = hashPassword(password);
   await SQLQuery.verifyPassword(username, hashedPassword);

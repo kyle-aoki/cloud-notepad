@@ -9,9 +9,9 @@ export default async function DeleteUser(req: Request, res: Response, next: Next
   const password = req.body.password;
   const session_token = req.cookies.session_token as string;
 
-  PayloadValidator.usernameExists(username, "cookie");
+  PayloadValidator.usernameExists(username);
   PayloadValidator.sessionTokenExists(session_token);
-  PayloadValidator.passwordExists(password, "request body");
+  PayloadValidator.passwordExists(password);
 
   const hashedPassword = hashPassword(password);
 

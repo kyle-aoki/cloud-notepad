@@ -30,7 +30,7 @@ export const PASSWORD_LOADING = (state: CreateAccountModalState, action: CreateA
 export const ACCOUNT_CREATED_SUCCESS = (state: CreateAccountModalState, action: CreateAccountModalAction) => {
   switch (action.payload.type) {
     case LogInResponse.SUCCESSFUL_LOG_IN:
-      state.notificationText = `Successfully logged in as ${action.payload.username}.`;
+      state.notificationText = `Logged In as ${action.payload.username}.`;
       state.notificationType = NotificationType.INFO;
       state.notificationCount += 1;
       state.newUserUsername = action.payload.username;
@@ -51,11 +51,11 @@ export const ACCOUNT_FAILED_TO_CREATE = (state: CreateAccountModalState, action:
       break;
     case ValidationResponse.PASSWORD_SHORT:
       state.notificationType = NotificationType.ERROR;
-      state.notificationText = `Password is too short.\nMinimum length is ${action.payload.minLength} characters.`;
+      state.notificationText = `Password is too short.`;
       break;
     case ValidationResponse.PASSWORD_LONG:
       state.notificationType = NotificationType.ERROR;
-      state.notificationText = `Password is too long.\nMaximum length is ${action.payload.maxLength} characters.`;
+      state.notificationText = `Password is too long.`;
       break;
     case ValidationResponse.INVALID_PASSWORD_SYMBOLS:
       state.notificationType = NotificationType.ERROR;
@@ -106,11 +106,11 @@ export const BAD_USERNAME = (state: CreateAccountModalState, action: CreateAccou
       state.notificationType = NotificationType.ERROR;
       break;
     case ValidationResponse.USERNAME_SHORT:
-      state.notificationText = `Username is too short.\nMinimum length is ${action.payload.minLength} characters.`;
+      state.notificationText = 'Username is too short.';
       state.notificationType = NotificationType.ERROR;
       break;
     case ValidationResponse.USERNAME_LONG:
-      state.notificationText = `Username is too long.\nMaximum length is ${action.payload.maxLength} characters.`;
+      state.notificationText = 'Username is too long.';
       state.notificationType = NotificationType.ERROR;
       break;
     case ValidationResponse.INVALID_USERNAME_SYMBOLS:

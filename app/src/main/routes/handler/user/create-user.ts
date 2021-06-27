@@ -9,8 +9,8 @@ export default async function CreateUser(req: Request, res: Response, next: Next
   const username = req.body.username;
   const password = req.body.password;
 
-  PayloadValidator.usernameExists(username, "request body");
-  PayloadValidator.passwordExists(password, "request body");
+  PayloadValidator.usernameExists(username);
+  PayloadValidator.passwordExists(password);
 
   Validator.validateUsername(username);
   Validator.validatePassword(password);

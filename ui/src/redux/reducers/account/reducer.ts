@@ -17,7 +17,7 @@ export type AccountAction = {
 };
 
 export enum AccountSagaActions {
-  LOG_IN = 'LOG_IN',
+  SUBMIT_LOG_IN = 'SUBMIT_LOG_IN',
 }
 
 export enum AccountActions {

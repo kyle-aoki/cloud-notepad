@@ -16,6 +16,7 @@ import { accountReducer, AccountState } from './redux/reducers/account/reducer';
 import { menuReducer, MenuState } from './redux/reducers/menu/reducer';
 import { GetUserDirSaga } from './redux/reducers/file-system/saga';
 import { LogInReducer, LogInState } from './redux/reducers/log-in/reducer';
+import { LogInSaga } from './redux/reducers/account/saga';
 
 export interface GlobalState {
   fileSystem: FileSystemState;
@@ -44,6 +45,7 @@ export const store = createStore(combinedReducers, composeEnhancers(applyMiddlew
 sagaMiddleware.run(createAccountSaga);
 sagaMiddleware.run(checkUsernameSaga);
 sagaMiddleware.run(GetUserDirSaga);
+sagaMiddleware.run(LogInSaga);
 
 ReactDOM.render(
   <Provider store={store}>

@@ -7,18 +7,16 @@ import { GenericError } from '../../../shared';
 function* checkUsernameGenerator(action: CreateAccountModalAction): Generator<any, any, any> {
   try {
     if (!action.payload.username) {
-      return yield put({
-        type: CreateAccountModalActions.BAD_USERNAME,
-      });
+      return yield put({ type: CreateAccountModalActions.BAD_USERNAME });
     }
     const checkUsernameResult: any = yield call(UserAPI.checkUsername, action.payload.username);
-    if (!checkUsernameResult.ok)
+    if (!checkUsernameResult.ok) {
       return yield put({
         type: CreateAccountModalActions.BAD_USERNAME,
-        payload: {
-          ...checkUsernameResult,
-        },
+        payload: { ...checkUsernameResult },
       });
+    }
+
     yield put({ type: CreateAccountModalActions.GO_TO_PASSWORD_SCREEN });
   } catch (e) {
     yield put({

@@ -158,10 +158,10 @@ export const Input = styled.input.attrs((props) => ({
   width: 100%;
 `;
 
-const UsernameInput = styled(Input).attrs((props) => ({
+export const UsernameInput = styled(Input).attrs((props) => ({
   placeholder: 'username',
 }))``;
-const PasswordInput = styled(Input).attrs((props) => ({
+export const PasswordInput = styled(Input).attrs((props) => ({
   placeholder: 'password',
   type: 'password',
 }))``;

@@ -8,7 +8,6 @@ import { useAccountControl, useAccountState } from '../../../redux/reducers/acco
 import { useLogInControl } from '../../../redux/reducers/log-in/control';
 
 const AccountContainer = styled(MenuContainer)`
-  margin-left: auto;
   padding: 0 10px;
 `;
 
@@ -18,7 +17,7 @@ const AccountDropDown = styled.div`
   cursor: default;
   position: absolute;
   top: 19px;
-  right: 0px;
+  left: 0px;
   border: 1px solid #4b4c4f;
   background-color: #292a2d;
   border-radius: 1px;
@@ -30,10 +29,6 @@ const AccountDropDown = styled.div`
   gap: 20px;
   min-width: 200px;
 `;
-
-const AccountDownChevron: FC = () => (
-  <DownChevron width="8px" height="8px" style={{ marginLeft: '5px', marginTop: '2px' }} />
-);
 
 const AccountMenuButton = styled.div`
   display: grid;
@@ -55,7 +50,7 @@ const LoggedInAccountDropDown = styled.div`
   cursor: default;
   position: absolute;
   top: 19px;
-  right: 0px;
+  left: 0px;
   border: 1px solid #4b4c4f;
   background-color: #292a2d;
   border-radius: 1px;
@@ -98,10 +93,7 @@ const Account: any = () => {
 
   return (
     <>
-      <AccountContainer onClick={handleAccountClick}>
-        Account
-        <AccountDownChevron />
-      </AccountContainer>
+      <MenuContainer onClick={handleAccountClick}>Account</MenuContainer>
       {AccountState.accountMenuOpen &&
         (AccountState.username ? (
           <LoggedInAccountDropDown>

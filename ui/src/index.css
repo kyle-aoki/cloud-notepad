@@ -136,3 +136,9 @@ body,
   pointer-events: none;
   opacity: 0;
 }
+
+.Notification {
+  background-color: var(--blue);
+  color: white;
+  border: 1px solid var(--blueHovered);
+}

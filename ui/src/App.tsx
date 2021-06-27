@@ -27,7 +27,16 @@ const App: FC = () => {
 
   return (
     <>
-      <Toaster />
+      <Toaster
+        toastOptions={{
+          className: 'Notification',
+          style: { borderRadius: '0px' },
+        }}
+        containerStyle={{
+          top: 30,
+          right: 27,
+        }}
+      />
       {inDevelopment && <ReduxPane />}
 
       <AppContainer>
