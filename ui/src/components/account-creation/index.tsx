@@ -2,20 +2,20 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { XButtonSVGContainer } from '../file-system/file-system';
 import { ReactComponent as LeftArrow } from '../../assets/left-arrow.svg';
-import { AccountCreationScreen } from '../../redux/reducers/create-account/reducer';
-import { useAccountCreationControl } from '../../redux/reducers/create-account/control';
-import { useNotificationControl } from '../../redux/reducers/notifications/control';
+import { AccountCreationScreen } from './redux/reducer';
+import { useAccountCreationControl } from './redux/control';
+import { useNotificationDispatch } from '../../notifications/redux/control';
 import useAccountCreationNotifs from './use-account-creation-notifs';
 import { XButton } from '../file-system/styled-components';
 import { useSetUserOnAccountCreation } from './use-set-user-on-acc-creation';
 import useCloseModalOnDone from './use-close-modal-on-done';
-import { useAccountControl } from '../../redux/reducers/account/control';
+import { useAccountControl } from '../taskbar/menu/account/redux/control';
 
 interface AccountCreationPaneProps {}
 
 const AccountCreationModal: FC<AccountCreationPaneProps> = ({}) => {
   const AccountCreationControl = useAccountCreationControl();
-  const NotificationControl = useNotificationControl();
+  const NotificationControl = useNotificationDispatch();
   const AccountControl = useAccountControl();
 
   useSetUserOnAccountCreation(AccountControl, AccountCreationControl);

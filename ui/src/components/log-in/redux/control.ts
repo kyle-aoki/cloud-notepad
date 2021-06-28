@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { GlobalState } from '../../..';
 import { Dispatch } from 'redux';
 import { LogInActions } from './reducer';
-import { AccountSagaActions } from '../account/reducer';
+import { AccountSagaActions } from '../../taskbar/menu/account/redux/reducer';
 
 export const useLogInState = () => {
   const state = useSelector((state: GlobalState) => state.LogIn);

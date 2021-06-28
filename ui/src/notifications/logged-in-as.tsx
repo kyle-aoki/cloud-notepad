@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import { UsernameFont } from '../../ui/username-font';
+import { UsernameFont } from '../ui/username-font';
 
 export const LoggedInAsNotification = (username: string) => {
   toast.info(<UsernameFont>{username}</UsernameFont>, {

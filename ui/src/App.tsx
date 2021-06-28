@@ -10,11 +10,10 @@ import { LogInModal } from './components/log-in';
 import StatusBar from './components/statusbar/status-bar';
 import Taskbar from './components/taskbar/taskbar';
 import { inDevelopment } from './env/environment';
-import useNotifications from './hooks/notifications/use-notifications';
-import { NotificationActions, NotificationType } from './redux/reducers/notifications/reducer';
-import ReduxPane from './redux/redux-pane/redux-pane';
+import { NotificationActions, NotificationType } from './notifications/redux/reducer';
+import ReduxPane from './redux-pane/redux-pane';
 import { Slide } from 'react-toastify';
-
+import useNotifications from './notifications/use-notifications';
 
 const AppContainer = styled.div`
   display: flex;
@@ -27,15 +26,12 @@ const App: FC = () => {
   const fileSystemOpen = useSelector((state: GlobalState) => state.fileSystem.fileSystemOpen);
 
   useNotifications();
+  
   const dispatch = useDispatch();
-
   const ok = () => {
     dispatch({
       type: NotificationActions.PUSH_NOTIFICATION,
-      payload: {
-        notificationType: NotificationType.INFO,
-        notificationText: 'asdfasdf',
-      },
+      payload: { type: NotificationType.INFO, text: 'asdfasdf' },
     });
   };
 

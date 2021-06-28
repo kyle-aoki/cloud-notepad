@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { GlobalState } from '../../..';
+import { GlobalState } from '../../../../..';
 import { Dispatch } from 'redux';
 import { AccountActions, AccountState } from './reducer';
 

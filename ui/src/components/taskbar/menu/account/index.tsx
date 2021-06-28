@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import MenuContainer from './components/menu-container';
+import MenuContainer from '../components/menu-container';
 import { ReactComponent as DownChevron } from '../../../assets/down-chevron.svg';
-import { DropdownMenu, DropdownMenuItem, DropdownMenuSeperator } from './components/dropdown';
-import { useAccountCreationControl } from '../../../redux/reducers/create-account/control';
-import { useAccountControl, useAccountState } from '../../../redux/reducers/account/control';
-import { useLogInControl } from '../../../redux/reducers/log-in/control';
-import { MenuType } from '../../../redux/reducers/menu/reducer';
-import MenuItem from './components/menu-item';
-import { LoggedInAs, UsernameDisplay } from '../../../ui/username-font';
-import { useMenuControl } from '../../../redux/reducers/menu/control';
+import { DropdownMenu, DropdownMenuItem, DropdownMenuSeperator } from '../components/dropdown';
+import { useAccountCreationControl } from '../../../account-creation/redux/control';
+import { useAccountControl, useAccountState } from './redux/control';
+import { useLogInControl } from '../../../log-in/redux/control';
+import { MenuType } from '../../redux/reducer';
+import MenuItem from '../components/menu-item';
+import { LoggedInAs, UsernameDisplay } from '../../../../ui/username-font';
+import { useMenuControl } from '../../redux/control';
 
 const AccountContainer = styled(MenuContainer)`
   padding: 0 10px;

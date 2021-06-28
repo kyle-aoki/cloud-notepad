@@ -1,9 +1,9 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import FileAPI from '../../../api/file.api';
-import UserAPI from '../../../api/user-api';
-import { LoggedInAs } from '../../../ui/username-font';
-import { LogInActions } from '../log-in/reducer';
-import { NotificationActions, NotificationType } from '../notifications/reducer';
+import FileAPI from '../../../../../api/file.api';
+import UserAPI from '../../../../../api/user-api';
+import { LoggedInAs } from '../../../../../ui/username-font';
+import { LogInActions } from '../../../../log-in/redux/reducer';
+import { NotificationActions, NotificationType } from '../../../../../notifications/redux/reducer';
 import { AccountAction, AccountActions, AccountSagaActions } from './reducer';
 
 function* LogIn(action: AccountAction): Generator<any, any, any> {

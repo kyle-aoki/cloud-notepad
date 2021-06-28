@@ -1,6 +1,6 @@
 import { CheckUsernameResponse, GenericError, LogInResponse, ValidationResponse } from '../../../shared';
 import { UsernameDisplay } from '../../../ui/username-font';
-import { NotificationType } from '../notifications/reducer';
+import { NotificationType } from '../../../notifications/redux/reducer';
 import {
   accountCreationInitialState,
   AccountCreationScreen,

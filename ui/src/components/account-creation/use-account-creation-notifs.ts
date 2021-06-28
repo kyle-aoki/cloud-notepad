@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import AccountCreationControl from '../../redux/reducers/create-account/control';
-import NotificationControl from '../../redux/reducers/notifications/control';
+import AccountCreationControl from './redux/control';
+import NotificationDispatch from '../../notifications/redux/control';
 
 export default function useAccountCreationNotifs(
   AccountCreationControl: AccountCreationControl,
-  NotificationControl: NotificationControl
+  NotificationControl: NotificationDispatch
 ) {
   useEffect(() => {
     if (AccountCreationControl.state.done) {

@@ -32,8 +32,8 @@ import {
   ButtonContainer,
 } from './styled-components';
 import { File, Folder } from './objects';
-import { FileSystemActions } from '../../redux/reducers/file-system/reducer';
-import { useFileSystemControl, useFileSystemState } from '../../redux/reducers/file-system/control';
+import { FileSystemActions } from './redux/reducer';
+import { useFileSystemControl, useFileSystemState } from './redux/control';
 
 export default function FileSystem() {
   let [response, setResponse] = useState<any>();

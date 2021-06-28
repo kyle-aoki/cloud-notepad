@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { MenuType } from "../../../redux/reducers/menu/reducer";
+import { MenuType } from "../redux/reducer";
 import { DropdownMenuItem, DropdownMenuSeperator } from "./components/dropdown";
 import MenuItem from "./components/menu-item";
 

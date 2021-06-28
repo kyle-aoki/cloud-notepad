@@ -1,25 +1,26 @@
 import { ReactNode } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
-import { GlobalState } from '../../..';
+import { GlobalState } from '../..';
 import { NotificationActions, NotificationState, NotificationType } from './reducer';
 
-export const useNotificationControl = (): NotificationControl => {
-  const dispatch = useDispatch();
-  const state = useSelector((state: GlobalState) => state.notifications);
-  return new NotificationControl(dispatch, state);
+export const useNotificationState = () => {
+  return useSelector((state: GlobalState) => state.notifications);
 };
 
-export default class NotificationControl {
-  dispatch: Dispatch<any>;
-  state: NotificationState;
+export const useNotificationDispatch = (): NotificationDispatch => {
+  const dispatch = useDispatch();
+  return new NotificationDispatch(dispatch);
+};
 
-  constructor(dispatch: Dispatch<any>, state: NotificationState) {
+export default class NotificationDispatch {
+  dispatch: Dispatch<any>;
+
+  constructor(dispatch: Dispatch<any>) {
     this.dispatch = dispatch;
-    this.state = state;
   }
 
-  PUSH_NOTIFICATION(type: NotificationType, text: string | ReactNode) {
+  PUSH_NOTIFICATION(type: NotificationType, text: string) {
     this.dispatch({
       type: NotificationActions.PUSH_NOTIFICATION,
       payload: {

@@ -8,15 +8,15 @@ import { Provider } from 'react-redux';
 
 import createSagaMiddleware from 'redux-saga';
 
-import { createAccountModalReducer, CreateAccountModalState } from './redux/reducers/create-account/reducer';
-import { checkUsernameSaga, createAccountSaga } from './redux/reducers/create-account/saga';
-import { notificationReducer, NotificationState } from './redux/reducers/notifications/reducer';
-import { FileSystemState, fileSystemReducer } from './redux/reducers/file-system/reducer';
-import { accountReducer, AccountState } from './redux/reducers/account/reducer';
-import { menuReducer, MenuState } from './redux/reducers/menu/reducer';
-import { GetUserDirSaga } from './redux/reducers/file-system/saga';
-import { LogInReducer, LogInState } from './redux/reducers/log-in/reducer';
-import { LogInSaga } from './redux/reducers/account/saga';
+import { createAccountModalReducer, CreateAccountModalState } from './components/account-creation/redux/reducer';
+import { checkUsernameSaga, createAccountSaga } from './components/account-creation/redux/saga';
+import { notificationReducer, NotificationState } from './notifications/redux/reducer';
+import { FileSystemState, fileSystemReducer } from './components/file-system/redux/reducer';
+import { accountReducer, AccountState } from './components/taskbar/menu/account/redux/reducer';
+import { menuReducer, MenuState } from './components/taskbar/redux/reducer';
+import { GetUserDirSaga } from './components/file-system/redux/saga';
+import { LogInReducer, LogInState } from './components/log-in/redux/reducer';
+import { LogInSaga } from './components/taskbar/menu/account/redux/saga';
 import 'react-toastify/dist/ReactToastify.css';
 
 export interface GlobalState {

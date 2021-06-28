@@ -9,15 +9,15 @@ export enum NotificationType {
 }
 
 export interface NotificationState {
-  notificationCount: number;
-  notificationType: NotificationType;
-  notificationText: string;
+  count: number;
+  type: NotificationType;
+  text: string;
 }
 
 export const notificationInitialState: NotificationState = {
-  notificationCount: 0,
-  notificationType: NotificationType.INFO,
-  notificationText: '',
+  count: 0,
+  type: NotificationType.INFO,
+  text: '',
 };
 
 export enum NotificationActions {
@@ -26,10 +26,7 @@ export enum NotificationActions {
 
 export interface NotificationAction {
   type: NotificationActions;
-  payload: {
-    notificationType: NotificationType;
-    notificationText?: string;
-  };
+  payload: { type: NotificationType; text: string };
 }
 
 export const notificationReducer: Reducer<NotificationState, NotificationAction> = (

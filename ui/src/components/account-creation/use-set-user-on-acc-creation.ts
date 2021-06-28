@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import AccountCreationControl from '../../redux/reducers/create-account/control';
-import { AccountControl } from '../../redux/reducers/account/control';
+import AccountCreationControl from './redux/control';
+import { AccountControl } from '../taskbar/menu/account/redux/control';
 
 export const useSetUserOnAccountCreation = (
   AccountControl: AccountControl,

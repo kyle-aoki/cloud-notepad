@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import AccountCreationControl from '../../redux/reducers/create-account/control';
+import AccountCreationControl from './redux/control';
 
 export default function useCloseModalOnDone(AccountCreationControl: AccountCreationControl) {
   useEffect(() => {

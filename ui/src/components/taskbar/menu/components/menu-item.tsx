@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { DropdownMenu } from './dropdown';
 import MenuContainer from './menu-container';
 import { GlobalState } from '../../../..';
-import { MenuType } from '../../../../redux/reducers/menu/reducer';
-import { useMenuControl } from '../../../../redux/reducers/menu/control';
+import { MenuType } from '../../redux/reducer';
+import { useMenuControl } from '../../redux/control';
 
 interface MenuItemProps {
   menuName: string;

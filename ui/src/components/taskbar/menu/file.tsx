@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
-import { useFileSystemControl } from '../../../redux/reducers/file-system/control';
-import { useMenuControl } from '../../../redux/reducers/menu/control';
-import { MenuType } from '../../../redux/reducers/menu/reducer';
+import { useFileSystemControl } from '../../file-system/redux/control';
+import { useMenuControl } from '../redux/control';
+import { MenuType } from '../redux/reducer';
 import { DropdownMenuItem, DropdownMenuSeperator } from './components/dropdown';
 import MenuItem from './components/menu-item';
 

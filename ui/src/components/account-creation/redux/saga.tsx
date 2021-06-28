@@ -2,7 +2,7 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import { CreateAccountModalAction, CreateAccountModalActions } from './reducer';
 import UserAPI from '../../../api/user-api';
 import { GenericError } from '../../../shared';
-import { NotificationActions, NotificationType } from '../notifications/reducer';
+import { NotificationActions, NotificationType } from '../../../notifications/redux/reducer';
 import { LoggedInAs, UsernameDisplay } from '../../../ui/username-font';
 
 // click 'Next' button

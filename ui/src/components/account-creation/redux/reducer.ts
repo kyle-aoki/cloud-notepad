@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { Reducer } from 'redux';
-import { NotificationType } from '../notifications/reducer';
+import { NotificationType } from '../../../notifications/redux/reducer';
 import {
   OPEN_MODAL,
   CLOSE_MODAL,
@@ -44,7 +44,7 @@ export interface CreateAccountModalState {
 
   notificationCount: number;
   notificationType: NotificationType;
-  notificationText: string | ReactNode;
+  notificationText: string;
 
   createAccountAttempt: number;
   accountCreatedSuccess: boolean;

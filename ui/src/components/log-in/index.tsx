@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { useLogInControl, useLogInState } from '../../redux/reducers/log-in/control';
+import { useLogInControl, useLogInState } from './redux/control';
 import {
   AccountCreationContainer,
   AccountCreationPaneElement,
