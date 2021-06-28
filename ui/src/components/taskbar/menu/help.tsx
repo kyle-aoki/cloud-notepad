@@ -7,7 +7,7 @@ interface HelpProps {}
 
 const Help: FC<HelpProps> = () => {
   return (
-    <MenuItem menuName="Help" menuType={MenuType.help} offset={"141px"}>
+    <MenuItem menuName="Help" menuType={MenuType.help} offset={"194px"}>
       <DropdownMenuItem>New</DropdownMenuItem>
       <DropdownMenuItem>New Window</DropdownMenuItem>
       <DropdownMenuItem>Open...</DropdownMenuItem>

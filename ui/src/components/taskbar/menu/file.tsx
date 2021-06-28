@@ -19,17 +19,17 @@ const File: FC<FileProps> = () => {
   };
 
   return (
-    <MenuItem menuName="File" menuType={MenuType.file} offset={'43px'}>
-      {/* <DropdownMenuItem>New</DropdownMenuItem> */}
-      {/* <DropdownMenuItem>New Window</DropdownMenuItem> */}
+    <MenuItem menuName="File" menuType={MenuType.file} offset={'54px'}>
+      <DropdownMenuItem>New</DropdownMenuItem>
+      <DropdownMenuItem>New Window</DropdownMenuItem>
       <DropdownMenuItem onClick={handleOpenClick}>Open...</DropdownMenuItem>
-      {/* <DropdownMenuItem>Save</DropdownMenuItem> */}
-      {/* <DropdownMenuItem>Save As...</DropdownMenuItem> */}
-      {/* <DropdownMenuSeperator /> */}
-      {/* <DropdownMenuItem>Page Setup...</DropdownMenuItem> */}
-      {/* <DropdownMenuItem>Print...</DropdownMenuItem> */}
-      {/* <DropdownMenuSeperator /> */}
-      {/* <DropdownMenuItem>Exit</DropdownMenuItem> */}
+      <DropdownMenuItem>Save</DropdownMenuItem>
+      <DropdownMenuItem>Save As...</DropdownMenuItem>
+      <DropdownMenuSeperator />
+      <DropdownMenuItem>Page Setup...</DropdownMenuItem>
+      <DropdownMenuItem>Print...</DropdownMenuItem>
+      <DropdownMenuSeperator />
+      <DropdownMenuItem>Exit</DropdownMenuItem>
     </MenuItem>
   );
 };

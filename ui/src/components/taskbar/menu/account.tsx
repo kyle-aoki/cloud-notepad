@@ -2,10 +2,14 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import MenuContainer from './components/menu-container';
 import { ReactComponent as DownChevron } from '../../../assets/down-chevron.svg';
-import { DropdownMenu } from './components/dropdown';
+import { DropdownMenu, DropdownMenuItem, DropdownMenuSeperator } from './components/dropdown';
 import { useAccountCreationControl } from '../../../redux/reducers/create-account/control';
 import { useAccountControl, useAccountState } from '../../../redux/reducers/account/control';
 import { useLogInControl } from '../../../redux/reducers/log-in/control';
+import { MenuType } from '../../../redux/reducers/menu/reducer';
+import MenuItem from './components/menu-item';
+import { LoggedInAs, UsernameDisplay } from '../../../ui/username-font';
+import { useMenuControl } from '../../../redux/reducers/menu/control';
 
 const AccountContainer = styled(MenuContainer)`
   padding: 0 10px;
@@ -72,40 +76,41 @@ const Account: any = () => {
   const AccountControl = useAccountControl();
   const AccountCreationControl = useAccountCreationControl();
   const LogInControl = useLogInControl();
-
-  const handleAccountClick = () => {
-    AccountControl.TOGGLE_ACCOUNT_DROPDOWN();
-  };
+  const MenuControl = useMenuControl();
 
   const handleCreateAccountButtonClick = () => {
-    AccountControl.TOGGLE_ACCOUNT_DROPDOWN();
     AccountCreationControl.OPEN_MODAL();
+    MenuControl.CLOSE_ALL();
   };
 
   const handleLogInClick = () => {
     LogInControl.TOGGLE_LOG_IN_MODAL();
-    AccountControl.TOGGLE_ACCOUNT_DROPDOWN();
+    MenuControl.CLOSE_ALL();
   };
 
   const handleLogOutClick = () => {
     AccountControl.UNSET_USER();
+    MenuControl.CLOSE_ALL();
   };
 
   return (
     <>
-      <MenuContainer onClick={handleAccountClick}>Account</MenuContainer>
-      {AccountState.accountMenuOpen &&
-        (AccountState.username ? (
-          <LoggedInAccountDropDown>
-            <LoggedInAsContainer>{AccountState.username}</LoggedInAsContainer>
-            <AccountMenuButton onClick={handleLogOutClick}>Log Out</AccountMenuButton>
-          </LoggedInAccountDropDown>
+      <MenuItem menuName="Account" menuType={MenuType.account} offset={'0px'}>
+        {AccountState.username ? (
+          <>
+            <DropdownMenuItem unhoverable={true}>
+              <LoggedInAs username={AccountState.username} />
+            </DropdownMenuItem>
+            <DropdownMenuSeperator />
+            <DropdownMenuItem onClick={handleLogOutClick}>Log Out</DropdownMenuItem>
+          </>
         ) : (
-          <AccountDropDown>
-            <AccountMenuButton onClick={handleLogInClick}>Log In</AccountMenuButton>
-            <AccountMenuButton onClick={handleCreateAccountButtonClick}>Create Account</AccountMenuButton>
-          </AccountDropDown>
-        ))}
+          <>
+            <DropdownMenuItem onClick={handleCreateAccountButtonClick}>Create Account</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogInClick}>Log In</DropdownMenuItem>
+          </>
+        )}
+      </MenuItem>
     </>
   );
 };

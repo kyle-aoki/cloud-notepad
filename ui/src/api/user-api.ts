@@ -19,7 +19,7 @@ export default class UserAPI {
           'content-type': 'application/json',
         },
         method: 'POST',
-        body: JSON.stringify({ username: username }),
+        body: JSON.stringify({ username }),
       });
       const json = await res.json();
       return json;

@@ -7,7 +7,7 @@ interface EditProps {}
 
 const Edit: FC<EditProps> = () => {
   return (
-    <MenuItem menuName="Edit" menuType={MenuType.edit} offset={"28px"}>
+    <MenuItem menuName="Edit" menuType={MenuType.edit} offset={"81.5px"}>
       <DropdownMenuItem>New</DropdownMenuItem>
       <DropdownMenuItem>New Window</DropdownMenuItem>
       <DropdownMenuItem>Open...</DropdownMenuItem>

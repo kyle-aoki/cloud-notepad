@@ -7,7 +7,7 @@ interface ViewProps {}
 
 const View: FC<ViewProps> = () => {
   return (
-    <MenuItem menuName="View" menuType={MenuType.view} offset={"106px"}>
+    <MenuItem menuName="View" menuType={MenuType.view} offset={"159px"}>
       <DropdownMenuItem>New</DropdownMenuItem>
       <DropdownMenuItem>New Window</DropdownMenuItem>
       <DropdownMenuItem>Open...</DropdownMenuItem>

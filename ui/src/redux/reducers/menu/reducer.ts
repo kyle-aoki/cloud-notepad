@@ -2,7 +2,8 @@ import { Reducer } from 'redux';
 import { CLOSE_ALL, OPEN, SWITCH } from './functions';
 
 export interface MenuState {
-  [file: string]: boolean;
+  [account: string]: boolean;
+  file: boolean;
   edit: boolean;
   format: boolean;
   view: boolean;
@@ -10,6 +11,7 @@ export interface MenuState {
 }
 
 const initialState: MenuState = {
+  account: false,
   file: false,
   edit: false,
   format: false,
@@ -17,6 +19,7 @@ const initialState: MenuState = {
   help: false,
 };
 export enum MenuType {
+  account = 'account',
   file = 'file',
   edit = 'edit',
   format = 'format',

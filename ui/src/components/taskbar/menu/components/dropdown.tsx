@@ -1,17 +1,21 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const DropdownMenu = styled.div<any>`
   user-select: none;
   cursor: default;
   position: absolute;
   top: 19px;
-  left: ${(props: any) => props.offset ?? "0"};
+  left: ${(props: any) => props.offset ?? '0'};
   border: 1px solid #4b4c4f;
   background-color: #292a2d;
   border-radius: 1px;
 `;
 
-export const DropdownMenuItem = styled.div`
+interface DropdownMenuItemProps {
+  unhoverable?: boolean;
+}
+
+export const DropdownMenuItem = styled.div<DropdownMenuItemProps>`
   color: #cccccc;
   min-width: 200px;
   padding-left: 25px;
@@ -19,8 +23,9 @@ export const DropdownMenuItem = styled.div`
   padding-bottom: 1px;
   margin: 1px;
   font-size: 13px;
+  background-color: ${(props: DropdownMenuItemProps) => props.unhoverable && '#1b1b1b'};
   &:hover {
-    background-color: #4b4c4f;
+    background-color: ${(props: DropdownMenuItemProps) => !props.unhoverable && '#4b4c4f'};
   }
 `;
 

@@ -17,6 +17,7 @@ import { menuReducer, MenuState } from './redux/reducers/menu/reducer';
 import { GetUserDirSaga } from './redux/reducers/file-system/saga';
 import { LogInReducer, LogInState } from './redux/reducers/log-in/reducer';
 import { LogInSaga } from './redux/reducers/account/saga';
+import 'react-toastify/dist/ReactToastify.css';
 
 export interface GlobalState {
   fileSystem: FileSystemState;

@@ -1,4 +1,5 @@
 import { CheckUsernameResponse, GenericError, LogInResponse, ValidationResponse } from '../../../shared';
+import { UsernameDisplay } from '../../../ui/username-font';
 import { NotificationType } from '../notifications/reducer';
 import {
   accountCreationInitialState,
@@ -30,9 +31,6 @@ export const PASSWORD_LOADING = (state: CreateAccountModalState, action: CreateA
 export const ACCOUNT_CREATED_SUCCESS = (state: CreateAccountModalState, action: CreateAccountModalAction) => {
   switch (action.payload.type) {
     case LogInResponse.SUCCESSFUL_LOG_IN:
-      state.notificationText = `Logged In as ${action.payload.username}.`;
-      state.notificationType = NotificationType.INFO;
-      state.notificationCount += 1;
       state.newUserUsername = action.payload.username;
       break;
   }

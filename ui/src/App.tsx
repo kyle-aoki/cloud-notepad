@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { Toaster } from 'react-hot-toast';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 import styled from 'styled-components';
 import { GlobalState } from '.';
 import AccountCreationModal from './components/account-creation';
@@ -10,8 +10,11 @@ import { LogInModal } from './components/log-in';
 import StatusBar from './components/statusbar/status-bar';
 import Taskbar from './components/taskbar/taskbar';
 import { inDevelopment } from './env/environment';
-import useNotifications from './hooks/use-notifications';
+import useNotifications from './hooks/notifications/use-notifications';
+import { NotificationActions, NotificationType } from './redux/reducers/notifications/reducer';
 import ReduxPane from './redux/redux-pane/redux-pane';
+import { Slide } from 'react-toastify';
+
 
 const AppContainer = styled.div`
   display: flex;
@@ -24,22 +27,27 @@ const App: FC = () => {
   const fileSystemOpen = useSelector((state: GlobalState) => state.fileSystem.fileSystemOpen);
 
   useNotifications();
+  const dispatch = useDispatch();
+
+  const ok = () => {
+    dispatch({
+      type: NotificationActions.PUSH_NOTIFICATION,
+      payload: {
+        notificationType: NotificationType.INFO,
+        notificationText: 'asdfasdf',
+      },
+    });
+  };
 
   return (
     <>
-      <Toaster
-        toastOptions={{
-          className: 'Notification',
-          style: { borderRadius: '0px' },
-        }}
-        containerStyle={{
-          top: 30,
-          right: 27,
-        }}
-      />
+      <ToastContainer transition={Slide} />
       {inDevelopment && <ReduxPane />}
 
       <AppContainer>
+        <button style={{ position: 'absolute', top: '0', left: '0', zIndex: 1000 }} onClick={ok}>
+          ok
+        </button>
         {fileSystemOpen && <FileSystem />}
         <AccountCreationModal />
         <LogInModal />

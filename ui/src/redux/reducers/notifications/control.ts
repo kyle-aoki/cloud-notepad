@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 import { GlobalState } from '../../..';
@@ -18,7 +19,7 @@ export default class NotificationControl {
     this.state = state;
   }
 
-  PUSH_NOTIFICATION(type: NotificationType, text: string) {
+  PUSH_NOTIFICATION(type: NotificationType, text: string | ReactNode) {
     this.dispatch({
       type: NotificationActions.PUSH_NOTIFICATION,
       payload: {

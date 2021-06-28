@@ -1,10 +1,11 @@
+import { ReactNode } from 'react';
 import { Reducer } from 'redux';
 import { PUSH_NOTIFICATION } from './functions';
 
 // Error, Info, Warn, etc.
 export enum NotificationType {
-  INFO = 'INFO',
-  ERROR = 'ERROR',
+  INFO = 'NotificationType.INFO',
+  ERROR = 'NotificationType.ERROR',
 }
 
 export interface NotificationState {
@@ -27,7 +28,7 @@ export interface NotificationAction {
   type: NotificationActions;
   payload: {
     notificationType: NotificationType;
-    notificationText: string;
+    notificationText?: string;
   };
 }
 

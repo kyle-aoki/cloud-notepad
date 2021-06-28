@@ -2,6 +2,8 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import { CreateAccountModalAction, CreateAccountModalActions } from './reducer';
 import UserAPI from '../../../api/user-api';
 import { GenericError } from '../../../shared';
+import { NotificationActions, NotificationType } from '../notifications/reducer';
+import { LoggedInAs, UsernameDisplay } from '../../../ui/username-font';
 
 // click 'Next' button
 function* checkUsernameGenerator(action: CreateAccountModalAction): Generator<any, any, any> {
@@ -39,9 +41,17 @@ function* createAccountGenerator(action: CreateAccountModalAction): Generator<an
     if (!result.ok) {
       return yield put({ type: CreateAccountModalActions.ACCOUNT_FAILED_TO_CREATE, payload: { ...result } });
     }
+
     yield put({
       type: CreateAccountModalActions.ACCOUNT_CREATED_SUCCESS,
-      payload: { ...result, username: result.username },
+      payload: { username: result.username },
+    });
+    yield put({
+      type: NotificationActions.PUSH_NOTIFICATION,
+      payload: {
+        notificationType: NotificationType.INFO,
+        notificationText: <LoggedInAs username={result.username} />,
+      },
     });
   } catch (e) {
     yield put({
