@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import hashPassword from "../../../crypto/hash-password";
+import hashPassword from "../../../cryptography/hash-password";
 import SQLQuery from "../../../sql/query";
 import sendResponse from "../../../response/send-response";
 import PayloadValidator from "../../../validation/payload";

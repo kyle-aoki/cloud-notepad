@@ -3,11 +3,11 @@ import { GenericError } from "../shared";
 
 export default class Err {
   type: any;
-  payload?: any;
+  statusCode: number | undefined;
 
-  constructor(type: any, payload?: any) {
+  constructor(type: any, statusCode?: number) {
     this.type = type;
-    this.payload = payload;
+    this.statusCode = statusCode;
   }
 
   static MongooseQueryError(error: any) {

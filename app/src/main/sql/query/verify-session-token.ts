@@ -1,6 +1,7 @@
 import SQL from "../pool";
 import Err from "../../response/err";
 import { POSTGRESQL_INTERVAL_STRING } from "../../utility/session-token-constants";
+import { AuthError } from "../../shared";
 
 const verifySessionTokenSQL = `
   SELECT username
@@ -12,9 +13,9 @@ const verifySessionTokenSQL = `
 
 export default async function verifySessioinToken(username: string, session_token: string) {
   const result = await SQL.query(verifySessionTokenSQL, [username, session_token]).catch(handleError);
-  if (result.rows.length === 0) throw { statusCode: 401, message: "User unauthorized." };
+  if (result.rows.length === 0) throw new Err(AuthError.UNAUTHORIZED, 401);
 }
 
 const handleError = (error: any) => {
-  throw Err.MongooseQueryError(error);
+  throw Err.SQLQueryError(error);
 };

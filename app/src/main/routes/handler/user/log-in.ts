@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import generateSessionToken from "../../../crypto/generate-session-token";
-import hashPassword from "../../../crypto/hash-password";
+import generateSessionToken from "../../../cryptography/generate-session-token";
+import hashPassword from "../../../cryptography/hash-password";
 import SQLQuery from "../../../sql/query";
 import sendResponse from "../../../response/send-response";
 import Validator from "../../../validation/general";

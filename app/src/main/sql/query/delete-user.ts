@@ -1,6 +1,7 @@
 import SQL from "../pool";
 import Log from "../../log";
 import Err from "../../response/err";
+import { DeleteUserResponse } from "../../shared";
 
 const deleteUserSQL = `
   DELETE FROM users 
@@ -12,9 +13,9 @@ const deleteUserSQL = `
 
 export default async function deleteUser(username: string, hashedPassword: string, session_token: string) {
   const result = await SQL.query(deleteUserSQL, [username, hashedPassword, session_token]).catch(handleError);
-  if (result.rowCount !== 1) throw { message: "Failed to delete user.", statusCode: 500 };
+  if (result.rowCount !== 1) throw new Err(DeleteUserResponse.FAILED_TO_DELETE_USER, 500);
 }
 
 const handleError = (error: any) => {
-  throw Err.MongooseQueryError(error);
+  throw Err.SQLQueryError(error);
 };

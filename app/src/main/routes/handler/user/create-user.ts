@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import SQLQuery from "../../../sql/query";
-import hashPassword from "../../../crypto/hash-password";
+import hashPassword from "../../../cryptography/hash-password";
 import PayloadValidator from "../../../validation/payload";
 import Validator from "../../../validation/general";
 import MongooseQuery from "../../../mongoose/class";
