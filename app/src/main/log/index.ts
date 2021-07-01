@@ -50,8 +50,8 @@ export default class Log {
   }
 
   public static stackTrace(err: Error) {
-    if (Object.keys(err).length === 0) {
-      if (inDevelopment || inStaging) console.log(err);
+    if (inDevelopment || inStaging) {
+      if (Object.keys(err).length === 0) console.log(err);
     }
   }
 
