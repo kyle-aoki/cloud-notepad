@@ -1,7 +1,7 @@
 import SQL from "../pool";
 import Log from "../../log";
 import Err from "../../response/err";
-import { LogInResponse } from "../../shared";
+import { LogInResponse } from "@cloud-notepad/cloud-notepad-response";
 
 const verifyPasswordSQL = "SELECT username FROM users WHERE username = $1 and password = $2;";
 

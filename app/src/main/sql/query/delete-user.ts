@@ -1,7 +1,7 @@
 import SQL from "../pool";
 import Log from "../../log";
 import Err from "../../response/err";
-import { DeleteUserResponse } from "../../shared";
+import { DeleteUserResponse } from "@cloud-notepad/cloud-notepad-response";
 
 const deleteUserSQL = `
   DELETE FROM users 

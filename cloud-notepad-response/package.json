@@ -1,0 +1,10 @@
+{
+  "name": "@cloud-notepad/cloud-notepad-response",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  }
+}

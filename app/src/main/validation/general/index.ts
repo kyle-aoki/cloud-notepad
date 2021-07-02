@@ -1,4 +1,4 @@
-import { ValidationResponse } from "../../shared";
+import { ValidationResponse } from "@cloud-notepad/cloud-notepad-response";
 
 export default class Validator {
   static maxLength: number = 100;

@@ -1,5 +1,5 @@
 import Log from "../log";
-import { GenericError } from "../shared";
+import { GenericError } from "@cloud-notepad/cloud-notepad-response";
 
 export default class Err {
   type: any;

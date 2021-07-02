@@ -1,7 +1,7 @@
 import SQL from "../pool";
 import Err from "../../response/err";
 import { POSTGRESQL_INTERVAL_STRING } from "../../utility/session-token-constants";
-import { AuthError } from "../../shared";
+import { AuthError } from "@cloud-notepad/cloud-notepad-response";
 
 const verifySessionTokenSQL = `
   SELECT username

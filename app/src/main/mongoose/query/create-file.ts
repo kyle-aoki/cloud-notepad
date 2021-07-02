@@ -1,6 +1,6 @@
 import Mongoose from "..";
 import Err from "../../response/err";
-import { FileResponse } from "../../shared";
+import { FileResponse } from "@cloud-notepad/cloud-notepad-response";
 import getFileSize, { getCanonicalFilePath } from "../../utility/file";
 
 export default async function CreateFile(username: string, fileName: string, filePath: string[], fileContent: string) {

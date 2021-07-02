@@ -2,7 +2,7 @@ import SQL from "../pool";
 
 import Log from "../../log";
 import Err from "../../response/err";
-import { CheckUsernameResponse } from "../../shared";
+import { CheckUsernameResponse } from "@cloud-notepad/cloud-notepad-response";
 
 const doesUserExistSQL = "SELECT username FROM users where username = $1;";
 

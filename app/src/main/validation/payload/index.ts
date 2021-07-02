@@ -1,5 +1,5 @@
 import Err from "../../response/err";
-import { PayloadValidationResponse } from "../../shared";
+import { PayloadValidationResponse } from "@cloud-notepad/cloud-notepad-response";
 
 export default class PayloadValidator {
   static passwordExists(password: string) {

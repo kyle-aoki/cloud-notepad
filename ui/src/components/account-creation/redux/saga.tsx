@@ -1,9 +1,9 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { CreateAccountModalAction, CreateAccountModalActions } from './reducer';
 import UserAPI from '../../../api/user-api';
-import { GenericError } from '../../../shared';
 import { NotificationActions, NotificationType } from '../../../notifications/redux/reducer';
 import { LoggedInAs, UsernameDisplay } from '../../../ui/username-font';
+import { GenericError } from '@cloud-notepad/cloud-notepad-response';
 
 // click 'Next' button
 function* checkUsernameGenerator(action: CreateAccountModalAction): Generator<any, any, any> {

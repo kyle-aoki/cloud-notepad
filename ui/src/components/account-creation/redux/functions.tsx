@@ -1,4 +1,4 @@
-import { CheckUsernameResponse, GenericError, LogInResponse, ValidationResponse } from '../../../shared';
+import { CheckUsernameResponse, GenericError, LogInResponse, ValidationResponse } from '@cloud-notepad/cloud-notepad-response';
 import { UsernameDisplay } from '../../../ui/username-font';
 import { NotificationType } from '../../../notifications/redux/reducer';
 import {

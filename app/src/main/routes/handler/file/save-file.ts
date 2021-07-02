@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import MongooseQuery from "../../../mongoose/class";
 import sendResponse from "../../../response/send-response";
-import { FileResponse } from "../../../shared";
+import { FileResponse } from "@cloud-notepad/cloud-notepad-response";
 import PayloadValidator from "../../../validation/payload";
 
 export default async function SaveFile(req: Request, res: Response, next: NextFunction) {
