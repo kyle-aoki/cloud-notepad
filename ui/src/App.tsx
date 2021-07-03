@@ -19,14 +19,14 @@ const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  height: 100vh;
 `;
 
 const App: FC = () => {
   const fileSystemOpen = useSelector((state: GlobalState) => state.fileSystem.fileSystemOpen);
 
   useNotifications();
-  
+
   const dispatch = useDispatch();
   const ok = () => {
     dispatch({

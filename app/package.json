@@ -5,9 +5,9 @@
     "test": "npx jest",
     "dev": "doppler run -- ts-node-dev src/main/server/",
     "build-backend": "rimraf build && tsc && rimraf build/app/src/test/",
-    "build-frontend": "cd ../ui && npm run build",
+    "build-frontend": "cd ../ui && npm i && npm run build",
     "build": "npm-run-all build-backend build-frontend",
-    "start": "doppler run -- node build/app/src/main/server/"
+    "start": "doppler run -- node build/main/server/"
   },
   "dependencies": {
     "@cloud-notepad/cloud-notepad-response": "file:../cloud-notepad-response",
