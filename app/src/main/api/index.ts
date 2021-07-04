@@ -3,13 +3,13 @@ import helmet from "helmet";
 import errorResponse from "../response/error-handler";
 import cookieParser from "cookie-parser";
 import mainRouter from "../routes/router";
-import logger from "morgan";
 import { inDevelopment, inStaging } from "../utility/environment";
 import simulateDelay from "../utility/simulate-delay";
+import HttpLogger from "../log/http-logger";
 
 const apiRouter = express.Router();
 
-if (inDevelopment || inStaging) apiRouter.use(logger("dev"));
+if (inDevelopment || inStaging) apiRouter.use(HttpLogger);
 if (inDevelopment) apiRouter.use(simulateDelay);
 
 apiRouter.use(helmet());

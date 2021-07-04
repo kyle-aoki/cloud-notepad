@@ -8,25 +8,29 @@ export enum Severity {
 }
 
 export default class Log {
-  private static severityColor(severity: string) {
+  private static getSysFormatSeverity(severity: string) {
     if (severity === "INFO") return chalk.cyan(severity);
+    if (severity === "WARN") return chalk.yellow(severity);
+    if (severity === "ERROR") return chalk.redBright("ERRR");
     return severity;
   }
 
   private static logToConsole(logObj: any, color?: string) {
     if (inProduction) return;
 
-    const errorMessage = logObj.msg ? ` ${logObj.msg}.` : "";
-    const syslogFormat = `[${Log.severityColor(logObj.severity)}][${logObj.datetime}]${errorMessage}`;
-    const errorObject = Log.stringifyErrorObject(logObj.err);
+    let msg;
+    if (logObj.err) msg = chalk.redBright(`${logObj.err.type}`);
+    else msg = `${logObj.msg}`;
+
+    const syslogFormat = `[${Log.getSysFormatSeverity(logObj.severity)}][${logObj.datetime}] ${msg}`;
 
     switch (color) {
       case "red":
-        return console.log(chalk.red(`${syslogFormat} ${errorObject}`));
+        return console.log(syslogFormat);
       case "yellow":
-        return console.log(chalk.yellow(`${syslogFormat} ${errorObject}`));
+        return console.log(syslogFormat);
       default:
-        return console.log(`${syslogFormat} ${errorObject}`);
+        return console.log(syslogFormat);
     }
   }
 

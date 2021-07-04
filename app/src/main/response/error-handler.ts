@@ -15,6 +15,7 @@ export default function errorResponse(error: any, req: Request, res: Response, n
     ok: false,
     type: error.type,
   };
-
+  
+  res.locals.errType = error.type;
   res.send(errorResponseEntity);
 }
