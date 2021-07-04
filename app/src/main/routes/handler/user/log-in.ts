@@ -1,12 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import generateSessionToken from "../../../cryptography/generate-session-token";
 import hashPassword from "../../../cryptography/hash-password";
-import SQLQuery from "../../../sql/query";
 import sendResponse from "../../../response/send-response";
-import Validator from "../../../validation/general";
 import { cookieOptions } from "../../../utility/session-token-constants";
-import { LogInResponse } from "@cloud-notepad/cloud-notepad-response";
 import PayloadValidator from "../../../validation/payload";
+import MongooseQuery from "../../../mongoose/class";
 
 export default async function LogIn(req: Request, res: Response, next: NextFunction) {
   const username = req.body.username;
@@ -16,13 +14,13 @@ export default async function LogIn(req: Request, res: Response, next: NextFunct
   PayloadValidator.passwordExists(password);
 
   const hashedPassword = hashPassword(password);
-  await SQLQuery.verifyPassword(username, hashedPassword);
+  await MongooseQuery.VerifyPassword(username, hashedPassword);
 
   const session_token = generateSessionToken();
-  await SQLQuery.setSessionToken(username, hashedPassword, session_token);
+  await MongooseQuery.SetSessionToken(username, hashedPassword, session_token);
 
   res.cookie("username", username, cookieOptions);
   res.cookie("session_token", session_token, cookieOptions);
 
-  sendResponse(res, { type: LogInResponse.SUCCESSFUL_LOG_IN, username: username });
+  sendResponse(res, { username });
 }

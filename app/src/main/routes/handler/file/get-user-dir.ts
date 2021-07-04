@@ -9,5 +9,5 @@ export default async function GetUserDir(req: Request, res: Response, next: Next
 
   const userDir = await MongooseQuery.GetUserDir(username);
 
-  sendResponse(res, { type: FileResponse.USER_DIR_SENT, data: { userDir } });
+  sendResponse(res, { userDir });
 }

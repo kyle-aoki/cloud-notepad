@@ -17,5 +17,5 @@ export default async function SaveFile(req: Request, res: Response, next: NextFu
 
   await MongooseQuery.SaveFile(username, fileName, filePath, fileContent);
 
-  sendResponse(res, { type: FileResponse.FILE_SAVED });
+  sendResponse(res);
 }

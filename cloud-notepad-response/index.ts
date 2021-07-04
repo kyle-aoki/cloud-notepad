@@ -41,6 +41,7 @@ export enum LogInResponse {
 }
 
 export enum DeleteUserResponse {
+  INCORRECT_PASSWORD = "DeleteUserResponse.INCORRECT_PASSWORD",
   FAILED_TO_DELETE_USER = "DeleteUserResponse.FAILED_TO_DELETE_USER",
 }
 

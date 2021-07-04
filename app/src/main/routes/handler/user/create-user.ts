@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import SQLQuery from "../../../sql/query";
 import hashPassword from "../../../cryptography/hash-password";
 import PayloadValidator from "../../../validation/payload";
 import Validator from "../../../validation/general";
@@ -15,10 +14,10 @@ export default async function CreateUser(req: Request, res: Response, next: Next
   Validator.validateUsername(username);
   Validator.validatePassword(password);
 
-  await SQLQuery.doesUserExist(username);
+  await MongooseQuery.DoesUserExist(username);
 
   const hashedPassword = hashPassword(password);
-  await SQLQuery.createUser(username, hashedPassword);
+  await MongooseQuery.CreateUser(username, hashedPassword);
 
   await MongooseQuery.InitUserDir(username);
 

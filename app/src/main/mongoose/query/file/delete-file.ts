@@ -1,6 +1,6 @@
-import Mongoose from "..";
-import Err from "../../response/err";
-import { getCanonicalFilePath } from "../../utility/file";
+import Mongoose from "../..";
+import Err from "../../../response/err";
+import { getCanonicalFilePath } from "../../../utility/file";
 
 export default async function DeleteFile(username: string, fileName: string, filePath: string[]) {
   const CanonicalFilePath = getCanonicalFilePath(username, fileName, filePath);

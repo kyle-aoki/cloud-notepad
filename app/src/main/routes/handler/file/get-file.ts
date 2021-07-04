@@ -15,5 +15,5 @@ export default async function GetFile(req: Request, res: Response, next: NextFun
 
   const fileContent = await MongooseQuery.GetFile(username, fileName, filePath);
 
-  sendResponse(res, { type: FileResponse.FILE_SENT }, { fileContent });
+  sendResponse(res, { fileContent });
 }

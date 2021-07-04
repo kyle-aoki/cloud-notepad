@@ -8,6 +8,7 @@ export default class Err {
   constructor(type: any, statusCode?: number) {
     this.type = type;
     this.statusCode = statusCode;
+    Log.error('', this);
   }
 
   static MongooseQueryError(error: any) {

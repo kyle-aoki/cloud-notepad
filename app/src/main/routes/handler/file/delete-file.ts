@@ -16,5 +16,5 @@ export default async function DeleteFile(req: Request, res: Response, next: Next
 
   const newUserDir = await MongooseQuery.DeleteFile(username, fileName, filePath);
 
-  sendResponse(res, { type: FileResponse.FILE_DELETED }, { newUserDir });
+  sendResponse(res, { newUserDir });
 }

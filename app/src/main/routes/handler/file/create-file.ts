@@ -18,5 +18,5 @@ export default async function CreateFile(req: Request, res: Response, next: Next
 
   const newUserDir = await MongooseQuery.CreateFile(username, fileName, filePath, fileContent);
 
-  sendResponse(res, { type: FileResponse.FILE_SAVED }, { newUserDir });
+  sendResponse(res, { newUserDir });
 }

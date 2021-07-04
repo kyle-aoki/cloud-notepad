@@ -1,6 +1,6 @@
-import Mongoose from "..";
-import Err from "../../response/err";
-import getFileSize, { getCanonicalFilePath, getFilePath } from "../../utility/file";
+import Mongoose from "../..";
+import Err from "../../../response/err";
+import getFileSize, { getCanonicalFilePath, getFilePath } from "../../../utility/file";
 
 export default async function SaveFile(username: string, fileName: string, filePath: string[], fileContent: string) {
   const CanonicalFilePath = getCanonicalFilePath(username, fileName, filePath);

@@ -7,6 +7,7 @@ interface ErrorResponseEntity {
   type: any;
 }
 
+// Not on Happy Path --> Will always recieve { ok: false } and { type: ErrorType }.
 export default function errorResponse(error: any, req: Request, res: Response, next: NextFunction) {
   res.status(error.statusCode || 400);
 
@@ -14,8 +15,6 @@ export default function errorResponse(error: any, req: Request, res: Response, n
     ok: false,
     type: error.type,
   };
-
-  if (inDevelopment || inStaging) Log.error(JSON.stringify(errorResponseEntity), error);
 
   res.send(errorResponseEntity);
 }
