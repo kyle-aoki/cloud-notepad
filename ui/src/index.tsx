@@ -18,7 +18,7 @@ import { GetUserDirSaga } from './components/file-system/redux/saga';
 import { LogInReducer, LogInState } from './components/log-in/redux/reducer';
 import { LogInSaga } from './components/taskbar/menu/account/redux/saga';
 import 'react-toastify/dist/ReactToastify.css';
-import { checkUsernameSaga } from './components/account-creation/redux/saga/check-username';
+import { CheckUsernameSagaMiddleware } from './components/account-creation/redux/saga/check-username';
 
 export interface GlobalState {
   fileSystem: FileSystemState;
@@ -45,7 +45,7 @@ const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ||
 export const store = createStore(combinedReducers, composeEnhancers(applyMiddleware(sagaMiddleware)));
 
 sagaMiddleware.run(createAccountSaga);
-sagaMiddleware.run(checkUsernameSaga);
+sagaMiddleware.run(CheckUsernameSagaMiddleware);
 sagaMiddleware.run(GetUserDirSaga);
 sagaMiddleware.run(LogInSaga);
 

@@ -31,9 +31,12 @@ export default class NotificationDispatch {
   }
 }
 
-export class NotificationActionCreator {
+export class NotifActionCreator {
   static PUSH_NOTIFICATION(text: string, type: NotificationType) {
     return { type: NotificationActions.PUSH_NOTIFICATION, payload: { text, type } };
+  }
+  static PUSH_ERROR(text: string) {
+    return { type: NotificationActions.PUSH_NOTIFICATION, payload: { text, type: NotificationType.ERROR } };
   }
 
   static NETWORK_ERROR() {
