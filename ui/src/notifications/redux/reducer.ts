@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { Reducer } from 'redux';
-import { PUSH_NOTIFICATION } from './functions';
+import { GENERIC_ERROR, NETWORK_ERROR, PUSH_NOTIFICATION } from './functions';
 
 // Error, Info, Warn, etc.
 export enum NotificationType {
@@ -21,7 +21,9 @@ export const notificationInitialState: NotificationState = {
 };
 
 export enum NotificationActions {
-  PUSH_NOTIFICATION,
+  PUSH_NOTIFICATION = "NotificationActions.PUSH_NOTIFICATION",
+  NETWORK_ERROR = 'NotificationActions.NETWORK_ERROR',
+  GENERIC_ERROR = 'NotificationActions.GENERIC_ERROR',
 }
 
 export interface NotificationAction {
@@ -36,6 +38,10 @@ export const notificationReducer: Reducer<NotificationState, NotificationAction>
   switch (action.type) {
     case NotificationActions.PUSH_NOTIFICATION:
       return PUSH_NOTIFICATION(state, action);
+    case NotificationActions.NETWORK_ERROR:
+      return NETWORK_ERROR(state, action);
+    case NotificationActions.GENERIC_ERROR:
+      return GENERIC_ERROR(state, action);
     default:
       return state;
   }

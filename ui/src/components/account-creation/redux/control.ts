@@ -79,3 +79,9 @@ export default class AccountCreationControl {
     });
   }
 }
+
+export class AccountCreationActionCreator {
+  static STOP_USERNAME_LOADING() {
+    return { type: CreateAccountModalActions.STOP_USERNAME_LOADING };
+  }
+}

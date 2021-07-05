@@ -5,35 +5,6 @@ import { NotificationActions, NotificationType } from '../../../notifications/re
 import { LoggedInAs, UsernameDisplay } from '../../../ui/username-font';
 import { GenericError } from '@cloud-notepad/cloud-notepad-response';
 
-// click 'Next' button
-function* checkUsernameGenerator(action: CreateAccountModalAction): Generator<any, any, any> {
-  try {
-    if (!action.payload.username) {
-      return yield put({ type: CreateAccountModalActions.BAD_USERNAME });
-    }
-    const checkUsernameResult: any = yield call(UserAPI.checkUsername, action.payload.username);
-    if (!checkUsernameResult.ok) {
-      return yield put({
-        type: CreateAccountModalActions.BAD_USERNAME,
-        payload: { ...checkUsernameResult },
-      });
-    }
-
-    yield put({ type: CreateAccountModalActions.GO_TO_PASSWORD_SCREEN });
-  } catch (e) {
-    yield put({
-      type: CreateAccountModalActions.BAD_USERNAME,
-      payload: {
-        type: GenericError.NETWORK_ERROR,
-      },
-    });
-  }
-}
-
-export function* checkUsernameSaga() {
-  yield takeEvery(CreateAccountModalActions.CHECK_USERNAME, checkUsernameGenerator);
-}
-
 // Click 'Create Account' Button
 function* createAccountGenerator(action: CreateAccountModalAction): Generator<any, any, any> {
   try {

@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 
 import { createAccountModalReducer, CreateAccountModalState } from './components/account-creation/redux/reducer';
-import { checkUsernameSaga, createAccountSaga } from './components/account-creation/redux/saga';
+import { createAccountSaga } from './components/account-creation/redux/saga';
 import { notificationReducer, NotificationState } from './notifications/redux/reducer';
 import { FileSystemState, fileSystemReducer } from './components/file-system/redux/reducer';
 import { accountReducer, AccountState } from './components/taskbar/menu/account/redux/reducer';
@@ -18,6 +18,7 @@ import { GetUserDirSaga } from './components/file-system/redux/saga';
 import { LogInReducer, LogInState } from './components/log-in/redux/reducer';
 import { LogInSaga } from './components/taskbar/menu/account/redux/saga';
 import 'react-toastify/dist/ReactToastify.css';
+import { checkUsernameSaga } from './components/account-creation/redux/saga/check-username';
 
 export interface GlobalState {
   fileSystem: FileSystemState;

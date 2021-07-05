@@ -1,8 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { inDevelopment } from "./environment";
 
+const DelayAverage = 500;
+
 export default async function simulateDelay(req: Request, res: Response, next: NextFunction) {
-  const simulatedDelayLength: number = normalDistribution() * 160;
+  const simulatedDelayLength: number = normalDistribution() * DelayAverage * 2;
   if (inDevelopment) await sleep(simulatedDelayLength);
   next();
 }

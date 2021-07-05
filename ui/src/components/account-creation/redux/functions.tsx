@@ -1,4 +1,9 @@
-import { CheckUsernameResponse, GenericError, LogInResponse, ValidationResponse } from '@cloud-notepad/cloud-notepad-response';
+import {
+  CheckUsernameResponse,
+  GenericError,
+  LogInResponse,
+  ValidationResponse,
+} from '@cloud-notepad/cloud-notepad-response';
 import { UsernameDisplay } from '../../../ui/username-font';
 import { NotificationType } from '../../../notifications/redux/reducer';
 import {
@@ -130,3 +135,7 @@ export const BAD_USERNAME = (state: CreateAccountModalState, action: CreateAccou
   }
   return { ...state, usernameLoading: false, notificationCount: (state.notificationCount += 1) };
 };
+
+export function STOP_USERNAME_LOADING(state: CreateAccountModalState, action: CreateAccountModalAction) {
+  return { ...state, usernameLoading: false };
+}

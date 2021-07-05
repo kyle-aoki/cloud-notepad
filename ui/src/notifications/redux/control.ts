@@ -30,3 +30,16 @@ export default class NotificationDispatch {
     });
   }
 }
+
+export class NotificationActionCreator {
+  static PUSH_NOTIFICATION(text: string, type: NotificationType) {
+    return { type: NotificationActions.PUSH_NOTIFICATION, payload: { text, type } };
+  }
+
+  static NETWORK_ERROR() {
+    return { type: NotificationActions.NETWORK_ERROR };
+  }
+  static GENERIC_ERROR() {
+    return { type: NotificationActions.GENERIC_ERROR };
+  }
+}
