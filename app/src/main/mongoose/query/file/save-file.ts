@@ -1,3 +1,4 @@
+import { FileResponse } from "@cloud-notepad/cloud-notepad-response";
 import Mongoose from "../..";
 import Err from "../../../response/err";
 import getFileSize, { getCanonicalFilePath, getFilePath } from "../../../utility/file";
@@ -9,13 +10,18 @@ export default async function SaveFile(username: string, fileName: string, fileP
   const lastModified = Date.now();
 
   const userDir = await Mongoose.UserDir.findOne({ username });
+  let foundFile = false;
+
   for (let obj of userDir.objects) {
     if (obj.fileName === fileName && getFilePath(obj.filePath) === getFilePath(filePath)) {
+      foundFile = true;
       obj.fileSize = fileSize;
       obj.lastModified = lastModified;
     }
   }
-  await Mongoose.UserDir.replaceOne({ username }, userDir);
+  if (!foundFile) throw new Err(FileResponse.FILE_NOT_EXIST);
+
+  await Mongoose.UserDir.replaceOne({ username }, userDir).catch(handleError);
 
   await Mongoose.Files.updateOne({ CanonicalFilePath }, { $set: { fileContent } }).catch(handleError);
 }
