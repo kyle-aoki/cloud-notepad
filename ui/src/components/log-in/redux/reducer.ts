@@ -28,18 +28,13 @@ export enum LogInActions {
   SUBMIT_LOG_IN = 'LogInActions.SUBMIT_LOG_IN',
 }
 
+// prettier-ignore
 export const LogInReducer: Reducer<LogInState, LogInAction> = (state = initialState, action) => {
-  console.log(state);
   switch (action.type) {
-    case LogInActions.START_LOADING:
-      return START_LOADING(state, action);
-    case LogInActions.STOP_LOADING:
-      return STOP_LOADING(state, action);
-    case LogInActions.UPDATE_FIELD:
-      return UPDATE_FIELD(state, action);
-    case LogInActions.TOGGLE_LOG_IN_MODAL:
-      return TOGGLE_LOG_IN_MODAL(state, action);
-    default:
-      return state;
+    case LogInActions.START_LOADING: return START_LOADING(state, action);
+    case LogInActions.STOP_LOADING: return STOP_LOADING(state, action);
+    case LogInActions.UPDATE_FIELD: return UPDATE_FIELD(state, action);
+    case LogInActions.TOGGLE_LOG_IN_MODAL: return TOGGLE_LOG_IN_MODAL(state, action);
+    default: return state;
   }
 };

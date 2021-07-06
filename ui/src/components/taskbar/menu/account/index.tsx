@@ -3,13 +3,14 @@ import styled from 'styled-components';
 import MenuContainer from '../components/menu-container';
 import { ReactComponent as DownChevron } from '../../../assets/down-chevron.svg';
 import { DropdownMenu, DropdownMenuItem, DropdownMenuSeperator } from '../components/dropdown';
-import { useAccountCreationControl } from '../../../account-creation/redux/control';
 import { useAccountControl, useAccountState } from './redux/control';
-import { useLogInControl } from '../../../log-in/redux/control';
 import { MenuType } from '../../redux/reducer';
 import MenuItem from '../components/menu-item';
 import { LoggedInAs, UsernameDisplay } from '../../../../ui/username-font';
 import { useMenuControl } from '../../redux/control';
+import { LogInControl } from '../../../log-in/redux/control';
+import { useDispatch } from 'react-redux';
+import { AccountCreationControl } from '../../../account-creation/redux/control';
 
 const AccountContainer = styled(MenuContainer)`
   padding: 0 10px;
@@ -74,17 +75,17 @@ const LoggedInAsContainer = styled.div`
 const Account: any = () => {
   const AccountState = useAccountState();
   const AccountControl = useAccountControl();
-  const AccountCreationControl = useAccountCreationControl();
-  const LogInControl = useLogInControl();
+  const AccountCreationController = new AccountCreationControl(useDispatch());
+  const LogInController = new LogInControl(useDispatch());
   const MenuControl = useMenuControl();
 
   const handleCreateAccountButtonClick = () => {
-    AccountCreationControl.OPEN_MODAL();
+    AccountCreationController.OPEN_MODAL();
     MenuControl.CLOSE_ALL();
   };
 
   const handleLogInClick = () => {
-    LogInControl.TOGGLE_LOG_IN_MODAL();
+    LogInController.TOGGLE_LOG_IN_MODAL();
     MenuControl.CLOSE_ALL();
   };
 

@@ -1,16 +1,8 @@
 import chalk from "chalk";
 import responseTime from "response-time";
 
-const TOTAL_URL_SPACE = 35;
 function getFormattedUrl(baseUrl: string, url: string){
-  const fullUrl = baseUrl + url;
-  const fullUrlLength = fullUrl.length;
-
-  const spacesToAdd = TOTAL_URL_SPACE - fullUrlLength
-  const spacesToAddPositive = spacesToAdd >= 0 ? spacesToAdd : 0;
-  const spacesString = new Array(spacesToAddPositive).join(" ");
-  const formattedUrl = fullUrl + spacesString;
-
+  const formattedUrl = baseUrl + url;
   return formattedUrl;
 }
 

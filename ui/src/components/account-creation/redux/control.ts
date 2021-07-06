@@ -1,87 +1,71 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 import { GlobalState } from '../../..';
+import { Actuator } from '../../../redux/class';
 import { CreateAccountModalActions, CreateAccountModalState } from './reducer';
 
-export const useAccountCreationControl = (): AccountCreationControl => {
-  const dispatch = useDispatch();
-  const state = useSelector((state: GlobalState) => state.createAccountModal);
-  return new AccountCreationControl(dispatch, state);
-};
+export const useAccountCreationState = () => useSelector((state: GlobalState) => state.createAccountModal);
 
-export default class AccountCreationControl {
-  dispatch: Dispatch<any>;
-  state: CreateAccountModalState;
-
-  constructor(dispatch: Dispatch<any>, state: CreateAccountModalState) {
-    this.dispatch = dispatch;
-    this.state = state;
-  }
-
+export class AccountCreationControl extends Actuator {
   OPEN_MODAL() {
-    this.dispatch({ type: CreateAccountModalActions.OPEN_MODAL });
+    return this.exec({ type: CreateAccountModalActions.OPEN_MODAL });
   }
 
   CLOSE_MODAL() {
-    this.dispatch({ type: CreateAccountModalActions.CLOSE_MODAL });
+    return this.exec({ type: CreateAccountModalActions.CLOSE_MODAL });
   }
 
   USERNAME_LOADING() {
-    this.dispatch({ type: CreateAccountModalActions.USERNAME_LOADING });
+    return this.exec({ type: CreateAccountModalActions.USERNAME_LOADING });
+  }
+
+  STOP_USERNAME_LOADING() {
+    return this.exec({ type: CreateAccountModalActions.STOP_USERNAME_LOADING });
   }
 
   PASSWORD_LOADING() {
-    this.dispatch({ type: CreateAccountModalActions.PASSWORD_LOADING });
+    return this.exec({ type: CreateAccountModalActions.PASSWORD_LOADING });
   }
 
-  TRIGGER_ACCOUNT_CREATION() {
-    this.PASSWORD_LOADING();
-    this.dispatch({
+  STOP_PASSWORD_LOADING() {
+    return this.exec({ type: CreateAccountModalActions.STOP_PASSWORD_LOADING });
+  }
+
+  TRIGGER_ACCOUNT_CREATION(username: string, password: string) {
+    return this.exec({
       type: CreateAccountModalActions.TRIGGER_ACCOUNT_CREATION,
-      payload: {
-        username: this.state.username,
-        password: this.state.password,
-      },
+      payload: { username, password },
     });
   }
 
   ACCOUNT_CREATED_SUCCESS() {
-    this.dispatch({ type: CreateAccountModalActions.ACCOUNT_CREATED_SUCCESS });
+    return this.exec({ type: CreateAccountModalActions.ACCOUNT_CREATED_SUCCESS });
   }
 
   ACCOUNT_FAILED_TO_CREATE() {
-    this.dispatch({ type: CreateAccountModalActions.ACCOUNT_FAILED_TO_CREATE });
+    return this.exec({ type: CreateAccountModalActions.ACCOUNT_FAILED_TO_CREATE });
   }
 
   UPDATE_INPUT(field: string, value: string) {
-    this.dispatch({ type: CreateAccountModalActions.UPDATE_INPUT, payload: { field, value } });
+    return this.exec({ type: CreateAccountModalActions.UPDATE_INPUT, payload: { field, value } });
   }
 
   GO_TO_PASSWORD_SCREEN() {
-    this.dispatch({ type: CreateAccountModalActions.GO_TO_PASSWORD_SCREEN });
+    return this.exec({ type: CreateAccountModalActions.GO_TO_PASSWORD_SCREEN });
   }
 
   GO_BACK_TO_USERNAME_SCREEN() {
-    this.dispatch({ type: CreateAccountModalActions.GO_BACK_TO_USERNAME_SCREEN });
+    return this.exec({ type: CreateAccountModalActions.GO_BACK_TO_USERNAME_SCREEN });
   }
 
   RESET_ACCOUNT_CREATION_STATE() {
-    this.dispatch({ type: CreateAccountModalActions.RESET_ACCOUNT_CREATION_STATE });
+    return this.exec({ type: CreateAccountModalActions.RESET_ACCOUNT_CREATION_STATE });
   }
 
-  CHECK_USERNAME() {
-    this.USERNAME_LOADING();
-    this.dispatch({
+  CHECK_USERNAME(username: string) {
+    return this.exec({
       type: CreateAccountModalActions.CHECK_USERNAME,
-      payload: {
-        username: this.state.username,
-      },
+      payload: { username },
     });
-  }
-}
-
-export class AccountCreationActionCreator {
-  static STOP_USERNAME_LOADING() {
-    return { type: CreateAccountModalActions.STOP_USERNAME_LOADING };
   }
 }

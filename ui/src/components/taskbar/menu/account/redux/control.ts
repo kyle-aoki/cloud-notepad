@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { GlobalState } from '../../../../..';
 import { Dispatch } from 'redux';
 import { AccountActions, AccountState } from './reducer';
+import { Actuator } from '../../../../../redux/class';
 
 export const useAccountState = () => {
   const state = useSelector((state: GlobalState) => state.account);
@@ -13,20 +14,15 @@ export const useAccountControl = () => {
   return new AccountControl(dispatch);
 };
 
-export class AccountControl {
-  dispatch: Dispatch<any>;
-  constructor(dispatch: Dispatch<any>) {
-    this.dispatch = dispatch;
-  }
-
+export class AccountControl extends Actuator {
   TOGGLE_ACCOUNT_DROPDOWN() {
-    this.dispatch({ type: AccountActions.TOGGLE_ACCOUNT_DROPDOWN });
+    this.exec({ type: AccountActions.TOGGLE_ACCOUNT_DROPDOWN });
   }
 
   SET_USER(username: string) {
-    this.dispatch({ type: AccountActions.SET_USER, payload: { username } });
+    this.exec({ type: AccountActions.SET_USER, payload: { username } });
   }
   UNSET_USER() {
-    this.dispatch({ type: AccountActions.UNSET_USER });
+    this.exec({ type: AccountActions.UNSET_USER });
   }
 }

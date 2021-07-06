@@ -9,14 +9,14 @@ import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 
 import { createAccountModalReducer, CreateAccountModalState } from './components/account-creation/redux/reducer';
-import { createAccountSaga } from './components/account-creation/redux/saga';
+import { CheckPasswordSagaMiddleware } from './components/account-creation/redux/saga/check-password';
 import { notificationReducer, NotificationState } from './notifications/redux/reducer';
 import { FileSystemState, fileSystemReducer } from './components/file-system/redux/reducer';
 import { accountReducer, AccountState } from './components/taskbar/menu/account/redux/reducer';
 import { menuReducer, MenuState } from './components/taskbar/redux/reducer';
 import { GetUserDirSaga } from './components/file-system/redux/saga';
 import { LogInReducer, LogInState } from './components/log-in/redux/reducer';
-import { LogInSaga } from './components/taskbar/menu/account/redux/saga';
+import { LogInSagaMiddleware } from './components/log-in/redux/saga';
 import 'react-toastify/dist/ReactToastify.css';
 import { CheckUsernameSagaMiddleware } from './components/account-creation/redux/saga/check-username';
 
@@ -44,10 +44,10 @@ const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ||
 
 export const store = createStore(combinedReducers, composeEnhancers(applyMiddleware(sagaMiddleware)));
 
-sagaMiddleware.run(createAccountSaga);
+sagaMiddleware.run(CheckPasswordSagaMiddleware);
 sagaMiddleware.run(CheckUsernameSagaMiddleware);
 sagaMiddleware.run(GetUserDirSaga);
-sagaMiddleware.run(LogInSaga);
+sagaMiddleware.run(LogInSagaMiddleware);
 
 ReactDOM.render(
   <Provider store={store}>

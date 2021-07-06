@@ -2,26 +2,16 @@ import { ReactNode } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 import { GlobalState } from '../..';
+import { Actuator } from '../../redux/class';
 import { NotificationActions, NotificationState, NotificationType } from './reducer';
 
 export const useNotificationState = () => {
   return useSelector((state: GlobalState) => state.notifications);
 };
 
-export const useNotificationDispatch = (): NotificationDispatch => {
-  const dispatch = useDispatch();
-  return new NotificationDispatch(dispatch);
-};
-
-export default class NotificationDispatch {
-  dispatch: Dispatch<any>;
-
-  constructor(dispatch: Dispatch<any>) {
-    this.dispatch = dispatch;
-  }
-
+export default class NotificationControl extends Actuator {
   PUSH_NOTIFICATION(type: NotificationType, text: string) {
-    this.dispatch({
+    return this.exec({
       type: NotificationActions.PUSH_NOTIFICATION,
       payload: {
         notificationType: type,
@@ -29,20 +19,24 @@ export default class NotificationDispatch {
       },
     });
   }
-}
 
-export class NotifActionCreator {
-  static PUSH_NOTIFICATION(text: string, type: NotificationType) {
-    return { type: NotificationActions.PUSH_NOTIFICATION, payload: { text, type } };
+  PUSH_INFO(text: any) {
+    return this.exec({
+      type: NotificationActions.PUSH_NOTIFICATION,
+      payload: { text, type: NotificationType.INFO },
+    });
   }
-  static PUSH_ERROR(text: string) {
-    return { type: NotificationActions.PUSH_NOTIFICATION, payload: { text, type: NotificationType.ERROR } };
+  PUSH_ERROR(text: any) {
+    return this.exec({
+      type: NotificationActions.PUSH_NOTIFICATION,
+      payload: { text, type: NotificationType.ERROR },
+    });
   }
 
-  static NETWORK_ERROR() {
-    return { type: NotificationActions.NETWORK_ERROR };
+  NETWORK_ERROR() {
+    return this.exec({ type: NotificationActions.NETWORK_ERROR });
   }
-  static GENERIC_ERROR() {
-    return { type: NotificationActions.GENERIC_ERROR };
+  GENERIC_ERROR() {
+    return this.exec({ type: NotificationActions.GENERIC_ERROR });
   }
 }

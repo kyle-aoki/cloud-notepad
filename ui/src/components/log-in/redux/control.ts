@@ -3,37 +3,28 @@ import { GlobalState } from '../../..';
 import { Dispatch } from 'redux';
 import { LogInActions } from './reducer';
 import { AccountSagaActions } from '../../taskbar/menu/account/redux/reducer';
+import { Actuator } from '../../../redux/class';
 
-export const useLogInState = () => {
-  const state = useSelector((state: GlobalState) => state.LogIn);
-  return state;
-};
+export const useLogInState = () => useSelector((state: GlobalState) => state.LogIn);
 
-export const useLogInControl = () => {
-  const dispatch = useDispatch();
-  return new LogInControl(dispatch);
-};
-
-export class LogInControl {
-  dispatch: Dispatch<any>;
-  constructor(dispatch: Dispatch<any>) {
-    this.dispatch = dispatch;
-  }
-
+export class LogInControl extends Actuator {
   UPDATE_FIELD(field: string, value: string) {
-    this.dispatch({ type: LogInActions.UPDATE_FIELD, payload: { field, value } });
+    return this.exec({ type: LogInActions.UPDATE_FIELD, payload: { field, value } });
   }
 
   TOGGLE_LOG_IN_MODAL() {
-    this.dispatch({ type: LogInActions.TOGGLE_LOG_IN_MODAL });
+    return this.exec({ type: LogInActions.TOGGLE_LOG_IN_MODAL });
   }
 
   SUBMIT_LOG_IN(username: string, password: string) {
-    this.dispatch({ type: AccountSagaActions.SUBMIT_LOG_IN, payload: { username, password } });
+    return this.exec({ type: AccountSagaActions.SUBMIT_LOG_IN, payload: { username, password } });
   }
 
   START_LOADING() {
-    this.dispatch({ type: LogInActions.START_LOADING });
+    return this.exec({ type: LogInActions.START_LOADING });
   }
 
+  STOP_LOADING() {
+    return this.exec({ type: LogInActions.STOP_LOADING });
+  }
 }

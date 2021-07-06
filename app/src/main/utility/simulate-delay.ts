@@ -4,8 +4,7 @@ import { inDevelopment } from "./environment";
 const DelayAverage = 500;
 
 export default async function simulateDelay(req: Request, res: Response, next: NextFunction) {
-  const simulatedDelayLength: number = normalDistribution() * DelayAverage * 2;
-  if (inDevelopment) await sleep(simulatedDelayLength);
+  if (inDevelopment) await sleep(normalDistribution() * DelayAverage * 2);
   next();
 }
 
@@ -16,8 +15,8 @@ function sleep(ms: number) {
 }
 
 function normalDistribution(): number {
-  let u = 0,
-    v = 0;
+  let u = 0;
+  let v = 0;
   while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)
   while (v === 0) v = Math.random();
   let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);

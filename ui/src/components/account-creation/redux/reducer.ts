@@ -14,6 +14,7 @@ import {
   RESET_ACCOUNT_CREATION_STATE,
   BAD_USERNAME,
   STOP_USERNAME_LOADING,
+  STOP_PASSWORD_LOADING,
 } from './functions';
 
 export enum CreateAccountModalActions {
@@ -26,6 +27,7 @@ export enum CreateAccountModalActions {
   BAD_USERNAME = 'BAD_USERNAME',
 
   PASSWORD_LOADING = 'PASSWORD_LOADING',
+  STOP_PASSWORD_LOADING = 'STOP_PASSWORD_LOADING',
   BAD_PASSWORD = 'BAD_PASSWORD',
 
   TRIGGER_ACCOUNT_CREATION = 'TRIGGER_ACCOUNT_CREATION',
@@ -91,6 +93,7 @@ export const createAccountModalReducer: Reducer<CreateAccountModalState, CreateA
     case CreateAccountModalActions.CLOSE_MODAL: return CLOSE_MODAL(state, action);
     case CreateAccountModalActions.USERNAME_LOADING: return USERNAME_LOADING(state, action);
     case CreateAccountModalActions.PASSWORD_LOADING: return PASSWORD_LOADING(state, action);
+    case CreateAccountModalActions.STOP_PASSWORD_LOADING: return STOP_PASSWORD_LOADING(state, action);
     case CreateAccountModalActions.ACCOUNT_CREATED_SUCCESS: return ACCOUNT_CREATED_SUCCESS(state, action);
     case CreateAccountModalActions.ACCOUNT_FAILED_TO_CREATE: return ACCOUNT_FAILED_TO_CREATE(state, action);
     case CreateAccountModalActions.UPDATE_INPUT: return UPDATE_INPUT(state, action);

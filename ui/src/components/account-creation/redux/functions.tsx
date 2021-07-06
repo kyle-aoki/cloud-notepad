@@ -33,6 +33,12 @@ export const PASSWORD_LOADING = (state: CreateAccountModalState, action: CreateA
   return { ...state };
 };
 
+export const STOP_PASSWORD_LOADING = (state: CreateAccountModalState, action: CreateAccountModalAction) => {
+  state.usernameLoading = false;
+  state.passwordLoading = false;
+  return { ...state };
+};
+
 export const ACCOUNT_CREATED_SUCCESS = (state: CreateAccountModalState, action: CreateAccountModalAction) => {
   switch (action.payload.type) {
     case LogInResponse.SUCCESSFUL_LOG_IN:
