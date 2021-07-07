@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { ToastContainer, Flip } from 'react-toastify';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { GlobalState } from '.';
 import AccountCreationModal from './components/account-creation';
@@ -10,9 +9,7 @@ import { LogInModal } from './components/log-in';
 import StatusBar from './components/statusbar/status-bar';
 import Taskbar from './components/taskbar/taskbar';
 import { inDevelopment } from './env/environment';
-import { NotificationActions, NotificationType } from './notifications/redux/reducer';
 import ReduxPane from './redux/redux-pane/redux-pane';
-import useNotifications from './notifications/use-notifications';
 import Notifications from './notifications/component';
 
 const AppContainer = styled.div`
