@@ -18,6 +18,7 @@ export const OPEN_MODAL = (state: CreateAccountModalState, action: CreateAccount
 };
 
 export const CLOSE_MODAL = (state: CreateAccountModalState, action: CreateAccountModalAction) => {
+  state.password = '';
   state.createAccountModalOpen = false;
   return { ...state };
 };
@@ -37,15 +38,6 @@ export const STOP_PASSWORD_LOADING = (state: CreateAccountModalState, action: Cr
   state.usernameLoading = false;
   state.passwordLoading = false;
   return { ...state };
-};
-
-export const ACCOUNT_CREATED_SUCCESS = (state: CreateAccountModalState, action: CreateAccountModalAction) => {
-  switch (action.payload.type) {
-    case LogInResponse.SUCCESSFUL_LOG_IN:
-      state.newUserUsername = action.payload.username;
-      break;
-  }
-  return { ...state, passwordLoading: false, done: true };
 };
 
 export const ACCOUNT_FAILED_TO_CREATE = (state: CreateAccountModalState, action: CreateAccountModalAction) => {

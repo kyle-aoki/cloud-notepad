@@ -11,6 +11,8 @@ function* CheckUsernameSaga(action: CreateAccountModalAction): Generator<any, an
   const NotificationController = new NotificationControl(put);
   const AccountCreationController = new AccountCreationControl(put);
 
+  if (action.payload.usernameLoading) return;
+
   yield AccountCreationController.USERNAME_LOADING();
 
   if (!action.payload.username) return yield put({ type: CreateAccountModalActions.BAD_USERNAME });

@@ -6,31 +6,30 @@ import { LoggedInAs, UsernameDisplay } from '../../../../ui/username-font';
 import { GenericError, ValidationResponse } from '@cloud-notepad/cloud-notepad-response';
 import NotificationControl from '../../../../notifications/redux/control';
 import { AccountCreationControl } from '../control';
-
-const BadPasswordResponses = [
-  ValidationResponse.INVALID_PASSWORD_SYMBOLS,
-  ValidationResponse.PASSWORD_SHORT,
-  ValidationResponse.PASSWORD_LONG,
-];
+import { AccountControl } from '../../../taskbar/menu/account/redux/control';
 
 // Click 'Create Account' Button
 function* CheckPasswordSaga(action: CreateAccountModalAction): Generator<any, any, any> {
   const NotificationController = new NotificationControl(put);
   const AccountCreationController = new AccountCreationControl(put);
+  const AccountController = new AccountControl(put);
+
+  if (action.payload.passwordLoading) return;
 
   yield AccountCreationController.PASSWORD_LOADING();
+  const { username, password } = action.payload;
 
-  let result;
+  let CheckPasswordResult;
   try {
-    result = yield call(UserAPI.createUser, action.payload.username, action.payload.password);
+    CheckPasswordResult = yield call(UserAPI.checkPassword, password);
   } catch (e) {
     yield NotificationController.NETWORK_ERROR();
   }
 
-  if (!result.ok) {
-    switch (result.type) {
+  if (!CheckPasswordResult.ok) {
+    switch (CheckPasswordResult.type) {
       case ValidationResponse.INVALID_PASSWORD_SYMBOLS:
-        yield NotificationController.PUSH_ERROR('Invalid symbols in password.'); break;
+        yield NotificationController.PUSH_ERROR(`Invalid symbols in password. The symbols \\, ", and / are not permitted.`); break;
       case ValidationResponse.PASSWORD_SHORT:
         yield NotificationController.PUSH_ERROR('Password is too short.'); break;
       case ValidationResponse.PASSWORD_LONG:
@@ -38,20 +37,27 @@ function* CheckPasswordSaga(action: CreateAccountModalAction): Generator<any, an
       default:
         yield NotificationController.GENERIC_ERROR();
     }
-    return yield AccountCreationController.STOP_PASSWORD_LOADING();
+    yield AccountCreationController.STOP_PASSWORD_LOADING();
+    return;
   }
 
-  yield put({
-    type: CreateAccountModalActions.ACCOUNT_CREATED_SUCCESS,
-    payload: { username: result.username },
-  });
-  yield put({
-    type: NotificationActions.PUSH_NOTIFICATION,
-    payload: {
-      notificationType: NotificationType.INFO,
-      notificationText: <LoggedInAs username={result.username} />,
-    },
-  });
+  let result;
+  try {
+    result = yield call(UserAPI.createUser, username, password);
+  } catch (e) {
+    yield NotificationController.NETWORK_ERROR();
+  }
+
+  if (result.ok) {
+    yield AccountCreationController.STOP_PASSWORD_LOADING();
+    yield NotificationController.PUSH_INFO(<LoggedInAs username={username} />);
+    yield AccountCreationController.CLOSE_MODAL();
+    yield AccountController.SET_USER(username);
+    return;
+  }
+
+  yield NotificationController.GENERIC_ERROR();
+  yield AccountCreationController.STOP_PASSWORD_LOADING();
 }
 
 export function* CheckPasswordSagaMiddleware() {

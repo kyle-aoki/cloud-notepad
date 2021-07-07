@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import MenuContainer from '../components/menu-container';
 import { ReactComponent as DownChevron } from '../../../assets/down-chevron.svg';
 import { DropdownMenu, DropdownMenuItem, DropdownMenuSeperator } from '../components/dropdown';
-import { useAccountControl, useAccountState } from './redux/control';
+import { AccountControl, useAccountState } from './redux/control';
 import { MenuType } from '../../redux/reducer';
 import MenuItem from '../components/menu-item';
 import { LoggedInAs, UsernameDisplay } from '../../../../ui/username-font';
@@ -74,7 +74,7 @@ const LoggedInAsContainer = styled.div`
 
 const Account: any = () => {
   const AccountState = useAccountState();
-  const AccountControl = useAccountControl();
+  const AccountController = new AccountControl(useDispatch());
   const AccountCreationController = new AccountCreationControl(useDispatch());
   const LogInController = new LogInControl(useDispatch());
   const MenuControl = useMenuControl();
@@ -90,7 +90,7 @@ const Account: any = () => {
   };
 
   const handleLogOutClick = () => {
-    AccountControl.UNSET_USER();
+    AccountController.UNSET_USER();
     MenuControl.CLOSE_ALL();
   };
 

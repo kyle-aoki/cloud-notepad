@@ -13,6 +13,7 @@ import { inDevelopment } from './env/environment';
 import { NotificationActions, NotificationType } from './notifications/redux/reducer';
 import ReduxPane from './redux/redux-pane/redux-pane';
 import useNotifications from './notifications/use-notifications';
+import Notifications from './notifications/component';
 
 const AppContainer = styled.div`
   display: flex;
@@ -24,25 +25,12 @@ const AppContainer = styled.div`
 const App: FC = () => {
   const fileSystemOpen = useSelector((state: GlobalState) => state.fileSystem.fileSystemOpen);
 
-  useNotifications();
-
-  const dispatch = useDispatch();
-  const ok = () => {
-    dispatch({
-      type: NotificationActions.PUSH_NOTIFICATION,
-      payload: { type: NotificationType.INFO, text: 'asdfasdf' },
-    });
-  };
-
   return (
     <>
-      <ToastContainer transition={Flip}/>
+      <Notifications />
       {inDevelopment && <ReduxPane />}
 
       <AppContainer>
-        <button style={{ position: 'absolute', top: '0', left: '0', zIndex: 1000 }} onClick={ok}>
-          ok
-        </button>
         {fileSystemOpen && <FileSystem />}
         <AccountCreationModal />
         <LogInModal />

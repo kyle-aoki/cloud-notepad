@@ -9,13 +9,10 @@ export default function useNotifications() {
     if (!NotificationState.type) return;
     if (!NotificationState.text) return;
 
+    // prettier-ignore
     switch (NotificationState.type) {
-      case NotificationType.ERROR:
-        StandardToast(NotificationState.text);
-        break;
-      case NotificationType.INFO:
-        StandardToast(NotificationState.text);
-        break;
+      case NotificationType.ERROR: return StandardToast(NotificationState.text);
+      case NotificationType.INFO: return StandardToast(NotificationState.text);
     }
   }, [NotificationState.count]);
 }

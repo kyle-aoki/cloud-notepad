@@ -5,6 +5,7 @@ import Middleware from "../../middleware";
 const userRouter = express.Router();
 
 userRouter.post("/check-username", UserHandler.CheckUsername);
+userRouter.post("/check-password", UserHandler.CheckPassword);
 userRouter.post("/create-user", UserHandler.CreateUser, UserHandler.LogIn);
 userRouter.post("/log-in", UserHandler.LogIn);
 

@@ -31,10 +31,10 @@ export class AccountCreationControl extends Actuator {
     return this.exec({ type: CreateAccountModalActions.STOP_PASSWORD_LOADING });
   }
 
-  TRIGGER_ACCOUNT_CREATION(username: string, password: string) {
+  TRIGGER_ACCOUNT_CREATION(username: string, password: string, passwordLoading: boolean) {
     return this.exec({
       type: CreateAccountModalActions.TRIGGER_ACCOUNT_CREATION,
-      payload: { username, password },
+      payload: { username, password, passwordLoading },
     });
   }
 
@@ -62,10 +62,10 @@ export class AccountCreationControl extends Actuator {
     return this.exec({ type: CreateAccountModalActions.RESET_ACCOUNT_CREATION_STATE });
   }
 
-  CHECK_USERNAME(username: string) {
+  CHECK_USERNAME(username: string, usernameLoading: boolean) {
     return this.exec({
       type: CreateAccountModalActions.CHECK_USERNAME,
-      payload: { username },
+      payload: { username, usernameLoading },
     });
   }
 }

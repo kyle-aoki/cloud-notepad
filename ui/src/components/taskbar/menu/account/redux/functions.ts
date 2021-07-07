@@ -8,7 +8,7 @@ export const TOGGLE_ACCOUNT_DROPDOWN = (state: AccountState, action: AccountActi
 export function SET_USER(state: AccountState, action: AccountAction) {
   const username = action.payload.username;
   localStorage.setItem('username', username);
-  state.username = action.payload.username;
+  state.username = username;
   return { ...state };
 }
 export function UNSET_USER(state: AccountState, action: AccountAction) {

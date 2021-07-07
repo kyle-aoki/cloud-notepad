@@ -6,7 +6,6 @@ import {
   CLOSE_MODAL,
   USERNAME_LOADING,
   PASSWORD_LOADING,
-  ACCOUNT_CREATED_SUCCESS,
   ACCOUNT_FAILED_TO_CREATE,
   UPDATE_INPUT,
   GO_TO_PASSWORD_SCREEN,
@@ -47,7 +46,6 @@ export interface CreateAccountModalState {
   passwordLoading: boolean;
 
   createAccountAttempt: number;
-  accountCreatedSuccess: boolean;
   accountCreateFailiure: boolean;
 
   username: string;
@@ -94,7 +92,6 @@ export const createAccountModalReducer: Reducer<CreateAccountModalState, CreateA
     case CreateAccountModalActions.USERNAME_LOADING: return USERNAME_LOADING(state, action);
     case CreateAccountModalActions.PASSWORD_LOADING: return PASSWORD_LOADING(state, action);
     case CreateAccountModalActions.STOP_PASSWORD_LOADING: return STOP_PASSWORD_LOADING(state, action);
-    case CreateAccountModalActions.ACCOUNT_CREATED_SUCCESS: return ACCOUNT_CREATED_SUCCESS(state, action);
     case CreateAccountModalActions.ACCOUNT_FAILED_TO_CREATE: return ACCOUNT_FAILED_TO_CREATE(state, action);
     case CreateAccountModalActions.UPDATE_INPUT: return UPDATE_INPUT(state, action);
     case CreateAccountModalActions.GO_TO_PASSWORD_SCREEN: return GO_TO_PASSWORD_SCREEN(state, action);

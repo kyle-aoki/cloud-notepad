@@ -4,7 +4,6 @@ import { XButtonSVGContainer } from '../file-system/file-system';
 import { ReactComponent as LeftArrow } from '../../assets/left-arrow.svg';
 import { AccountCreationScreen } from './redux/reducer';
 import { XButton } from '../file-system/styled-components';
-import { useAccountControl } from '../taskbar/menu/account/redux/control';
 import { useDispatch } from 'react-redux';
 import NotificationControl from '../../notifications/redux/control';
 import { AccountCreationControl, useAccountCreationState } from './redux/control';
@@ -40,7 +39,12 @@ const AccountCreationModal: FC<AccountCreationPaneProps> = ({}) => {
                 <ButtonContainer>
                   <ActionButton
                     clicked={AccountCreationState.usernameLoading}
-                    onClick={() => AccountCreationController.CHECK_USERNAME(AccountCreationState.username)}
+                    onClick={() =>
+                      AccountCreationController.CHECK_USERNAME(
+                        AccountCreationState.username,
+                        AccountCreationState.usernameLoading
+                      )
+                    }
                   >
                     {AccountCreationState.usernameLoading ? <Spinner /> : 'Next'}
                   </ActionButton>
@@ -66,11 +70,12 @@ const AccountCreationModal: FC<AccountCreationPaneProps> = ({}) => {
 
                 <ButtonContainer>
                   <ActionButton
-                    clicked={false}
+                    clicked={AccountCreationState.passwordLoading}
                     onClick={() =>
                       AccountCreationController.TRIGGER_ACCOUNT_CREATION(
                         AccountCreationState.username,
-                        AccountCreationState.password
+                        AccountCreationState.password,
+                        AccountCreationState.passwordLoading
                       )
                     }
                   >
