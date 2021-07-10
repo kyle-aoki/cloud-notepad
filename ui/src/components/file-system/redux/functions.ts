@@ -43,7 +43,7 @@ export function FORWARD_BUTTON_PRESSED(state: FileSystemState, action: FileSyste
   return { ...state };
 }
 
-export function FOLDER_DOUBLE_CLICKED(state: FileSystemState, action: FileSystemAction) {
+export function FOLDER_CLICKED(state: FileSystemState, action: FileSystemAction) {
   const folderPath = action.payload.folderPath;
   state.path.push(folderPath);
   state.recent = [];

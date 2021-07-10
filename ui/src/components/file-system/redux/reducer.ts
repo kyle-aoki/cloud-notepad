@@ -8,7 +8,7 @@ import {
   SAVE_FILE,
   BACK_BUTTON_PRESSED,
   FORWARD_BUTTON_PRESSED,
-  FOLDER_DOUBLE_CLICKED,
+  FOLDER_CLICKED,
 } from './functions';
 
 export enum FileSystemActions {
@@ -23,7 +23,7 @@ export enum FileSystemActions {
   BACK_BUTTON_PRESSED = 'BACK_BUTTON_PRESSED',
   FORWARD_BUTTON_PRESSED = 'FORWARD_BUTTON_PRESSED',
 
-  FOLDER_DOUBLE_CLICKED = 'FOLDER_DOUBLE_CLICKED',
+  FOLDER_CLICKED = 'FOLDER_CLICKED',
 }
 
 export interface FileSystemAction {
@@ -48,15 +48,15 @@ const initialState: FileSystemState = {
 // prettier-ignore
 export const fileSystemReducer: Reducer<FileSystemState, FileSystemAction> = (state = initialState, action) => {
   switch (action.type) {
-    case FileSystemActions.CLOSE_FILE_SYSTEM: return CLOSE_FILE_SYSTEM(state, action);
-    case FileSystemActions.OPEN_FILE_SYSTEM: return OPEN_FILE_SYSTEM(state, action);
-    case FileSystemActions.SET_USER_DIR: return SET_USER_DIR(state, action);
-    case FileSystemActions.CREATE_FILE: return CREATE_FILE(state, action);
-    case FileSystemActions.SAVE_FILE: return SAVE_FILE(state, action);
-    case FileSystemActions.DELETE_FILE: return DELETE_FILE(state, action);
-    case FileSystemActions.BACK_BUTTON_PRESSED: return BACK_BUTTON_PRESSED(state, action);
-    case FileSystemActions.FORWARD_BUTTON_PRESSED: return FORWARD_BUTTON_PRESSED(state, action);
-    case FileSystemActions.FOLDER_DOUBLE_CLICKED: return FOLDER_DOUBLE_CLICKED(state, action);
+    case FileSystemActions.CLOSE_FILE_SYSTEM:       return CLOSE_FILE_SYSTEM(state, action);
+    case FileSystemActions.OPEN_FILE_SYSTEM:        return OPEN_FILE_SYSTEM(state, action);
+    case FileSystemActions.SET_USER_DIR:            return SET_USER_DIR(state, action);
+    case FileSystemActions.CREATE_FILE:             return CREATE_FILE(state, action);
+    case FileSystemActions.SAVE_FILE:               return SAVE_FILE(state, action);
+    case FileSystemActions.DELETE_FILE:             return DELETE_FILE(state, action);
+    case FileSystemActions.BACK_BUTTON_PRESSED:     return BACK_BUTTON_PRESSED(state, action);
+    case FileSystemActions.FORWARD_BUTTON_PRESSED:  return FORWARD_BUTTON_PRESSED(state, action);
+    case FileSystemActions.FOLDER_CLICKED:          return FOLDER_CLICKED(state, action);
     default: return state;
   }
 };
