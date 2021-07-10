@@ -3,7 +3,7 @@ import { PutEffect } from "redux-saga/effects";
 
 type Put = () => PutEffect
 
-export class Actuator {
+export class Executor {
   protected exec: Dispatch | Put;
 
   constructor(exec: Dispatch | Put) {

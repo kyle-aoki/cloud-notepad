@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { XButtonSVGContainer } from '../file-system/file-system';
 import { ReactComponent as LeftArrow } from '../../assets/left-arrow.svg';
 import { AccountCreationScreen } from './redux/reducer';
 import { XButton } from '../file-system/styled-components';
 import { useDispatch } from 'react-redux';
 import NotificationControl from '../../notifications/redux/control';
 import { AccountCreationControl, useAccountCreationState } from './redux/control';
+import { XButtonSVGContainer } from '../file-system/components';
 
 interface AccountCreationPaneProps {}
 

@@ -3,11 +3,11 @@ import { GlobalState } from '../../..';
 import { Dispatch } from 'redux';
 import { LogInActions } from './reducer';
 import { AccountSagaActions } from '../../taskbar/menu/account/redux/reducer';
-import { Actuator } from '../../../redux/class';
+import { Executor } from '../../../redux/class';
 
 export const useLogInState = () => useSelector((state: GlobalState) => state.LogIn);
 
-export class LogInControl extends Actuator {
+export class LogInControl extends Executor {
   UPDATE_FIELD(field: string, value: string) {
     return this.exec({ type: LogInActions.UPDATE_FIELD, payload: { field, value } });
   }

@@ -1,44 +1,49 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 import { GlobalState } from '../../..';
-import { FileSystemActions, FileSystemSagaActions, FileSystemState } from './reducer';
+import { Executor } from '../../../redux/class';
+import { FileSystemActions, FileSystemState } from './reducer';
 
-export function useFileSystemState() {
-  const state = useSelector((state: GlobalState) => state.fileSystem);
-  return state;
-}
+export const useFileSystemState = () => useSelector((state: GlobalState) => state.fileSystem);
 
-export function useFileSystemControl() {
-  const dispatch = useDispatch();
-  return new FileSystemControl(dispatch);
-}
-
-class FileSystemControl {
-  dispatch: Dispatch<any>;
-
-  constructor(dispatch: Dispatch<any>) {
-    this.dispatch = dispatch;
-  }
-
+export class FileSystemControl extends Executor {
   OPEN_FILE_SYSTEM() {
-    this.dispatch({ type: FileSystemActions.OPEN_FILE_SYSTEM });
+    return this.exec({ type: FileSystemActions.OPEN_FILE_SYSTEM });
   }
 
   CLOSE_FILE_SYSTEM() {
-    this.dispatch({ type: FileSystemActions.CLOSE_FILE_SYSTEM });
+    return this.exec({ type: FileSystemActions.CLOSE_FILE_SYSTEM });
   }
 
   CREATE_FILE() {
-    this.dispatch({ type: FileSystemActions.CREATE_FILE });
+    return this.exec({ type: FileSystemActions.CREATE_FILE });
   }
+
   SAVE_FILE() {
-    this.dispatch({ type: FileSystemActions.SAVE_FILE });
+    return this.exec({ type: FileSystemActions.SAVE_FILE });
   }
+
   DELETE_FILE() {
-    this.dispatch({ type: FileSystemActions.DELETE_FILE });
+    return this.exec({ type: FileSystemActions.DELETE_FILE });
   }
 
   GET_USER_DIR() {
-    this.dispatch({ type: FileSystemSagaActions.GET_USER_DIR });
+    return this.exec({ type: FileSystemActions.GET_USER_DIR });
+  }
+
+  SET_USER_DIR(userDir: any) {
+    return this.exec({ type: FileSystemActions.SET_USER_DIR, payload: { userDir } });
+  }
+
+  BACK_BUTTON_PRESSED() {
+    return this.exec({ type: FileSystemActions.BACK_BUTTON_PRESSED });
+  }
+
+  FORWARD_BUTTON_PRESSED() {
+    return this.exec({ type: FileSystemActions.FORWARD_BUTTON_PRESSED });
+  }
+
+  FOLDER_DOUBLE_CLICKED(folderPath: any) {
+    return this.exec({ type: FileSystemActions.FOLDER_DOUBLE_CLICKED, payload: { folderPath } });
   }
 }

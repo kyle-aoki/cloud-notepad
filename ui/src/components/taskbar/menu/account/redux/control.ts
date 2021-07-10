@@ -2,11 +2,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { GlobalState } from '../../../../..';
 import { Dispatch } from 'redux';
 import { AccountActions, AccountState } from './reducer';
-import { Actuator } from '../../../../../redux/class';
+import { Executor } from '../../../../../redux/class';
 
 export const useAccountState = () => useSelector((state: GlobalState) => state.account);
 
-export class AccountControl extends Actuator {
+export class AccountControl extends Executor {
   TOGGLE_ACCOUNT_DROPDOWN() {
     return this.exec({ type: AccountActions.TOGGLE_ACCOUNT_DROPDOWN });
   }

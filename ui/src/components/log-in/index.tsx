@@ -12,7 +12,7 @@ import {
   Button,
   Spinner,
 } from '../account-creation/index';
-import { XButtonSVGContainer } from '../file-system/file-system';
+import { XButtonSVGContainer } from '../file-system/components';
 import { XButton } from '../file-system/styled-components';
 import { useDispatch } from 'react-redux';
 

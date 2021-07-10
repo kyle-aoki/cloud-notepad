@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 import { GlobalState } from '../../..';
-import { Actuator } from '../../../redux/class';
+import { Executor } from '../../../redux/class';
 import { CreateAccountModalActions, CreateAccountModalState } from './reducer';
 
 export const useAccountCreationState = () => useSelector((state: GlobalState) => state.createAccountModal);
 
-export class AccountCreationControl extends Actuator {
+export class AccountCreationControl extends Executor {
   OPEN_MODAL() {
     return this.exec({ type: CreateAccountModalActions.OPEN_MODAL });
   }
