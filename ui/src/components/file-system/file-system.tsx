@@ -29,8 +29,6 @@ export default function FileSystem() {
   const FileSystemController = new FileSystemControl(useDispatch());
   const { userDir, path } = useFileSystemState();
 
-  const handleXButtonClick = () => FileSystemController.CLOSE_FILE_SYSTEM();
-
   return (
     <>
       <FileSystemContainer>
@@ -39,7 +37,7 @@ export default function FileSystem() {
             <Handle>
               <Title>File Explorer - Open</Title>
             </Handle>
-            <XButton onClick={handleXButtonClick}>
+            <XButton onClick={() => FileSystemController.CLOSE_FILE_SYSTEM()}>
               <XButtonSVGContainer />
             </XButton>
           </HandleContainer>
