@@ -10,7 +10,7 @@ import { AccountCreationControl, useAccountCreationState } from './redux/control
 
 interface AccountCreationPaneProps {}
 
-const AccountCreationModal: FC<AccountCreationPaneProps> = ({}) => {
+const AccountCreationModal: FC<AccountCreationPaneProps> = () => {
   const AccountCreationState = useAccountCreationState();
   const AccountCreationController = new AccountCreationControl(useDispatch());
 

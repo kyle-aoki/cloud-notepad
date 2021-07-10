@@ -2,7 +2,7 @@ export default class FileAPI {
   static api_key = '123';
 
   static async GetUserDir() {
-    const requestConfig = { method: 'POST' };
+    const requestConfig = { method: 'GET' };
     const res = await fetch('/api/file/get-user-dir', requestConfig);
     const json = await res.json();
     console.log('/api/file/get-user-dir', json);

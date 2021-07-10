@@ -18,7 +18,7 @@ import { useDispatch } from 'react-redux';
 
 interface LogInModalProps {}
 
-export const LogInModal: FC<LogInModalProps> = ({}) => {
+export const LogInModal: FC<LogInModalProps> = () => {
   const LogInController = new LogInControl(useDispatch());
   const LogInState = useLogInState();
 

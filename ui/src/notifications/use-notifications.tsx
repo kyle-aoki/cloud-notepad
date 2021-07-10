@@ -5,6 +5,7 @@ import { StandardToast } from './standard-toast';
 
 export default function useNotifications() {
   const NotificationState = useNotificationState();
+
   useEffect(() => {
     if (!NotificationState.type) return;
     if (!NotificationState.text) return;
@@ -14,5 +15,5 @@ export default function useNotifications() {
       case NotificationType.ERROR: return StandardToast(NotificationState.text);
       case NotificationType.INFO: return StandardToast(NotificationState.text);
     }
-  }, [NotificationState.count]);
+  }, [NotificationState.count, NotificationState.type, NotificationState.text]); 
 }

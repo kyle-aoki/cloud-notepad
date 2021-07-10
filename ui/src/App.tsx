@@ -9,8 +9,8 @@ import { LogInModal } from './components/log-in';
 import StatusBar from './components/statusbar/status-bar';
 import Taskbar from './components/taskbar/taskbar';
 import { inDevelopment } from './env/environment';
-import ReduxPane from './redux/redux-pane/redux-pane';
 import Notifications from './notifications/component';
+import ReduxPane from './redux/redux-pane/redux-pane';
 
 const AppContainer = styled.div`
   display: flex;

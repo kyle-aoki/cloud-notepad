@@ -4,9 +4,9 @@ import "./consolas.css";
 
 interface EditorProps {}
 
-interface EditorElement {}
+interface EditorElementProps {}
 
-const EditorElement = styled.textarea.attrs((props: EditorElement) => ({
+const EditorElement = styled.textarea.attrs((props: EditorElementProps) => ({
   spellCheck: false,
   wrap: "off",
 }))`
