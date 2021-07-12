@@ -1,16 +1,46 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import MenuContainer from '../components/menu-container';
-import { ReactComponent as DownChevron } from '../../../assets/down-chevron.svg';
 import { DropdownMenu, DropdownMenuItem, DropdownMenuSeperator } from '../components/dropdown';
-import { AccountControl, useAccountState } from './redux/control';
-import { MenuType } from '../../redux/reducer';
 import MenuItem from '../components/menu-item';
 import { LoggedInAs, UsernameDisplay } from '../../../../ui/username-font';
-import { useMenuControl } from '../../redux/control';
-import { LogInControl } from '../../../log-in/redux/control';
 import { useDispatch } from 'react-redux';
-import { AccountCreationControl } from '../../../account-creation/redux/control';
+import { useAccountState } from './redux';
+import { Menu } from '../../redux';
+import { Account } from './redux';
+import { AccountCreation } from '../../../account-creation/redux';
+import { LogIn } from '../../../log-in/redux';
+
+const AccountComponent: any = () => {
+  const AccountController = new Account.Instance(useDispatch());
+  const AccountState = useAccountState();
+
+  const AccountCreationController = new AccountCreation.Instance(useDispatch());
+  const LogInController = new LogIn.Instance(useDispatch());
+
+  return (
+    <>
+      <MenuItem menuName="Account" menuType={Menu.Type.account} offset={'0px'}>
+        {AccountState.username ? (
+          <>
+            <DropdownMenuItem unhoverable={true}>
+              <LoggedInAs username={AccountState.username} />
+            </DropdownMenuItem>
+            <DropdownMenuSeperator />
+            <DropdownMenuItem onClick={() => AccountController.UNSET_USER()}>Log Out</DropdownMenuItem>
+          </>
+        ) : (
+          <>
+            <DropdownMenuItem onClick={() => AccountCreationController.OPEN_MODAL()}>Create Account</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => LogInController.TOGGLE_LOG_IN_MODAL()}>Log In</DropdownMenuItem>
+          </>
+        )}
+      </MenuItem>
+    </>
+  );
+};
+
+export default AccountComponent;
 
 const AccountContainer = styled(MenuContainer)`
   padding: 0 10px;
@@ -71,49 +101,3 @@ const LoggedInAccountDropDown = styled.div`
 const LoggedInAsContainer = styled.div`
   font-family: 'Consolas';
 `;
-
-const Account: any = () => {
-  const AccountState = useAccountState();
-  const AccountController = new AccountControl(useDispatch());
-  const AccountCreationController = new AccountCreationControl(useDispatch());
-  const LogInController = new LogInControl(useDispatch());
-  const MenuControl = useMenuControl();
-
-  const handleCreateAccountButtonClick = () => {
-    AccountCreationController.OPEN_MODAL();
-    MenuControl.CLOSE_ALL();
-  };
-
-  const handleLogInClick = () => {
-    LogInController.TOGGLE_LOG_IN_MODAL();
-    MenuControl.CLOSE_ALL();
-  };
-
-  const handleLogOutClick = () => {
-    AccountController.UNSET_USER();
-    MenuControl.CLOSE_ALL();
-  };
-
-  return (
-    <>
-      <MenuItem menuName="Account" menuType={MenuType.account} offset={'0px'}>
-        {AccountState.username ? (
-          <>
-            <DropdownMenuItem unhoverable={true}>
-              <LoggedInAs username={AccountState.username} />
-            </DropdownMenuItem>
-            <DropdownMenuSeperator />
-            <DropdownMenuItem onClick={handleLogOutClick}>Log Out</DropdownMenuItem>
-          </>
-        ) : (
-          <>
-            <DropdownMenuItem onClick={handleCreateAccountButtonClick}>Create Account</DropdownMenuItem>
-            <DropdownMenuItem onClick={handleLogInClick}>Log In</DropdownMenuItem>
-          </>
-        )}
-      </MenuItem>
-    </>
-  );
-};
-
-export default Account;

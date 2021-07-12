@@ -1,16 +1,15 @@
 import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
-import { FileSystemControl } from '../../file-system/redux/control';
-import { useMenuControl } from '../redux/control';
-import { MenuType } from '../redux/reducer';
+import { FileSystem } from '../../file-system/redux';
+import { Menu } from '../redux';
 import { DropdownMenuItem, DropdownMenuSeperator } from './components/dropdown';
 import MenuItem from './components/menu-item';
 
 interface FileProps {}
 
 const File: FC<FileProps> = () => {
-  const FileSystemController = new FileSystemControl(useDispatch());
-  const MenuControl = useMenuControl();
+  const FileSystemController = new FileSystem.Instance(useDispatch());
+  const MenuControl = new Menu.Instance(useDispatch());
 
   const handleOpenClick = () => {
     FileSystemController.OPEN_FILE_SYSTEM();
@@ -19,7 +18,7 @@ const File: FC<FileProps> = () => {
   };
 
   return (
-    <MenuItem menuName="File" menuType={MenuType.file} offset={'54px'}>
+    <MenuItem menuName="File" menuType={Menu.Type.file} offset={'54px'}>
       <DropdownMenuItem>New</DropdownMenuItem>
       <DropdownMenuItem>New Window</DropdownMenuItem>
       <DropdownMenuItem onClick={handleOpenClick}>Open...</DropdownMenuItem>

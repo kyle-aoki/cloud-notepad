@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { LogInControl, useLogInState } from './redux/control';
 import {
   AccountCreationContainer,
   AccountCreationPaneElement,
@@ -15,21 +14,16 @@ import {
 import { XButtonSVGContainer } from '../file-system/components';
 import { XButton } from '../file-system/styled-components';
 import { useDispatch } from 'react-redux';
+import { LogIn, useLogInState } from './redux';
 
 interface LogInModalProps {}
 
 export const LogInModal: FC<LogInModalProps> = () => {
-  const LogInController = new LogInControl(useDispatch());
-  const LogInState = useLogInState();
-
-  const handleLogInClick = () => {
-    if (!LogInState.loading) {
-      LogInController.SUBMIT_LOG_IN(LogInState.username, LogInState.password);
-    }
-  };
+  const LogInController = new LogIn.Instance(useDispatch());
+  const { loading, showLogInModal, username, password } = useLogInState();
 
   return (
-    <AccountCreationContainer className={LogInState.showLogInModal ? 'Show' : 'Hidden'}>
+    <AccountCreationContainer className={showLogInModal ? 'Show' : 'Hidden'}>
       <AccountCreationPaneElement>
         <AccountCreationTaskbar>
           <CloudNotepadTitle>☁️ Cloud Notepad</CloudNotepadTitle>
@@ -40,8 +34,8 @@ export const LogInModal: FC<LogInModalProps> = () => {
         <ContentPane>
           <UsernameInput id="username" onChange={(e) => LogInController.UPDATE_FIELD(e.target.id, e.target.value)} />
           <PasswordInput id="password" onChange={(e) => LogInController.UPDATE_FIELD(e.target.id, e.target.value)} />
-          <LogInButton clicked={LogInState.loading} onClick={handleLogInClick}>
-            {LogInState.loading ? <Spinner /> : 'Log In'}
+          <LogInButton clicked={loading} onClick={() => LogInController.SUBMIT_LOG_IN(username, password, loading)}>
+            {loading ? <Spinner /> : 'Log In'}
           </LogInButton>
         </ContentPane>
       </AccountCreationPaneElement>

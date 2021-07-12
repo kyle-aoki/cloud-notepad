@@ -8,36 +8,36 @@ import { Provider } from 'react-redux';
 
 import createSagaMiddleware from 'redux-saga';
 
-import { createAccountModalReducer, CreateAccountModalState } from './components/account-creation/redux/reducer';
-import { CheckPasswordSagaMiddleware } from './components/account-creation/redux/saga/check-password';
-import { notificationReducer, NotificationState } from './notifications/redux/reducer';
-import { FileSystemState, fileSystemReducer } from './components/file-system/redux/reducer';
-import { accountReducer, AccountState } from './components/taskbar/menu/account/redux/reducer';
-import { menuReducer, MenuState } from './components/taskbar/redux/reducer';
-import { GetUserDirSaga } from './components/file-system/redux/saga';
-import { LogInReducer, LogInState } from './components/log-in/redux/reducer';
-import { LogInSagaMiddleware } from './components/log-in/redux/saga';
+import { CheckPasswordSagaMiddleware } from './components/account-creation/saga/check-password';
+import { GetUserDirSaga } from './components/file-system/redux/get-user-dir';
 import 'react-toastify/dist/ReactToastify.css';
-import { CheckUsernameSagaMiddleware } from './components/account-creation/redux/saga/check-username';
+import { CheckUsernameSagaMiddleware } from './components/account-creation/saga/check-username';
+import { Notif } from './notif/redux';
+import { AccountCreation } from './components/account-creation/redux';
+import { Account } from './components/taskbar/menu/account/redux';
+import { Menu } from './components/taskbar/redux';
+import { LogIn } from './components/log-in/redux';
+import { LogInSagaMiddleware } from './components/log-in/saga/submit-log-in';
+import { FileSystem } from './components/file-system/redux';
 
 export interface GlobalState {
-  fileSystem: FileSystemState;
-  menu: MenuState;
-  account: AccountState;
-  createAccountModal: CreateAccountModalState;
-  notifications: NotificationState;
-  LogIn: LogInState;
+  FileSystem: FileSystem.SHAPE;
+  Menu: Menu.SHAPE;
+  Account: Account.SHAPE;
+  AccountCreation: AccountCreation.SHAPE;
+  Notif: Notif.SHAPE;
+  LogIn: LogIn.SHAPE;
 }
 
 const sagaMiddleware = createSagaMiddleware();
 
 const combinedReducers = combineReducers({
-  account: accountReducer,
-  fileSystem: fileSystemReducer,
-  menu: menuReducer,
-  createAccountModal: createAccountModalReducer,
-  notifications: notificationReducer,
-  LogIn: LogInReducer,
+  Account: Account.REDUCER,
+  FileSystem: FileSystem.REDUCER,
+  Menu: Menu.REDUCER,
+  AccountCreation: AccountCreation.REDUCER,
+  Notif: Notif.REDUCER,
+  LogIn: LogIn.REDUCER,
 });
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

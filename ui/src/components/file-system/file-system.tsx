@@ -2,7 +2,6 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { ReactComponent as CloudIcon } from '../../assets/cloud.svg';
 import { Arrow, CloudIconStyle, SubPath, XButtonSVGContainer } from './components';
-import { FileSystemControl, useFileSystemState } from './redux/control';
 import {
   ArrowsContainer,
   Button,
@@ -22,9 +21,10 @@ import {
   ViewContainer,
   XButton,
 } from './styled-components';
+import { FileSystem, useFileSystemState } from './redux'
 
-export default function FileSystem() {
-  const FileSystemController = new FileSystemControl(useDispatch());
+export default function FileSystemComponent() {
+  const FileSystemController = new FileSystem.Instance(useDispatch());
   const { userDir, path } = useFileSystemState();
 
   return (

@@ -1,18 +1,16 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as LeftArrow } from '../../assets/left-arrow.svg';
-import { AccountCreationScreen } from './redux/reducer';
 import { XButton } from '../file-system/styled-components';
 import { useDispatch } from 'react-redux';
-import NotificationControl from '../../notifications/redux/control';
-import { AccountCreationControl, useAccountCreationState } from './redux/control';
 import { XButtonSVGContainer } from '../file-system/components';
+import { AccountCreation, useAccountCreationState } from './redux';
 
 interface AccountCreationPaneProps {}
 
 const AccountCreationModal: FC<AccountCreationPaneProps> = () => {
   const AccountCreationState = useAccountCreationState();
-  const AccountCreationController = new AccountCreationControl(useDispatch());
+  const AccountCreationController = new AccountCreation.Instance(useDispatch());
 
   return (
     <AccountCreationContainer className={AccountCreationState.createAccountModalOpen ? 'Show' : 'Hidden'}>
@@ -25,7 +23,7 @@ const AccountCreationModal: FC<AccountCreationPaneProps> = () => {
             </XButton>
           </AccountCreationTaskbar>
           <ContentPane>
-            {AccountCreationState.accountCreationScreen === AccountCreationScreen.USERNAME_INPUT ? (
+            {AccountCreationState.accountCreationScreen === AccountCreation.Screen.USERNAME_INPUT ? (
               <>
                 <CreateAccountTitle>Create Account</CreateAccountTitle>
 
@@ -72,7 +70,7 @@ const AccountCreationModal: FC<AccountCreationPaneProps> = () => {
                   <ActionButton
                     clicked={AccountCreationState.passwordLoading}
                     onClick={() =>
-                      AccountCreationController.TRIGGER_ACCOUNT_CREATION(
+                      AccountCreationController.CHECK_PASSWORD(
                         AccountCreationState.username,
                         AccountCreationState.password,
                         AccountCreationState.passwordLoading

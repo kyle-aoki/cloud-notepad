@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import { GlobalState } from '.';
 import AccountCreationModal from './components/account-creation';
 import Editor from './components/editor/editor';
-import FileSystem from './components/file-system/file-system';
+import FileSystemComponent from './components/file-system/file-system';
 import { LogInModal } from './components/log-in';
 import StatusBar from './components/statusbar/status-bar';
 import Taskbar from './components/taskbar/taskbar';
 import { inDevelopment } from './env/environment';
-import Notifications from './notifications/component';
+import Notifications from './notif/component';
 import ReduxPane from './redux/redux-pane/redux-pane';
 
 const AppContainer = styled.div`
@@ -20,7 +20,7 @@ const AppContainer = styled.div`
 `;
 
 const App: FC = () => {
-  const fileSystemOpen = useSelector((state: GlobalState) => state.fileSystem.fileSystemOpen);
+  const fileSystemOpen = useSelector((state: GlobalState) => state.FileSystem.fileSystemOpen);
 
   return (
     <>
@@ -28,7 +28,7 @@ const App: FC = () => {
       {inDevelopment && <ReduxPane />}
 
       <AppContainer>
-        {fileSystemOpen && <FileSystem />}
+        {fileSystemOpen && <FileSystemComponent />}
         <AccountCreationModal />
         <LogInModal />
 
