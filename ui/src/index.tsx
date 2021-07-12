@@ -2,12 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-
 import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
 import { Provider } from 'react-redux';
-
 import createSagaMiddleware from 'redux-saga';
-
 import { CheckPasswordSagaMiddleware } from './components/account-creation/saga/check-password';
 import { GetUserDirSaga } from './components/file-system/redux/get-user-dir';
 import 'react-toastify/dist/ReactToastify.css';
