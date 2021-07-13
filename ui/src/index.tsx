@@ -16,6 +16,8 @@ import { Menu } from './components/taskbar/redux';
 import { LogIn } from './components/log-in/redux';
 import { LogInSagaMiddleware } from './components/log-in/saga/submit-log-in';
 import { FileSystem } from './components/file-system/redux';
+import { OpenLogInSagaMiddleware } from './components/taskbar/menu/account/saga/log-in-click';
+import { LogOutSagaMiddleware } from './components/taskbar/menu/account/saga/log-out-click';
 
 export interface GlobalState {
   FileSystem: FileSystem.SHAPE;
@@ -45,6 +47,8 @@ sagaMiddleware.run(CheckPasswordSagaMiddleware);
 sagaMiddleware.run(CheckUsernameSagaMiddleware);
 sagaMiddleware.run(GetUserDirSaga);
 sagaMiddleware.run(LogInSagaMiddleware);
+sagaMiddleware.run(OpenLogInSagaMiddleware);
+sagaMiddleware.run(LogOutSagaMiddleware);
 
 ReactDOM.render(
   <Provider store={store}>

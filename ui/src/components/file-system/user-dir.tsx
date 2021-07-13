@@ -1,12 +1,3 @@
-
-
-
 export default function UserDir() {
-
-  
-    return (
-      <>
-
-      </>
-    );
-  }
+  return <></>;
+}

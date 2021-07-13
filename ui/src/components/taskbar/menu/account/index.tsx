@@ -27,12 +27,12 @@ const AccountComponent: any = () => {
               <LoggedInAs username={AccountState.username} />
             </DropdownMenuItem>
             <DropdownMenuSeperator />
-            <DropdownMenuItem onClick={() => AccountController.UNSET_USER()}>Log Out</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => AccountController.LOG_OUT()}>Log Out</DropdownMenuItem>
           </>
         ) : (
           <>
             <DropdownMenuItem onClick={() => AccountCreationController.OPEN_MODAL()}>Create Account</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => LogInController.TOGGLE_LOG_IN_MODAL()}>Log In</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => AccountController.LOG_IN()}>Log In</DropdownMenuItem>
           </>
         )}
       </MenuItem>

@@ -1,16 +1,18 @@
 import { put, takeEvery } from 'redux-saga/effects';
-import { AccountCreation } from '../../../../account-creation/redux';
+import { Notif } from '../../../../../notif/redux';
 import { Menu } from '../../../redux';
 import { Account } from '../redux';
 
-function* LogOut(): Generator<any, any, any> {
-  const AccountCreationController = new AccountCreation.Instance(put);
+function* LogOutSaga(): Generator<any, any, any> {
+  const AccountController = new Account.Instance(put);
   const MenuControl = new Menu.Instance(put);
+  const NotifController = new Notif.Instance(put);
 
-  // AccountController.UNSET_USER();
-  MenuControl.CLOSE_ALL();
+  yield AccountController.UNSET_USER();
+  yield NotifController.PUSH_INFO("You've been logged out.");
+  yield MenuControl.CLOSE_ALL();
 }
 
-export function* LogOutMiddlware() {
-  yield takeEvery("Account.SAGA.LogOut.meta.type", LogOut);
+export function* LogOutSagaMiddleware() {
+  yield takeEvery(Account.SAGA.LOG_OUT.meta.type, LogOutSaga);
 }

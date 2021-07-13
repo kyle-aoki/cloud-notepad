@@ -1,7 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { GlobalState } from '.';
+import FileAPI from './api/file.api';
+import UserAPI from './api/user-api';
 import AccountCreationModal from './components/account-creation';
 import Editor from './components/editor/editor';
 import FileSystemComponent from './components/file-system/file-system';

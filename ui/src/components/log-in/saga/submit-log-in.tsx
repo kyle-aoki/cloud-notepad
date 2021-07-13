@@ -3,14 +3,14 @@ import UserAPI from '../../../api/user-api';
 import { Notif } from '../../../notif/redux';
 import { ReduxAction } from '../../../redux/class';
 import { LoggedInAs } from '../../../ui/username-font';
-import AccountComponent from '../../taskbar/menu/account';
+import { Account } from '../../taskbar/menu/account/redux';
 import { LogIn } from '../redux';
 
 function* LogInSaga(action: ReduxAction): Generator<any, any, any> {
   const { loading, username, password } = action.payload;
-  if (loading) return;
+  if (loading || !username || !password) return;
 
-  const AccountController = new AccountComponent.Instance(put);
+  const AccountController = new Account.Instance(put);
   const LogInController = new LogIn.Instance(put);
   const NotifController = new Notif.Instance(put);
 

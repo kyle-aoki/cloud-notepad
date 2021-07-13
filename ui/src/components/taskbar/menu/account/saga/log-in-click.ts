@@ -1,16 +1,16 @@
 import { put, takeEvery } from 'redux-saga/effects';
-import { AccountCreation } from '../../../../account-creation/redux';
+import { LogIn } from '../../../../log-in/redux';
 import { Menu } from '../../../redux';
 import { Account } from '../redux';
 
-function* CREATE_ACCOUNT(): Generator<any, any, any> {
-  const AccountCreationController = new AccountCreation.Instance(put);
+function* OpenLogInSaga(): Generator<any, any, any> {
   const MenuControl = new Menu.Instance(put);
+  const LogInController = new LogIn.Instance(put);
 
-  // LogInController.TOGGLE_LOG_IN_MODAL();
-  MenuControl.CLOSE_ALL();
+  yield LogInController.TOGGLE_LOG_IN_MODAL();
+  yield MenuControl.CLOSE_ALL();
 }
 
-export function* CREATE_ACCOUNTMiddlware() {
-  yield takeEvery(Account.SAGA.CREATE_ACCOUNT.meta.type, CREATE_ACCOUNT);
+export function* OpenLogInSagaMiddleware() {
+  yield takeEvery(Account.SAGA.LOG_IN.meta.type, OpenLogInSaga);
 }
