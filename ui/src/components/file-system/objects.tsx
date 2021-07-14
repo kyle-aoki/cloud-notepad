@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import { ReactComponent as FileIcon } from '../../assets/file.svg';
 import { ReactComponent as FolderIcon } from '../../assets/folder.svg';
+import DirObject from '../../model/dir-object';
 import {
   FileContainer,
   FileDateMod,
@@ -17,24 +18,30 @@ import {
 
 const FSObjectIconStyle = { fill: 'white', width: '15px', height: '15px' };
 
-export const File: FC<any> = ({ fileName, size, lastModified, onClick, onDoubleClick }) => {
-  const [selected, setSelected] = useState<boolean>(false);
-  if (fileName.length > 20) fileName = fileName.substring(0, 10) + '...' + fileName.substring(fileName.length - 10);
+interface File {
+  dirObject: DirObject;
+}
+
+export const File: FC<File> = ({ dirObject }) => {
+  const { fileName, lastModified, fileSize } = dirObject;
+
   return (
-    <FileContainer selected={selected} onClick={() => onClick(selected, setSelected)} onDoubleClick={onDoubleClick}>
+    <FileContainer>
       <FileIcon style={FSObjectIconStyle} />
       <FileName>{fileName}</FileName>
       <FileDateMod>{lastModified}</FileDateMod>
       <FileExt>.txt</FileExt>
-      <FileSize>{size}</FileSize>
+      <FileSize>{fileSize}</FileSize>
     </FileContainer>
   );
 };
 
-export const Folder: FC<any> = ({ onClick, folderName, lastModified }) => {
+export const Folder: FC<any> = ({ dirObject, folderName }) => {
+  const { lastModified } = dirObject;
+  
   return (
     <>
-      <FolderContainer onDoubleClick={onClick}>
+      <FolderContainer >
         <FolderIcon style={FSObjectIconStyle} />
         <FolderName>{folderName}</FolderName>
         <FolderDateMod>{lastModified}</FolderDateMod>

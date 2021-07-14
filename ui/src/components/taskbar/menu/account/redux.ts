@@ -30,6 +30,7 @@ export namespace Account {
       const username = action.payload.username;
       localStorage.setItem('username', username);
       state.username = username;
+      state.accountMenuOpen = false;
       return { ...state };
     });
   }

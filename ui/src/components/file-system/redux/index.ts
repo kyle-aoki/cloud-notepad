@@ -14,7 +14,7 @@ export namespace FileSystem {
   export const INITIAL_STATE: SHAPE = {
     fileSystemOpen: false,
     userDir: undefined,
-    path: [],
+    path: ["folder1", "folder2"],
     recent: [],
   };
 

@@ -52,7 +52,7 @@ export default function FileSystemComponent() {
               // if (index === 0) return;
               // if (index === array.length - 1) return subpath.replace('/', '');
               const last = index === array.length - 1;
-              return <SubPath last={last}>{subpath}</SubPath>;
+              return <SubPath key={index} last={last}>{subpath}</SubPath>;
             })}
           </PathContainer>
           <StorageCapacity>{'0 KB'} / 1000 KB</StorageCapacity>
@@ -61,7 +61,7 @@ export default function FileSystemComponent() {
       <Container>
         <Sidebar></Sidebar>
         <ViewContainer>
-          <View></View>
+          <View>{userDir}</View>
         </ViewContainer>
       </Container>
       <Controller>
