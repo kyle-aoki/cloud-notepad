@@ -1,17 +1,25 @@
 import { useSelector } from 'react-redux';
 import { GlobalState } from '../../../..';
 import { init, ReduxAction, Executor } from '../../../../redux/class';
+import {
+  getUsernameFromLocalStorage,
+  checkIfUsernameExistsInLocalStorage,
+  setUsernameInLocalStorage,
+  deleteUsernameFromLocalStorage,
+} from './util';
 
 export const useAccountState = () => useSelector((state: GlobalState) => state.Account);
 
 export namespace Account {
   export interface SHAPE {
     accountMenuOpen: boolean;
-    username: string | null;
+    username: string;
+    isLoggedIn: boolean;
   }
   export const INITIAL_STATE: SHAPE = {
     accountMenuOpen: false,
-    username: localStorage.getItem('username'),
+    username: getUsernameFromLocalStorage(),
+    isLoggedIn: checkIfUsernameExistsInLocalStorage(),
   };
 
   export namespace DEFAULT {
@@ -28,9 +36,13 @@ export namespace Account {
   export namespace SET_USER {
     export const meta = init((state: SHAPE, action) => {
       const username = action.payload.username;
-      localStorage.setItem('username', username);
+
+      setUsernameInLocalStorage(username);
+
       state.username = username;
       state.accountMenuOpen = false;
+      state.isLoggedIn = checkIfUsernameExistsInLocalStorage();
+
       return { ...state };
     });
   }
@@ -38,7 +50,10 @@ export namespace Account {
   export namespace UNSET_USER {
     export const meta = init((state: SHAPE, action) => {
       state.username = '';
-      localStorage.setItem('username', '');
+
+      deleteUsernameFromLocalStorage();
+      state.isLoggedIn = checkIfUsernameExistsInLocalStorage();
+      
       return { ...state };
     });
   }

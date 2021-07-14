@@ -40,8 +40,7 @@ export namespace LogIn {
 
   export namespace TOGGLE_LOG_IN_MODAL {
     export const meta = init((state: SHAPE, action) => {
-      state.showLogInModal = !state.showLogInModal;
-      return { ...state };
+      return { ...INITIAL_STATE, showLogInModal: !state.showLogInModal };
     });
   }
 

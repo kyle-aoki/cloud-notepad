@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { GlobalState } from '../..';
 import AccountComponent from './menu/account';
+import { useAccountState } from './menu/account/redux';
 import Edit from './menu/edit';
 import File from './menu/file';
 import Format from './menu/format';
@@ -32,6 +33,7 @@ const ClickOff = styled.div`
 
 const Taskbar: FC<TaskbarProps> = () => {
   const MenuControl = new Menu.Instance(useDispatch());
+  const { isLoggedIn } = useAccountState();
   const MenuState = useMenuState();
 
   const open = Object.keys(MenuState).filter((key: string) => MenuState[key] === true).length > 0;
@@ -41,11 +43,15 @@ const Taskbar: FC<TaskbarProps> = () => {
       {open && <ClickOff onClick={() => MenuControl.CLOSE_ALL()} />}
       <TaskbarContainer>
         <AccountComponent />
-        <File />
-        <Edit />
-        <Format />
-        <View />
-        <Help />
+        {isLoggedIn && (
+          <>
+            <File />
+            <Edit />
+            <Format />
+            <View />
+            <Help />
+          </>
+        )}
       </TaskbarContainer>
     </>
   );

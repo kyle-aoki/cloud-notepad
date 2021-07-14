@@ -18,11 +18,11 @@ import {
 
 const FSObjectIconStyle = { fill: 'white', width: '15px', height: '15px' };
 
-interface File {
+interface FileProps {
   dirObject: DirObject;
 }
 
-export const File: FC<File> = ({ dirObject }) => {
+export const File: FC<FileProps> = ({ dirObject }) => {
   const { fileName, lastModified, fileSize } = dirObject;
 
   return (

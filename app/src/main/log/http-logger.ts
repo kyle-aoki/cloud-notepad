@@ -1,9 +1,12 @@
 import chalk from "chalk";
 import responseTime from "response-time";
 
+const formattedUrlMaxLength = 26;
+
 function getFormattedUrl(baseUrl: string, url: string){
   const formattedUrl = baseUrl + url;
-  return formattedUrl;
+  const lengthRemaining = formattedUrlMaxLength - formattedUrl.length;
+  return formattedUrl + " ".repeat(lengthRemaining);
 }
 
 // prettier-ignore

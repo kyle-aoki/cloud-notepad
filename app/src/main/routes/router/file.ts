@@ -1,6 +1,6 @@
 import express from "express";
 import FileHandler from "../handler/file";
-import Middleware from "../../middleware";
+import { Middleware } from "../../middleware";
 
 const fileRouter = express.Router();
 

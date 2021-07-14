@@ -3,12 +3,12 @@ import Err from "../response/err";
 import { AuthError } from "@cloud-notepad/cloud-notepad-response";
 import MongooseQuery from "../mongoose/class";
 
-export default class Middleware {
-  static async SessionTokenAuthorization(req: Request, res: Response, next: NextFunction) {
+export namespace Middleware {
+  export async function SessionTokenAuthorization(req: Request, res: Response, next: NextFunction) {
     const username = req.cookies.username as string;
     const session_token = req.cookies.session_token as string;
 
-    if (!username || !session_token) throw new Err(AuthError.UNAUTHORIZED);
+    if (!username || !session_token) throw new Err(AuthError.UNAUTHORIZED, 401);
 
     await MongooseQuery.VerifySessionToken(username, session_token);
 

@@ -8,30 +8,28 @@ import { useDispatch } from 'react-redux';
 import { useAccountState } from './redux';
 import { Menu } from '../../redux';
 import { Account } from './redux';
-import { AccountCreation } from '../../../account-creation/redux';
-import { LogIn } from '../../../log-in/redux';
+
 
 const AccountComponent: any = () => {
   const AccountController = new Account.Instance(useDispatch());
-  const AccountState = useAccountState();
+  const { isLoggedIn, username } = useAccountState();
 
-  const AccountCreationController = new AccountCreation.Instance(useDispatch());
-  const LogInController = new LogIn.Instance(useDispatch());
+  const menuName = isLoggedIn ? "down-chev" : "Account";
 
   return (
     <>
-      <MenuItem menuName="Account" menuType={Menu.Type.account} offset={'0px'}>
-        {AccountState.username ? (
+      <MenuItem menuName={menuName} isLoggedIn={isLoggedIn} menuType={Menu.Type.account} offset={'0px'}>
+        {isLoggedIn ? (
           <>
             <DropdownMenuItem unhoverable={true}>
-              <LoggedInAs username={AccountState.username} />
+              <LoggedInAs username={username} />
             </DropdownMenuItem>
             <DropdownMenuSeperator />
             <DropdownMenuItem onClick={() => AccountController.LOG_OUT()}>Log Out</DropdownMenuItem>
           </>
         ) : (
           <>
-            <DropdownMenuItem onClick={() => AccountCreationController.OPEN_MODAL()}>Create Account</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => AccountController.CREATE_ACCOUNT()}>Create Account</DropdownMenuItem>
             <DropdownMenuItem onClick={() => AccountController.LOG_IN()}>Log In</DropdownMenuItem>
           </>
         )}

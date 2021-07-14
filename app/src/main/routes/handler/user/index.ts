@@ -5,13 +5,13 @@ import AuthenticateWithSessionToken from "./authenticate";
 import DeleteUser from "./delete-user";
 import CheckPassword from "./check-password";
 
-class UserHandler {
-  static CreateUser = CreateUser;
-  static LogIn = LogIn;
-  static AuthenticateWithSessionToken = AuthenticateWithSessionToken;
-  static DeleteUser = DeleteUser;
-  static CheckUsername = CheckUsername;
-  static CheckPassword = CheckPassword;
-}
+const UserHandler = {
+  CreateUser,
+  LogIn,
+  CheckUsername,
+  AuthenticateWithSessionToken,
+  DeleteUser,
+  CheckPassword,
+};
 
 export default UserHandler;
