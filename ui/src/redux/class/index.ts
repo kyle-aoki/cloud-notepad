@@ -3,11 +3,12 @@ import { PutEffect } from 'redux-saga/effects';
 import { v4 as uuidv4 } from 'uuid';
 
 type Put = () => PutEffect;
+export type ExecuteFunction = Dispatch | Put;
 
 export class Executor {
-  protected exec: Dispatch | Put;
+  protected exec: ExecuteFunction;
 
-  constructor(exec: Dispatch | Put) {
+  constructor(exec: ExecuteFunction) {
     this.exec = exec;
   }
 }

@@ -6,7 +6,7 @@ import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import { CheckPasswordSagaMiddleware } from './components/account-creation/saga/check-password';
-import { GetUserDirSaga } from './components/file-system/redux/get-user-dir';
+import { GetUserDirSaga } from './components/file-system/saga/get-user-dir';
 import 'react-toastify/dist/ReactToastify.css';
 import { CheckUsernameSagaMiddleware } from './components/account-creation/saga/check-username';
 import { Notif } from './notif/redux';
@@ -15,11 +15,11 @@ import { Account } from './components/taskbar/menu/account/redux';
 import { Menu } from './components/taskbar/redux';
 import { LogIn } from './components/log-in/redux';
 import { LogInSagaMiddleware } from './components/log-in/saga/submit-log-in';
-import { FileSystem } from './components/file-system/redux';
+import { FileSystem } from './components/file-system/REDUX';
 import { OpenLogInSagaMiddleware } from './components/taskbar/menu/account/saga/log-in-click';
 import { LogOutSagaMiddleware } from './components/taskbar/menu/account/saga/log-out-click';
 import { CreateAccountSagaMiddleware } from './components/taskbar/menu/account/saga/create-account-button-click';
-import { ClickDoubleClickSagaMiddleware } from './components/file-system/saga/folder-click-type';
+import { HandleFolderClickSagaMiddleware } from './components/file-system/saga/handle-folder-click';
 
 export interface GlobalState {
   FileSystem: FileSystem.SHAPE;
@@ -52,7 +52,7 @@ sagaMiddleware.run(CreateAccountSagaMiddleware);
 sagaMiddleware.run(LogInSagaMiddleware);
 sagaMiddleware.run(OpenLogInSagaMiddleware);
 sagaMiddleware.run(LogOutSagaMiddleware);
-sagaMiddleware.run(ClickDoubleClickSagaMiddleware);
+sagaMiddleware.run(HandleFolderClickSagaMiddleware);
 
 ReactDOM.render(
   <Provider store={store}>

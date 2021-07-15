@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
-import { GlobalState } from '../../..';
-import { Executor, init, ReduxAction } from '../../../redux/class';
+import { GlobalState } from '../..';
+import { ExecuteFunction, Executor, init, ReduxAction } from '../../redux/class';
 
 export const useFileSystemState = () => useSelector((state: GlobalState) => state.FileSystem);
 
@@ -27,17 +27,11 @@ export namespace FileSystem {
   }
 
   export namespace OPEN_FILE_SYSTEM {
-    export const meta = init((state: SHAPE, action) => {
-      state.fileSystemOpen = true;
-      return { ...state };
-    });
+    export const meta = init((state: SHAPE, action) => ({ ...INITIAL_STATE, fileSystemOpen: true }));
   }
 
   export namespace CLOSE_FILE_SYSTEM {
-    export const meta = init((state: SHAPE, action) => {
-      state.fileSystemOpen = false;
-      return { ...state };
-    });
+    export const meta = init((state: SHAPE, action) => ({ ...INITIAL_STATE, fileSystemOpen: false }));
   }
 
   export namespace SET_USER_DIR {
@@ -96,7 +90,7 @@ export namespace FileSystem {
     });
   }
 
-  export namespace SELECT {
+  export namespace SELECT_OBJECT {
     export const meta = init((state: SHAPE, action) => {
       const objectName = action.payload.objectName;
       state.selected = objectName;
@@ -116,7 +110,7 @@ export namespace FileSystem {
     export namespace GET_USER_DIR {
       export const meta = init(() => {});
     }
-    export namespace CLICK_DOUBLE_CLICK {
+    export namespace HANDLE_FOLDER_CLICK {
       export const meta = init(() => {});
     }
   }
@@ -124,18 +118,18 @@ export namespace FileSystem {
   // prettier-ignore
   export function REDUCER(state: SHAPE = INITIAL_STATE, action: ReduxAction) {
     switch (action.type) {
-      case OPEN_FILE_SYSTEM.meta.type:          return OPEN_FILE_SYSTEM.meta.logic(state, action);
-      case CLOSE_FILE_SYSTEM.meta.type:         return CLOSE_FILE_SYSTEM.meta.logic(state, action);
-      case SET_USER_DIR.meta.type:              return SET_USER_DIR.meta.logic(state, action);
-      case CREATE_FILE.meta.type:               return CREATE_FILE.meta.logic(state, action);
-      case SAVE_FILE.meta.type:                 return SAVE_FILE.meta.logic(state, action);
-      case DELETE_FILE.meta.type:               return DELETE_FILE.meta.logic(state, action);
-      case BACK_BUTTON_PRESSED.meta.type:       return BACK_BUTTON_PRESSED.meta.logic(state, action);
-      case FORWARD_BUTTON_PRESSED.meta.type:    return FORWARD_BUTTON_PRESSED.meta.logic(state, action);
-      case FOLDER_CLICKED.meta.type:            return FOLDER_CLICKED.meta.logic(state, action);
-      case SELECT.meta.type:                    return SELECT.meta.logic(state, action);
-      case SET_NEW_LAST_CLICK_TIME.meta.type:   return SET_NEW_LAST_CLICK_TIME.meta.logic(state, action);
-      default:                                  return DEFAULT.meta.logic(state, action);
+      case OPEN_FILE_SYSTEM.meta.type:            return OPEN_FILE_SYSTEM.meta.logic(state, action);
+      case CLOSE_FILE_SYSTEM.meta.type:           return CLOSE_FILE_SYSTEM.meta.logic(state, action);
+      case SET_USER_DIR.meta.type:                return SET_USER_DIR.meta.logic(state, action);
+      case CREATE_FILE.meta.type:                 return CREATE_FILE.meta.logic(state, action);
+      case SAVE_FILE.meta.type:                   return SAVE_FILE.meta.logic(state, action);
+      case DELETE_FILE.meta.type:                 return DELETE_FILE.meta.logic(state, action);
+      case BACK_BUTTON_PRESSED.meta.type:         return BACK_BUTTON_PRESSED.meta.logic(state, action);
+      case FORWARD_BUTTON_PRESSED.meta.type:      return FORWARD_BUTTON_PRESSED.meta.logic(state, action);
+      case FOLDER_CLICKED.meta.type:              return FOLDER_CLICKED.meta.logic(state, action);
+      case SELECT_OBJECT.meta.type:               return SELECT_OBJECT.meta.logic(state, action);
+      case SET_NEW_LAST_CLICK_TIME.meta.type:     return SET_NEW_LAST_CLICK_TIME.meta.logic(state, action);
+      default:                                    return DEFAULT.meta.logic(state, action);
     }
   }
 
@@ -149,10 +143,17 @@ export namespace FileSystem {
     BACK_BUTTON_PRESSED = () => this.exec(BACK_BUTTON_PRESSED.meta.createAction());
     FORWARD_BUTTON_PRESSED = () => this.exec(FORWARD_BUTTON_PRESSED.meta.createAction());
     FOLDER_CLICKED = (folderName: string) => this.exec(FOLDER_CLICKED.meta.createAction({ folderName }));
-    SELECT = (objectName: string) => this.exec(SELECT.meta.createAction({ objectName }));
-    SET_NEW_LAST_CLICK_TIME = (newLastClick: number) => this.exec(SET_NEW_LAST_CLICK_TIME.meta.createAction({ newLastClick }));
+    SELECT_OBJECT = (objectName: string) => this.exec(SELECT_OBJECT.meta.createAction({ objectName }));
 
-    GET_USER_DIR = () => this.exec(SAGA.GET_USER_DIR.meta.createAction());
-    CLICK_DOUBLE_CLICK = (lastClickTime: number, folderName: string) => this.exec(SAGA.CLICK_DOUBLE_CLICK.meta.createAction({lastClickTime, folderName}));
+    SET_NEW_LAST_CLICK_TIME = (newLastClick: number) => {
+      return this.exec(SET_NEW_LAST_CLICK_TIME.meta.createAction({ newLastClick }));
+    };
+
+    SAGA = new (class extends Executor {
+      GET_USER_DIR = () => this.exec(SAGA.GET_USER_DIR.meta.createAction());
+      HANDLE_FOLDER_CLICK = (lastClickTime: number, folderName: string) => {
+        this.exec(SAGA.HANDLE_FOLDER_CLICK.meta.createAction({ lastClickTime, folderName }));
+      };
+    })(this.exec);
   }
 }

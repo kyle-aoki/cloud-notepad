@@ -1,5 +1,5 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { FileSystem } from '.';
+import { FileSystem } from '../REDUX';
 import FileAPI from '../../../api/file.api';
 import { Notif } from '../../../notif/redux';
 import {UserDir} from '../user-dir';

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
-import { FileSystem } from '../../file-system/redux';
+import { FileSystem } from '../../file-system/REDUX';
 import { Menu } from '../redux';
 import { DropdownMenuItem, DropdownMenuSeperator } from './components/dropdown';
 import MenuItem from './components/menu-item';
@@ -13,7 +13,7 @@ const File: FC<FileProps> = () => {
 
   const handleOpenClick = () => {
     FileSystemController.OPEN_FILE_SYSTEM();
-    FileSystemController.GET_USER_DIR();
+    FileSystemController.SAGA.GET_USER_DIR();
     MenuControl.CLOSE_ALL();
   };
 

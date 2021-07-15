@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useFileSystemState } from './redux';
+import { useFileSystemState } from './REDUX';
 import { v4 } from 'uuid';
 import DirObject from '../../model/dir-object';
 import { File, Folder } from './objects'
