@@ -19,8 +19,8 @@ export const DropdownMenuItem = styled.div<DropdownMenuItemProps>`
   color: #cccccc;
   min-width: 200px;
   padding-left: 25px;
-  padding-top: 1px;
-  padding-bottom: 1px;
+  padding-top: ${(props: DropdownMenuItemProps) => props.unhoverable ? '5px' : '1px'};
+  padding-bottom: ${(props: DropdownMenuItemProps) => props.unhoverable ? '5px' : '1px'};
   margin: 1px;
   font-size: 13px;
   background-color: ${(props: DropdownMenuItemProps) => props.unhoverable && '#1b1b1b'};

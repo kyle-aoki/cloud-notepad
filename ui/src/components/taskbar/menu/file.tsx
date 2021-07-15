@@ -18,7 +18,7 @@ const File: FC<FileProps> = () => {
   };
 
   return (
-    <MenuItem menuName="File" menuType={Menu.Type.file} offset={'54px'}>
+    <MenuItem menuName="File" menuType={Menu.Type.file} offset={'18px'}>
       <DropdownMenuItem>New</DropdownMenuItem>
       <DropdownMenuItem>New Window</DropdownMenuItem>
       <DropdownMenuItem onClick={handleOpenClick}>Open...</DropdownMenuItem>

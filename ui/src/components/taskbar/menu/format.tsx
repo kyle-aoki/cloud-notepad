@@ -7,7 +7,7 @@ interface FormatProps {}
 
 const Format: FC<FormatProps> = () => {
   return (
-    <MenuItem menuName="Format" menuType={Menu.Type.format} offset={"112px"}>
+    <MenuItem menuName="Format" menuType={Menu.Type.format} offset={"76px"}>
       <DropdownMenuItem>New</DropdownMenuItem>
       <DropdownMenuItem>New Window</DropdownMenuItem>
       <DropdownMenuItem>Open...</DropdownMenuItem>
