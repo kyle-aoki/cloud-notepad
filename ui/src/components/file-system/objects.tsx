@@ -1,7 +1,9 @@
 import { FC, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { ReactComponent as FileIcon } from '../../assets/file.svg';
 import { ReactComponent as FolderIcon } from '../../assets/folder.svg';
 import DirObject from '../../model/dir-object';
+import { FileSystem, useFileSystemState } from './redux';
 import {
   FileContainer,
   FileDateMod,
@@ -14,7 +16,6 @@ import {
   FolderSize,
   FolderType,
 } from './styled-components';
-
 
 const FSObjectIconStyle = { fill: 'white', width: '15px', height: '15px' };
 
@@ -38,10 +39,14 @@ export const File: FC<FileProps> = ({ dirObject }) => {
 
 export const Folder: FC<any> = ({ dirObject, folderName }) => {
   const { lastModified } = dirObject;
-  
+  const FileSystemController = new FileSystem.Instance(useDispatch());
+  const { selected, lastClickTime } = useFileSystemState();
+
+  const isSelected = selected === folderName;
+
   return (
     <>
-      <FolderContainer >
+      <FolderContainer isSelected={isSelected} onClick={() => FileSystemController.CLICK_DOUBLE_CLICK(lastClickTime, folderName)}>
         <FolderIcon style={FSObjectIconStyle} />
         <FolderName>{folderName}</FolderName>
         <FolderDateMod>{lastModified}</FolderDateMod>

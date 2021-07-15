@@ -160,9 +160,9 @@ export const FSObject = styled.div<any>`
   padding-right: 7px;
   font-size: 14px;
   cursor: default;
-  background-color: ${(props: any) => props.selected && '#777777'};
+  background-color: ${(props: any) => props.isSelected && '#777777'};
   &:hover {
-    background-color: ${(props: any) => (props.selected ? '#777777' : '#4d4d4d')};
+    background-color: ${(props: any) => (props.isSelected ? '#777777' : '#4d4d4d')};
   }
   &:active {
     background-color: #777777;

@@ -47,10 +47,7 @@ export default function FileSystemComponent() {
             <SubPath>
               <CloudIcon style={CloudIconStyle} />
             </SubPath>
-            <SubPath>Cloud Storage</SubPath>
             {path.map((subpath: string, index: number, array: string[]) => {
-              // if (index === 0) return;
-              // if (index === array.length - 1) return subpath.replace('/', '');
               const last = index === array.length - 1;
               return <SubPath key={index} last={last}>{subpath}</SubPath>;
             })}

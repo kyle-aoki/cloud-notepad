@@ -10,12 +10,16 @@ export namespace FileSystem {
     userDir: any;
     path: string[];
     recent: string[];
+    selected: string;
+    lastClickTime: number;
   }
   export const INITIAL_STATE: SHAPE = {
     fileSystemOpen: false,
     userDir: undefined,
-    path: ["folder1", "folder2"],
+    path: [],
     recent: [],
+    selected: '',
+    lastClickTime: 0,
   };
 
   export namespace DEFAULT {
@@ -83,8 +87,8 @@ export namespace FileSystem {
 
   export namespace FOLDER_CLICKED {
     export const meta = init((state: SHAPE, action) => {
-      const folderPath = action.payload.folderPath;
-      state.path.push(folderPath);
+      const folderName = action.payload.folderName;
+      state.path.push(folderName);
       state.recent = [];
       state.path = [...state.path];
 
@@ -92,8 +96,27 @@ export namespace FileSystem {
     });
   }
 
+  export namespace SELECT {
+    export const meta = init((state: SHAPE, action) => {
+      const objectName = action.payload.objectName;
+      state.selected = objectName;
+      return { ...state };
+    });
+  }
+
+  export namespace SET_NEW_LAST_CLICK_TIME {
+    export const meta = init((state: SHAPE, action) => {
+      const newLastClick = action.payload.newLastClick;
+      state.lastClickTime = newLastClick;
+      return { ...state };
+    });
+  }
+
   export namespace SAGA {
     export namespace GET_USER_DIR {
+      export const meta = init(() => {});
+    }
+    export namespace CLICK_DOUBLE_CLICK {
       export const meta = init(() => {});
     }
   }
@@ -110,6 +133,8 @@ export namespace FileSystem {
       case BACK_BUTTON_PRESSED.meta.type:       return BACK_BUTTON_PRESSED.meta.logic(state, action);
       case FORWARD_BUTTON_PRESSED.meta.type:    return FORWARD_BUTTON_PRESSED.meta.logic(state, action);
       case FOLDER_CLICKED.meta.type:            return FOLDER_CLICKED.meta.logic(state, action);
+      case SELECT.meta.type:                    return SELECT.meta.logic(state, action);
+      case SET_NEW_LAST_CLICK_TIME.meta.type:   return SET_NEW_LAST_CLICK_TIME.meta.logic(state, action);
       default:                                  return DEFAULT.meta.logic(state, action);
     }
   }
@@ -123,8 +148,11 @@ export namespace FileSystem {
     DELETE_FILE = () => this.exec(DELETE_FILE.meta.createAction());
     BACK_BUTTON_PRESSED = () => this.exec(BACK_BUTTON_PRESSED.meta.createAction());
     FORWARD_BUTTON_PRESSED = () => this.exec(FORWARD_BUTTON_PRESSED.meta.createAction());
-    FOLDER_CLICKED = () => this.exec(FOLDER_CLICKED.meta.createAction());
+    FOLDER_CLICKED = (folderName: string) => this.exec(FOLDER_CLICKED.meta.createAction({ folderName }));
+    SELECT = (objectName: string) => this.exec(SELECT.meta.createAction({ objectName }));
+    SET_NEW_LAST_CLICK_TIME = (newLastClick: number) => this.exec(SET_NEW_LAST_CLICK_TIME.meta.createAction({ newLastClick }));
 
     GET_USER_DIR = () => this.exec(SAGA.GET_USER_DIR.meta.createAction());
+    CLICK_DOUBLE_CLICK = (lastClickTime: number, folderName: string) => this.exec(SAGA.CLICK_DOUBLE_CLICK.meta.createAction({lastClickTime, folderName}));
   }
 }
