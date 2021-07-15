@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { ReactComponent as FileIcon } from '../../assets/file.svg';
 import { ReactComponent as FolderIcon } from '../../assets/folder.svg';
 import DirObject from '../../model/dir-object';
-import { FileSystem, useFileSystemState } from './REDUX';
+import { FileSystem, useFileSystemState } from './redux';
 import {
   FileContainer,
   FileDateMod,

@@ -15,7 +15,7 @@ import { Account } from './components/taskbar/menu/account/redux';
 import { Menu } from './components/taskbar/redux';
 import { LogIn } from './components/log-in/redux';
 import { LogInSagaMiddleware } from './components/log-in/saga/submit-log-in';
-import { FileSystem } from './components/file-system/REDUX';
+import { FileSystem } from './components/file-system/redux';
 import { OpenLogInSagaMiddleware } from './components/taskbar/menu/account/saga/log-in-click';
 import { LogOutSagaMiddleware } from './components/taskbar/menu/account/saga/log-out-click';
 import { CreateAccountSagaMiddleware } from './components/taskbar/menu/account/saga/create-account-button-click';

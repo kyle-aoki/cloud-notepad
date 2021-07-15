@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
-import { FileSystem } from '../../file-system/REDUX';
+import { FileSystem } from '../../file-system/redux';
 import { Menu } from '../redux';
 import { DropdownMenuItem, DropdownMenuSeperator } from './components/dropdown';
 import MenuItem from './components/menu-item';

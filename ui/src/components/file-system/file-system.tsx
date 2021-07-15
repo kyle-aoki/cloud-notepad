@@ -21,7 +21,7 @@ import {
   ViewContainer,
   XButton,
 } from './styled-components';
-import { FileSystem, useFileSystemState } from './REDUX'
+import { FileSystem, useFileSystemState } from './redux'
 
 export default function FileSystemComponent() {
   const FileSystemController = new FileSystem.Instance(useDispatch());
