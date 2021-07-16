@@ -20,6 +20,7 @@ import { OpenLogInSagaMiddleware } from './components/taskbar/menu/account/saga/
 import { LogOutSagaMiddleware } from './components/taskbar/menu/account/saga/log-out-click';
 import { CreateAccountSagaMiddleware } from './components/taskbar/menu/account/saga/create-account-button-click';
 import { HandleFolderClickSagaMiddleware } from './components/file-system/saga/handle-folder-click';
+import { Editor } from './components/editor/redux';
 
 export interface GlobalState {
   FileSystem: FileSystem.SHAPE;
@@ -28,6 +29,7 @@ export interface GlobalState {
   AccountCreation: AccountCreation.SHAPE;
   Notif: Notif.SHAPE;
   LogIn: LogIn.SHAPE;
+  Editor: Editor.SHAPE;
 }
 
 const sagaMiddleware = createSagaMiddleware();
@@ -39,6 +41,7 @@ const combinedReducers = combineReducers({
   AccountCreation: AccountCreation.REDUCER,
   Notif: Notif.REDUCER,
   LogIn: LogIn.REDUCER,
+  Editor: Editor.REDUCER,
 });
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

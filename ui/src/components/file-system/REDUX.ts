@@ -5,6 +5,10 @@ import { ExecuteFunction, Executor, init, ReduxAction } from '../../redux/class'
 export const useFileSystemState = () => useSelector((state: GlobalState) => state.FileSystem);
 
 export namespace FileSystem {
+  export enum Mode {
+    OPEN_FILE,
+    SAVE_NEW_FILE,
+  }
   export interface SHAPE {
     fileSystemOpen: boolean;
     userDir: any;
@@ -12,6 +16,7 @@ export namespace FileSystem {
     recent: string[];
     selected: string;
     lastClickTime: number;
+    mode: Mode;
   }
   export const INITIAL_STATE: SHAPE = {
     fileSystemOpen: false,
@@ -20,6 +25,7 @@ export namespace FileSystem {
     recent: [],
     selected: '',
     lastClickTime: 0,
+    mode: Mode.OPEN_FILE,
   };
 
   export namespace DEFAULT {
@@ -27,7 +33,10 @@ export namespace FileSystem {
   }
 
   export namespace OPEN_FILE_SYSTEM {
-    export const meta = init((state: SHAPE, action) => ({ ...INITIAL_STATE, fileSystemOpen: true }));
+    export const meta = init((state: SHAPE, action) => {
+      const mode = action.payload.mode;
+      return { ...INITIAL_STATE, mode, fileSystemOpen: true };
+    });
   }
 
   export namespace CLOSE_FILE_SYSTEM {
@@ -90,6 +99,10 @@ export namespace FileSystem {
     });
   }
 
+  export namespace FILE_CLICKED {
+    export const meta = init((state: SHAPE, action) => ({ ...state }));
+  }
+
   export namespace SELECT_OBJECT {
     export const meta = init((state: SHAPE, action) => {
       const objectName = action.payload.objectName;
@@ -134,7 +147,7 @@ export namespace FileSystem {
   }
 
   export class Instance extends Executor {
-    OPEN_FILE_SYSTEM = () => this.exec(OPEN_FILE_SYSTEM.meta.createAction());
+    OPEN_FILE_SYSTEM = (mode: Mode) => this.exec(OPEN_FILE_SYSTEM.meta.createAction({ mode }));
     CLOSE_FILE_SYSTEM = () => this.exec(CLOSE_FILE_SYSTEM.meta.createAction());
     SET_USER_DIR = (userDir: any) => this.exec(SET_USER_DIR.meta.createAction({ userDir }));
     CREATE_FILE = () => this.exec(CREATE_FILE.meta.createAction());

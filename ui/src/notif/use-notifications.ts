@@ -4,14 +4,14 @@ import { StandardToast } from './standard-toast';
 
 // prettier-ignore
 export default function useNotifications() {
-  const NotifState = useNotifState();
+  const { count, type, text } = useNotifState();
 
   useEffect(() => {
-    if (NotifState.count === 0) return;
+    if (count === 0) return;
 
-    switch (NotifState.type as Notif.Type) {
-      case Notif.Type.ERROR:  return StandardToast(NotifState.text);
-      case Notif.Type.INFO:   return StandardToast(NotifState.text);
+    switch (type as Notif.Type) {
+      case Notif.Type.ERROR:  return StandardToast(text);
+      case Notif.Type.INFO:   return StandardToast(text);
     }
-  }, [NotifState.count, NotifState.type, NotifState.text]); 
+  }, [count, type, text]); 
 }

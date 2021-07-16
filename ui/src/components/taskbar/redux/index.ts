@@ -47,7 +47,6 @@ export namespace Menu {
   export namespace CLOSE_ALL {
     export const meta = init((state: SHAPE, action) => {
       closeAll(state);
-      console.log('asdf', state);
       return { ...state };
     });
   }

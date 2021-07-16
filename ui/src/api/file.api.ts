@@ -5,7 +5,6 @@ export default class FileAPI {
     const requestConfig = { method: 'GET' };
     const res = await fetch('/api/file/get-user-dir', requestConfig);
     const json = await res.json();
-    console.log('/api/file/get-user-dir', json);
     return json;
   }
 }

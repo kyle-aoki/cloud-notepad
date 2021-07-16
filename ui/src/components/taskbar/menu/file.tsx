@@ -12,17 +12,23 @@ const File: FC<FileProps> = () => {
   const MenuControl = new Menu.Instance(useDispatch());
 
   const handleOpenClick = () => {
-    FileSystemController.OPEN_FILE_SYSTEM();
+    FileSystemController.OPEN_FILE_SYSTEM(FileSystem.Mode.OPEN_FILE);
     FileSystemController.SAGA.GET_USER_DIR();
     MenuControl.CLOSE_ALL();
   };
+
+  const handleSaveClick = () => {
+    FileSystemController.OPEN_FILE_SYSTEM(FileSystem.Mode.SAVE_NEW_FILE);
+    FileSystemController.SAGA.GET_USER_DIR();
+    MenuControl.CLOSE_ALL();
+  }
 
   return (
     <MenuItem menuName="File" menuType={Menu.Type.file} offset={'18px'}>
       <DropdownMenuItem>New</DropdownMenuItem>
       <DropdownMenuItem>New Window</DropdownMenuItem>
       <DropdownMenuItem onClick={handleOpenClick}>Open...</DropdownMenuItem>
-      <DropdownMenuItem>Save</DropdownMenuItem>
+      <DropdownMenuItem onClick={handleSaveClick}>Save</DropdownMenuItem>
       <DropdownMenuItem>Save As...</DropdownMenuItem>
       <DropdownMenuSeperator />
       <DropdownMenuItem>Page Setup...</DropdownMenuItem>

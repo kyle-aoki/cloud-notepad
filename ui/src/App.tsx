@@ -5,7 +5,7 @@ import { GlobalState } from '.';
 import FileAPI from './api/file.api';
 import UserAPI from './api/user-api';
 import AccountCreationModal from './components/account-creation';
-import Editor from './components/editor/editor';
+import EditorComponent from './components/editor/editor';
 import FileSystemComponent from './components/file-system/file-system';
 import { LogInModal } from './components/log-in';
 import StatusBar from './components/statusbar/status-bar';
@@ -35,7 +35,7 @@ const App: FC = () => {
         <LogInModal />
 
         <Taskbar />
-        <Editor />
+        <EditorComponent />
         <StatusBar />
       </AppContainer>
     </>

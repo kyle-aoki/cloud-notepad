@@ -44,7 +44,6 @@ export default class UserAPI {
       body: JSON.stringify({ username, password }),
     });
     const json = await res.json();
-    console.log('/api/user/log-in', json);
     return json;
   }
 }
