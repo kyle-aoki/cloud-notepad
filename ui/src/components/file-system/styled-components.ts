@@ -107,6 +107,7 @@ export const StorageCapacityFillBar = styled.div<any>`
   }};
   background-color: #5b72ffb0;
   z-index: 99;
+  transition: width 1s ease-in-out;
 `;
 
 export const StorageCapacityText = styled.div`
@@ -144,6 +145,7 @@ export const View = styled.div`
   width: 100%;
   overflow-y: scroll;
   padding-right: 15px;
+  height: 100%;
   ::-webkit-scrollbar-button {
     height: 9px;
   }

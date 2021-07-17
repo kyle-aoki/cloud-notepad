@@ -14,11 +14,9 @@ const AccountComponent: any = () => {
   const AccountController = new Account.Instance(useDispatch());
   const { isLoggedIn, username } = useAccountState();
 
-  const menuName = isLoggedIn ? "down-chev" : "Account";
-
   return (
     <>
-      <MenuItem menuName={menuName} isLoggedIn={isLoggedIn} menuType={Menu.Type.account} offset={'0px'}>
+      <MenuItem menuName={"Account"} isLoggedIn={isLoggedIn} menuType={Menu.Type.account} offset={'0px'}>
         {isLoggedIn ? (
           <>
             <DropdownMenuItem unhoverable={true}>

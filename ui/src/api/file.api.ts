@@ -22,4 +22,15 @@ export default class FileAPI {
     const json = await res.json();
     return json;
   }
+
+  static async GetFile(fileName: string, filePath: string[]) {
+    const requestConfig = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fileName, filePath }),
+    };
+    const res = await fetch('/api/file/get-file', requestConfig);
+    const json = await res.json();
+    return json;
+  }
 }

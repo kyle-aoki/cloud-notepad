@@ -22,6 +22,7 @@ import { CreateAccountSagaMiddleware } from './components/taskbar/menu/account/s
 import { HandleFolderClickSagaMiddleware } from './components/file-system/saga/handle-folder-click';
 import { Editor } from './components/editor/redux';
 import { OnSaveClickSagaMiddlware } from './components/file-system/saga/on-save-click';
+import { HandleFileClickSagaMiddleware } from './components/file-system/saga/handle-file-click';
 
 export interface GlobalState {
   FileSystem: FileSystem.SHAPE;
@@ -58,6 +59,7 @@ sagaMiddleware.run(OpenLogInSagaMiddleware);
 sagaMiddleware.run(LogOutSagaMiddleware);
 sagaMiddleware.run(HandleFolderClickSagaMiddleware);
 sagaMiddleware.run(OnSaveClickSagaMiddlware);
+sagaMiddleware.run(HandleFileClickSagaMiddleware);
 
 ReactDOM.render(
   <Provider store={store}>

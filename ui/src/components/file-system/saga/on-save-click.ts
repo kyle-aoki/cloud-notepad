@@ -31,7 +31,6 @@ function* OnSaveClickSaga(action: ReduxAction): Generator<any, any, any> {
   if (!firstCharacterIsPeriod) newFileExtension = '.' + newFileExtension;
 
   const fullNewFileName = newFileName + newFileExtension;
-  console.log(fullNewFileName)
 
   let CreateFileResult;
   try {
@@ -52,7 +51,6 @@ function* OnSaveClickSaga(action: ReduxAction): Generator<any, any, any> {
     if (CreateFileResult.type === FileResponse.FILE_ALREADY_EXISTS) {
       yield NotifController.PUSH_ERROR('That file name already exists.');
     }
-    console.log(CreateFileResult)
   }
 
   yield FileSystemController.STOP_LOADING();

@@ -21,7 +21,7 @@ const MenuItem: FC<MenuItemProps> = ({ children, menuName, isLoggedIn, offset, m
 
   if (menuName === 'Account') {
     if (isLoggedIn) {
-      menuName = <DownChevron width={8} />;
+      menuName = <DownChevron width={8} height={8} />;
     } else {
       menuName = (
         <AccountMenuNameContainer>
@@ -39,7 +39,7 @@ const MenuItem: FC<MenuItemProps> = ({ children, menuName, isLoggedIn, offset, m
         onClick={() => MenuController.OPEN(menuType)}
         onMouseOver={() => MenuController.SWITCH(menuType)}
       >
-        {menuName === 'down-chev' ? <DownChevron width={8} /> : menuName}
+        {menuName}
       </MenuContainer>
       {isSelected && <DropdownMenu offset={offset}>{children}</DropdownMenu>}
     </>

@@ -1,5 +1,6 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import { Notif } from '../../../../../notif/redux';
+import { setTotalMemoryInLocalStorage } from '../../../../file-system/util';
 import { Menu } from '../../../redux';
 import { Account } from '../redux';
 
@@ -8,6 +9,7 @@ function* LogOutSaga(): Generator<any, any, any> {
   const MenuControl = new Menu.Instance(put);
   const NotifController = new Notif.Instance(put);
 
+  localStorage.clear();
   yield AccountController.UNSET_USER();
   yield NotifController.PUSH_INFO("You've been logged out.");
   yield MenuControl.CLOSE_ALL();

@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { GlobalState } from '../..';
 import { ExecuteFunction, Executor, init, ReduxAction } from '../../redux/class';
 import { dirInitialState } from './user-dir';
+import { getTotalMemoryFromLocalStorage, setTotalMemoryInLocalStorage } from './util';
 
 export const useFileSystemState = () => useSelector((state: GlobalState) => state.FileSystem);
 
@@ -22,7 +23,7 @@ export namespace FileSystem {
     newFileName: string;
     newFileExtension: string;
     saveFileLoading: boolean;
-    totalMemory: number | undefined;
+    totalMemory: number;
   }
   export const INITIAL_STATE: SHAPE = {
     fileSystemOpen: false,
@@ -35,7 +36,7 @@ export namespace FileSystem {
     newFileName: '',
     newFileExtension: '.txt',
     saveFileLoading: false,
-    totalMemory: undefined,
+    totalMemory: getTotalMemoryFromLocalStorage(),
   };
 
   export namespace DEFAULT {
@@ -50,7 +51,11 @@ export namespace FileSystem {
   }
 
   export namespace CLOSE_FILE_SYSTEM {
-    export const meta = init((state: SHAPE, action) => ({ ...INITIAL_STATE, userDir: [...dirInitialState], fileSystemOpen: false }));
+    export const meta = init((state: SHAPE, action) => ({
+      ...INITIAL_STATE,
+      userDir: [...dirInitialState],
+      fileSystemOpen: false,
+    }));
   }
 
   export namespace SET_USER_DIR {
@@ -145,7 +150,11 @@ export namespace FileSystem {
   }
 
   export namespace SET_TOTAL_MEMORY {
-    export const meta = init((state: SHAPE, action) => ({ ...state, totalMemory: action.payload.memory }));
+    export const meta = init((state: SHAPE, action) => {
+      const totalMemory = action.payload.memory;
+      setTotalMemoryInLocalStorage(totalMemory);
+      return { ...state, totalMemory };
+    });
   }
 
   export namespace SAGA {
@@ -156,6 +165,9 @@ export namespace FileSystem {
       export const meta = init(() => {});
     }
     export namespace SAVE_NEW_FILE {
+      export const meta = init(() => {});
+    }
+    export namespace HANDLE_FILE_CLICK {
       export const meta = init(() => {});
     }
   }
@@ -209,6 +221,9 @@ export namespace FileSystem {
       };
       SAVE_NEW_FILE = (path: string[], newFileName: string, newFileExtension: string, fileContent: string) => {
         return this.exec(SAGA.SAVE_NEW_FILE.meta.createAction({ path, newFileName, newFileExtension, fileContent }));
+      };
+      HANDLE_FILE_CLICK = (lastClickTime: number, fileName: string, filePath: string[]) => {
+        this.exec(SAGA.HANDLE_FILE_CLICK.meta.createAction({ lastClickTime, fileName, filePath }));
       };
     })(this.exec);
   }

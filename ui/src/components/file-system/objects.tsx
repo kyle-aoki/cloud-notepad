@@ -24,13 +24,20 @@ interface FileProps {
 }
 
 export const File: FC<FileProps> = ({ dirObject }) => {
-  const { fileName, lastModified, fileSize } = dirObject;
+  const { fileName, filePath, lastModified, fileSize } = dirObject;
+  const FileSystemController = new FileSystem.Instance(useDispatch());
+  const { selected, lastClickTime } = useFileSystemState();
+
+  const isSelected = selected === fileName;
 
   return (
-    <FileContainer>
+    <FileContainer
+      isSelected={isSelected}
+      onClick={() => FileSystemController.SAGA.HANDLE_FILE_CLICK(lastClickTime, fileName, filePath)}
+    >
       <FileIcon style={FSObjectIconStyle} />
       <FileName>{fileName}</FileName>
-      <FileDateMod>{lastModified}</FileDateMod>
+      <FileDateMod>{new Date(lastModified).toLocaleString()}</FileDateMod>
       <FileExt>.txt</FileExt>
       <FileSize>{fileSize} B</FileSize>
     </FileContainer>
@@ -52,7 +59,7 @@ export const Folder: FC<any> = ({ dirObject, folderName }) => {
       >
         <FolderIcon style={FSObjectIconStyle} />
         <FolderName>{folderName}</FolderName>
-        <FolderDateMod>{lastModified}</FolderDateMod>
+        <FolderDateMod>{new Date(lastModified).toLocaleString()}</FolderDateMod>
         <FolderType>File folder</FolderType>
         <FolderSize></FolderSize>
       </FolderContainer>
