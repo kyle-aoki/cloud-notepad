@@ -1,9 +1,11 @@
 export function getCanonicalFilePath(username: string, fileName: string, filePath: string[]) {
   const filePathString = getFilePath(filePath);
-  return `${username}/${filePathString}/${fileName}`;
+  if (filePathString) return `${username}/${filePathString}/${fileName}`;
+  return `${username}/${fileName}`;
 }
 
 export function getFilePath(filePath: string[]) {
+  if (filePath.length === 0) return false;
   return filePath.join("/");
 }
 

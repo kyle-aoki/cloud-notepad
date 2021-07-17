@@ -4,9 +4,9 @@ import { Notif } from '../../../notif/redux';
 import { FileSystem } from '../redux';
 import { UserDir } from '../user-dir';
 
-function* GetUserDir(): Generator<any, any, any> {
+export function* GetUserDir(): Generator<any, any, any> {
   const NotifController = new Notif.Instance(put);
-  const FileSystemControlller = new FileSystem.Instance(put);
+  const FileSystemController = new FileSystem.Instance(put);
 
   let getUserDirResult: any;
   try {
@@ -19,7 +19,7 @@ function* GetUserDir(): Generator<any, any, any> {
     return yield NotifController.PUSH_ERROR('Unable to get your directory.');
   }
 
-  yield FileSystemControlller.SET_USER_DIR(<UserDir userDir={getUserDirResult.data.userDir} />);
+  yield FileSystemController.SET_USER_DIR(<UserDir userDir={getUserDirResult.data.userDir} />);
 }
 
 export function* GetUserDirSaga() {

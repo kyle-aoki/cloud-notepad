@@ -7,13 +7,13 @@ export const useEditorState = () => useSelector((state: GlobalState) => state.Ed
 
 export namespace Editor {
   export interface SHAPE {
-    text: string;
+    fileContent: string;
     saved: boolean;
     title: string;
     newFile: boolean;
   }
   export const INITIAL_STATE: SHAPE = {
-    text: '',
+    fileContent: '',
     saved: true,
     title: 'Untitled - Notepad',
     newFile: true,
@@ -32,7 +32,7 @@ export namespace Editor {
         state.saved = false;
       }
 
-      const newState = { ...state, text: newValue };
+      const newState = { ...state, fileContent: newValue };
 
       saveEditorStateToLocalStorage(newState);
       return newState;

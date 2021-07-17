@@ -25,7 +25,7 @@ export default async function CreateFile(username: string, fileName: string, fil
   await Mongoose.UserDir.updateOne({ username }, { $push: { objects: UserDirMetadata } }).catch(handleError);
   await Mongoose.Files.insertOne(NewFile).catch(handleError);
 
-  const newUserDir = await Mongoose.UserDir.findOne({ username });
+  const newUserDir = await Mongoose.UserDir.findOne({ username }).catch(handleError);
   return newUserDir.objects;
 }
 

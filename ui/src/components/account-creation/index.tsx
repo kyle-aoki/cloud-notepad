@@ -5,6 +5,7 @@ import { XButton } from '../file-system/styled-components';
 import { useDispatch } from 'react-redux';
 import { XButtonSVGContainer } from '../file-system/components';
 import { AccountCreation, useAccountCreationState } from './redux';
+import { Spinner } from '../../ui/spinner';
 
 interface AccountCreationPaneProps {}
 
@@ -93,9 +94,6 @@ const AccountCreationModal: FC<AccountCreationPaneProps> = () => {
 
 export default AccountCreationModal;
 
-export const Spinner: FC = () => {
-  return <div className="spinner-border" />;
-};
 
 export const AccountCreationContainer = styled.div`
   z-index: 50;

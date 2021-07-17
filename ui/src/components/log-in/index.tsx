@@ -9,12 +9,12 @@ import {
   PasswordInput,
   UsernameInput,
   Button,
-  Spinner,
 } from '../account-creation/index';
 import { XButtonSVGContainer } from '../file-system/components';
 import { XButton } from '../file-system/styled-components';
 import { useDispatch } from 'react-redux';
 import { LogIn, useLogInState } from './redux';
+import { Spinner } from '../../ui/spinner';
 
 interface LogInModalProps {}
 

@@ -15,9 +15,11 @@ enum Result {
   notInDir,
 }
 
+export const dirInitialState = [<Header key={-1}/>];
+
 export const UserDir: FC<UserDirProps> = ({ userDir }) => {
   const { path } = useFileSystemState();
-  const dirContents: any[] = [<Header key={-1}/>];
+  const dirContents: any[] = [...dirInitialState];
   const folders: string[] = [];
 
   for (let i = 0; i < userDir.length; i += 1) {

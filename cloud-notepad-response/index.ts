@@ -32,7 +32,7 @@ export enum PayloadValidationResponse {
 
   FILENAME_MISSING = "PayloadValidationResponse.FILENAME_MISSING",
   FILEPATH_MISSING = "PayloadValidationResponse.FILEPATH_MISSING",
-  FILE_CONTENT_MISSING = "PayloadValidationResponse.FILE_CONTENT_MISSING",
+  FILE_CONTENT_NOT_STRING = "PayloadValidationResponse.FILE_CONTENT_NOT_STRING",
 }
 
 export enum LogInResponse {

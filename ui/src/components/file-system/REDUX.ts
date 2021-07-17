@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { GlobalState } from '../..';
 import { ExecuteFunction, Executor, init, ReduxAction } from '../../redux/class';
+import { dirInitialState } from './user-dir';
 
 export const useFileSystemState = () => useSelector((state: GlobalState) => state.FileSystem);
 
@@ -10,6 +11,7 @@ export namespace FileSystem {
     SAVE_NEW_FILE,
   }
   export interface SHAPE {
+    [x: string]: any;
     fileSystemOpen: boolean;
     userDir: any;
     path: string[];
@@ -17,17 +19,22 @@ export namespace FileSystem {
     selected: string;
     lastClickTime: number;
     mode: Mode;
+    newFileName: string;
+    newFileExtension: string;
+    saveFileLoading: boolean;
   }
   export const INITIAL_STATE: SHAPE = {
     fileSystemOpen: false,
-    userDir: undefined,
+    userDir: [...dirInitialState],
     path: [],
     recent: [],
     selected: '',
     lastClickTime: 0,
     mode: Mode.OPEN_FILE,
+    newFileName: '',
+    newFileExtension: '.txt',
+    saveFileLoading: false,
   };
-
   export namespace DEFAULT {
     export const meta = init((state: SHAPE, action) => ({ ...state }));
   }
@@ -40,7 +47,7 @@ export namespace FileSystem {
   }
 
   export namespace CLOSE_FILE_SYSTEM {
-    export const meta = init((state: SHAPE, action) => ({ ...INITIAL_STATE, fileSystemOpen: false }));
+    export const meta = init((state: SHAPE, action) => ({ ...INITIAL_STATE, userDir: [...dirInitialState], fileSystemOpen: false }));
   }
 
   export namespace SET_USER_DIR {
@@ -119,11 +126,29 @@ export namespace FileSystem {
     });
   }
 
+  export namespace UPDATE_FIELD {
+    export const meta = init((state: SHAPE, action) => {
+      const { field, value } = action.payload;
+      return { ...state, [field]: value };
+    });
+  }
+
+  export namespace START_LOADING {
+    export const meta = init((state: SHAPE, action) => ({ ...state, saveFileLoading: true }));
+  }
+
+  export namespace STOP_LOADING {
+    export const meta = init((state: SHAPE, action) => ({ ...state, saveFileLoading: false }));
+  }
+
   export namespace SAGA {
     export namespace GET_USER_DIR {
       export const meta = init(() => {});
     }
     export namespace HANDLE_FOLDER_CLICK {
+      export const meta = init(() => {});
+    }
+    export namespace SAVE_NEW_FILE {
       export const meta = init(() => {});
     }
   }
@@ -142,6 +167,9 @@ export namespace FileSystem {
       case FOLDER_CLICKED.meta.type:              return FOLDER_CLICKED.meta.logic(state, action);
       case SELECT_OBJECT.meta.type:               return SELECT_OBJECT.meta.logic(state, action);
       case SET_NEW_LAST_CLICK_TIME.meta.type:     return SET_NEW_LAST_CLICK_TIME.meta.logic(state, action);
+      case UPDATE_FIELD.meta.type:                return UPDATE_FIELD.meta.logic(state, action);
+      case START_LOADING.meta.type:               return START_LOADING.meta.logic(state, action);
+      case STOP_LOADING.meta.type:                return STOP_LOADING.meta.logic(state, action);
       default:                                    return DEFAULT.meta.logic(state, action);
     }
   }
@@ -157,6 +185,9 @@ export namespace FileSystem {
     FORWARD_BUTTON_PRESSED = () => this.exec(FORWARD_BUTTON_PRESSED.meta.createAction());
     FOLDER_CLICKED = (folderName: string) => this.exec(FOLDER_CLICKED.meta.createAction({ folderName }));
     SELECT_OBJECT = (objectName: string) => this.exec(SELECT_OBJECT.meta.createAction({ objectName }));
+    UPDATE_FIELD = (field: string, value: string) => this.exec(UPDATE_FIELD.meta.createAction({ field, value }));
+    START_LOADING = () => this.exec(START_LOADING.meta.createAction());
+    STOP_LOADING = () => this.exec(STOP_LOADING.meta.createAction());
 
     SET_NEW_LAST_CLICK_TIME = (newLastClick: number) => {
       return this.exec(SET_NEW_LAST_CLICK_TIME.meta.createAction({ newLastClick }));
@@ -166,6 +197,9 @@ export namespace FileSystem {
       GET_USER_DIR = () => this.exec(SAGA.GET_USER_DIR.meta.createAction());
       HANDLE_FOLDER_CLICK = (lastClickTime: number, folderName: string) => {
         this.exec(SAGA.HANDLE_FOLDER_CLICK.meta.createAction({ lastClickTime, folderName }));
+      };
+      SAVE_NEW_FILE = (path: string[], newFileName: string, newFileExtension: string, fileContent: string) => {
+        return this.exec(SAGA.SAVE_NEW_FILE.meta.createAction({ path, newFileName, newFileExtension, fileContent }));
       };
     })(this.exec);
   }

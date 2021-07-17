@@ -17,7 +17,7 @@ import {
   FolderType,
 } from './styled-components';
 
-const FSObjectIconStyle = { fill: 'white', width: '15px', height: '15px' };
+export const FSObjectIconStyle = { fill: 'white', width: '15px', height: '15px' };
 
 interface FileProps {
   dirObject: DirObject;

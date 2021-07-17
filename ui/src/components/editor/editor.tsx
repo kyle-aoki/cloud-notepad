@@ -26,13 +26,13 @@ const EditorElement = styled.textarea.attrs((props: EditorElementProps) => ({
 `;
 
 const EditorComponent: FC = () => {
-  const { text, title } = useEditorState();
+  const { fileContent, title } = useEditorState();
   const EditorController = new Editor.Instance(useDispatch());
 
   const currentTitle = document.title;
   if (currentTitle !== title) document.title = title;
 
-  return <EditorElement value={text} onChange={(e) => EditorController.UPDATE_EDITOR(e.target.value)} />;
+  return <EditorElement value={fileContent} onChange={(e) => EditorController.UPDATE_EDITOR(e.target.value)} />;
 };
 
 export default EditorComponent;

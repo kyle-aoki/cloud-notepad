@@ -33,7 +33,7 @@ var PayloadValidationResponse;
     PayloadValidationResponse["NOT_LOGGED_IN"] = "PayloadValidationResponse.NOT_LOGGED_IN";
     PayloadValidationResponse["FILENAME_MISSING"] = "PayloadValidationResponse.FILENAME_MISSING";
     PayloadValidationResponse["FILEPATH_MISSING"] = "PayloadValidationResponse.FILEPATH_MISSING";
-    PayloadValidationResponse["FILE_CONTENT_MISSING"] = "PayloadValidationResponse.FILE_CONTENT_MISSING";
+    PayloadValidationResponse["FILE_CONTENT_NOT_STRING"] = "PayloadValidationResponse.FILE_CONTENT_NOT_STRING";
 })(PayloadValidationResponse = exports.PayloadValidationResponse || (exports.PayloadValidationResponse = {}));
 var LogInResponse;
 (function (LogInResponse) {
@@ -42,6 +42,7 @@ var LogInResponse;
 })(LogInResponse = exports.LogInResponse || (exports.LogInResponse = {}));
 var DeleteUserResponse;
 (function (DeleteUserResponse) {
+    DeleteUserResponse["INCORRECT_PASSWORD"] = "DeleteUserResponse.INCORRECT_PASSWORD";
     DeleteUserResponse["FAILED_TO_DELETE_USER"] = "DeleteUserResponse.FAILED_TO_DELETE_USER";
 })(DeleteUserResponse = exports.DeleteUserResponse || (exports.DeleteUserResponse = {}));
 var FileResponse;

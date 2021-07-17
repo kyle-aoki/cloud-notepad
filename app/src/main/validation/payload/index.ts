@@ -23,11 +23,15 @@ export default class PayloadValidator {
   }
 
   static fileContentExists(fileContent: string) {
-    if (this.notTruthyOrNotString(fileContent)) throw new Err(PayloadValidationResponse.FILE_CONTENT_MISSING);
+    if (this.NotString(fileContent)) throw new Err(PayloadValidationResponse.FILE_CONTENT_NOT_STRING);
   }
 
   static notTruthyOrNotObject(obj: any) {
     return !obj || !this.isObject(obj);
+  }
+
+  static NotString(obj: any) {
+    return !this.isString(obj);
   }
 
   static notTruthyOrNotString(obj: any) {
