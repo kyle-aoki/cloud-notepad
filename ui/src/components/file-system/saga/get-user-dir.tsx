@@ -19,7 +19,14 @@ export function* GetUserDir(): Generator<any, any, any> {
     return yield NotifController.PUSH_ERROR('Unable to get your directory.');
   }
 
-  yield FileSystemController.SET_USER_DIR(<UserDir userDir={getUserDirResult.data.userDir} />);
+  const userDir = getUserDirResult.data.userDir;
+
+  let memory = userDir.reduce((acc: number, val: any) => {
+    return acc + val.fileSize;
+  }, 0);
+
+  yield FileSystemController.SET_TOTAL_MEMORY(memory);
+  yield FileSystemController.SET_USER_DIR(<UserDir userDir={userDir} />);
 }
 
 export function* GetUserDirSaga() {

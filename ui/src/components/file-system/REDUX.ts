@@ -22,6 +22,7 @@ export namespace FileSystem {
     newFileName: string;
     newFileExtension: string;
     saveFileLoading: boolean;
+    totalMemory: number | undefined;
   }
   export const INITIAL_STATE: SHAPE = {
     fileSystemOpen: false,
@@ -34,7 +35,9 @@ export namespace FileSystem {
     newFileName: '',
     newFileExtension: '.txt',
     saveFileLoading: false,
+    totalMemory: undefined,
   };
+
   export namespace DEFAULT {
     export const meta = init((state: SHAPE, action) => ({ ...state }));
   }
@@ -141,6 +144,10 @@ export namespace FileSystem {
     export const meta = init((state: SHAPE, action) => ({ ...state, saveFileLoading: false }));
   }
 
+  export namespace SET_TOTAL_MEMORY {
+    export const meta = init((state: SHAPE, action) => ({ ...state, totalMemory: action.payload.memory }));
+  }
+
   export namespace SAGA {
     export namespace GET_USER_DIR {
       export const meta = init(() => {});
@@ -170,6 +177,7 @@ export namespace FileSystem {
       case UPDATE_FIELD.meta.type:                return UPDATE_FIELD.meta.logic(state, action);
       case START_LOADING.meta.type:               return START_LOADING.meta.logic(state, action);
       case STOP_LOADING.meta.type:                return STOP_LOADING.meta.logic(state, action);
+      case SET_TOTAL_MEMORY.meta.type:            return SET_TOTAL_MEMORY.meta.logic(state, action);
       default:                                    return DEFAULT.meta.logic(state, action);
     }
   }
@@ -188,6 +196,7 @@ export namespace FileSystem {
     UPDATE_FIELD = (field: string, value: string) => this.exec(UPDATE_FIELD.meta.createAction({ field, value }));
     START_LOADING = () => this.exec(START_LOADING.meta.createAction());
     STOP_LOADING = () => this.exec(STOP_LOADING.meta.createAction());
+    SET_TOTAL_MEMORY = (memory: number) => this.exec(SET_TOTAL_MEMORY.meta.createAction({ memory }));
 
     SET_NEW_LAST_CLICK_TIME = (newLastClick: number) => {
       return this.exec(SET_NEW_LAST_CLICK_TIME.meta.createAction({ newLastClick }));

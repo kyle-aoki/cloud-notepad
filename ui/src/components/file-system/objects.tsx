@@ -32,7 +32,7 @@ export const File: FC<FileProps> = ({ dirObject }) => {
       <FileName>{fileName}</FileName>
       <FileDateMod>{lastModified}</FileDateMod>
       <FileExt>.txt</FileExt>
-      <FileSize>{fileSize}</FileSize>
+      <FileSize>{fileSize} B</FileSize>
     </FileContainer>
   );
 };

@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
-import { useFileSystemState } from './redux';
+import { FileSystem, useFileSystemState } from './redux';
 import { v4 } from 'uuid';
 import DirObject from '../../model/dir-object';
 import { File, Folder } from './objects'
 import { Header } from './components';
+import { useDispatch } from 'react-redux';
 
 interface UserDirProps {
   userDir: DirObject[];
@@ -18,6 +19,7 @@ enum Result {
 export const dirInitialState = [<Header key={-1}/>];
 
 export const UserDir: FC<UserDirProps> = ({ userDir }) => {
+  const FileSystemController = new FileSystem.Instance(useDispatch());
   const { path } = useFileSystemState();
   const dirContents: any[] = [...dirInitialState];
   const folders: string[] = [];

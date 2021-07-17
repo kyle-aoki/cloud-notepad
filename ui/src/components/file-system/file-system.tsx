@@ -21,6 +21,8 @@ import {
   View,
   ViewContainer,
   XButton,
+  StorageCapacityFillBar,
+  StorageCapacityText,
 } from './styled-components';
 import { FileSystem, useFileSystemState } from './redux';
 import styled from 'styled-components';
@@ -30,7 +32,7 @@ import { Spinner } from '../../ui/spinner';
 
 export default function FileSystemComponent() {
   const FileSystemController = new FileSystem.Instance(useDispatch());
-  const { userDir, path, mode, newFileName, newFileExtension, saveFileLoading } = useFileSystemState();
+  const { userDir, path, mode, newFileName, newFileExtension, saveFileLoading, totalMemory } = useFileSystemState();
 
   const { fileContent } = useEditorState();
 
@@ -66,7 +68,10 @@ export default function FileSystemComponent() {
               );
             })}
           </PathContainer>
-          <StorageCapacity>{'0 KB'} / 1000 KB</StorageCapacity>
+          <StorageCapacity>
+            <StorageCapacityFillBar memory={totalMemory}/>
+            <StorageCapacityText>{totalMemory} B / 1000 B</StorageCapacityText>
+          </StorageCapacity>
         </Taskbar>
       </TopContainer>
       <Container>
@@ -102,7 +107,9 @@ export default function FileSystemComponent() {
             </FileNameInputContainer>
             <ButtonContainer>
               <Button
-                onClick={() => FileSystemController.SAGA.SAVE_NEW_FILE(path, newFileName, newFileExtension, fileContent)}
+                onClick={() =>
+                  FileSystemController.SAGA.SAVE_NEW_FILE(path, newFileName, newFileExtension, fileContent)
+                }
               >
                 {saveFileLoading ? <Spinner /> : 'Save'}
               </Button>

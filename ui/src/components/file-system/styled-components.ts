@@ -10,7 +10,7 @@ export const FileSystemContainer = styled.div`
   display: flex;
   flex-direction: column;
   border: 1px solid #262626;
-  resize: vertical;
+  /* resize: vertical; */
 `;
 
 export const TopContainer = styled.div`
@@ -94,6 +94,23 @@ export const StorageCapacity = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+`;
+
+export const StorageCapacityFillBar = styled.div<any>`
+  position: absolute;
+  top: 0px;
+  left: 0;
+  height: 24px;
+  width: ${(props: any) => {
+    return `${(props.memory / 1000) * 100}%`; 
+  }};
+  background-color: #5b72ffb0;
+  z-index: 99;
+`;
+
+export const StorageCapacityText = styled.div`
+  z-index: 100;
 `;
 
 export const Container = styled.div`
@@ -110,16 +127,13 @@ export const Sidebar = styled.div`
 
 export const ViewContainer = styled.div`
   padding-left: 15px;
-  padding-right: 15px;
+  /* padding-right: 15px; */
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 400px;
   background-color: #202020;
   border-left: 1px solid #2b2b2b;
-  overflow-y: scroll;
-  ::-webkit-scrollbar-button {
-    height: 9px;
-  }
 `;
 
 export const View = styled.div`
@@ -127,8 +141,12 @@ export const View = styled.div`
   flex-direction: column;
   /* justify-content: center; */
   align-items: flex-start;
-  height: 100%;
   width: 100%;
+  overflow-y: scroll;
+  padding-right: 15px;
+  ::-webkit-scrollbar-button {
+    height: 9px;
+  }
 `;
 
 export const StatusBar = styled.div`
