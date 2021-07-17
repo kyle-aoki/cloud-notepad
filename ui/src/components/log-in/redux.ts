@@ -67,8 +67,10 @@ export namespace LogIn {
     UPDATE_FIELD = (field: string, value: string) => this.exec(UPDATE_FIELD.meta.createAction({ field, value }));
     TOGGLE_LOG_IN_MODAL = () => this.exec(TOGGLE_LOG_IN_MODAL.meta.createAction());
 
-    SUBMIT_LOG_IN = (username: string, password: string, loading: boolean) => {
-      return this.exec(SAGA.SUBMIT_LOG_IN.meta.createAction({ username, password, loading }));
-    };
+    SAGA = new (class extends Executor {
+      SUBMIT_LOG_IN = (username: string, password: string, loading: boolean) => {
+        return this.exec(SAGA.SUBMIT_LOG_IN.meta.createAction({ username, password, loading }));
+      };
+    })(this.exec);
   }
 }

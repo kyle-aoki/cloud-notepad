@@ -34,7 +34,7 @@ export const LogInModal: FC<LogInModalProps> = () => {
         <ContentPane>
           <UsernameInput id="username" value={username} onChange={(e) => LogInController.UPDATE_FIELD(e.target.id, e.target.value)} />
           <PasswordInput id="password" value={password} onChange={(e) => LogInController.UPDATE_FIELD(e.target.id, e.target.value)} />
-          <LogInButton clicked={loading} onClick={() => LogInController.SUBMIT_LOG_IN(username, password, loading)}>
+          <LogInButton clicked={loading} onClick={() => LogInController.SAGA.SUBMIT_LOG_IN(username, password, loading)}>
             {loading ? <Spinner /> : 'Log In'}
           </LogInButton>
         </ContentPane>

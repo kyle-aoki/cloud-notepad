@@ -194,6 +194,7 @@ export namespace FileSystem {
     }
   }
 
+  // prettier-ignore
   export class Instance extends Executor {
     OPEN_FILE_SYSTEM = (mode: Mode) => this.exec(OPEN_FILE_SYSTEM.meta.createAction({ mode }));
     CLOSE_FILE_SYSTEM = () => this.exec(CLOSE_FILE_SYSTEM.meta.createAction());
@@ -209,21 +210,18 @@ export namespace FileSystem {
     START_LOADING = () => this.exec(START_LOADING.meta.createAction());
     STOP_LOADING = () => this.exec(STOP_LOADING.meta.createAction());
     SET_TOTAL_MEMORY = (memory: number) => this.exec(SET_TOTAL_MEMORY.meta.createAction({ memory }));
-
-    SET_NEW_LAST_CLICK_TIME = (newLastClick: number) => {
-      return this.exec(SET_NEW_LAST_CLICK_TIME.meta.createAction({ newLastClick }));
-    };
+    SET_NEW_LAST_CLICK_TIME = (newLastClick: number) => this.exec(SET_NEW_LAST_CLICK_TIME.meta.createAction({ newLastClick }));
 
     SAGA = new (class extends Executor {
       GET_USER_DIR = () => this.exec(SAGA.GET_USER_DIR.meta.createAction());
       HANDLE_FOLDER_CLICK = (lastClickTime: number, folderName: string) => {
-        this.exec(SAGA.HANDLE_FOLDER_CLICK.meta.createAction({ lastClickTime, folderName }));
+        return this.exec(SAGA.HANDLE_FOLDER_CLICK.meta.createAction({ lastClickTime, folderName }));
       };
       SAVE_NEW_FILE = (path: string[], newFileName: string, newFileExtension: string, fileContent: string) => {
         return this.exec(SAGA.SAVE_NEW_FILE.meta.createAction({ path, newFileName, newFileExtension, fileContent }));
       };
       HANDLE_FILE_CLICK = (lastClickTime: number, fileName: string, filePath: string[]) => {
-        this.exec(SAGA.HANDLE_FILE_CLICK.meta.createAction({ lastClickTime, fileName, filePath }));
+        return this.exec(SAGA.HANDLE_FILE_CLICK.meta.createAction({ lastClickTime, fileName, filePath }));
       };
     })(this.exec);
   }
