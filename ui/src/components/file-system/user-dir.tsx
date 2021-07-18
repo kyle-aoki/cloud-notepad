@@ -2,9 +2,10 @@ import React, { FC } from 'react';
 import { FileSystem, useFileSystemState } from './redux';
 import { v4 } from 'uuid';
 import DirObject from '../../model/dir-object';
-import { File, Folder } from './objects'
+import { CreateNewFolder, File, Folder } from './objects';
 import { Header } from './components';
 import { useDispatch } from 'react-redux';
+import { DS_STORE } from '../../constants';
 
 interface UserDirProps {
   userDir: DirObject[];
@@ -16,11 +17,11 @@ enum Result {
   notInDir,
 }
 
-export const dirInitialState = [<Header key={-1}/>];
+export const dirInitialState = [<Header key={-1} />];
 
 export const UserDir: FC<UserDirProps> = ({ userDir }) => {
   const FileSystemController = new FileSystem.Instance(useDispatch());
-  const { path } = useFileSystemState();
+  const { path, creatingFolder, newFolderLoading } = useFileSystemState();
   const dirContents: any[] = [...dirInitialState];
   const folders: string[] = [];
 
@@ -37,13 +38,19 @@ export const UserDir: FC<UserDirProps> = ({ userDir }) => {
         dirContents.push(createFolder(obj, result[1] as string));
         continue;
       case Result.isFile:
+        if (obj.fileName === DS_STORE) continue;
         dirContents.push(createFile(obj));
         continue;
       case Result.notInDir: continue;
     }
   }
 
-  return <>{dirContents}</>;
+  return (
+    <>
+      {dirContents}
+      {(creatingFolder || newFolderLoading) && <CreateNewFolder />}
+    </>
+  );
 };
 
 function inDir(path: string[], filePath: string[]) {
@@ -62,7 +69,7 @@ function inDir(path: string[], filePath: string[]) {
 }
 
 function createFolder(dirObject: DirObject, folderName: string) {
-  return <Folder key={v4()} dirObject={dirObject} folderName={folderName}/>;
+  return <Folder key={v4()} dirObject={dirObject} folderName={folderName} />;
 }
 function createFile(dirObject: DirObject) {
   return <File key={v4()} dirObject={dirObject} />;

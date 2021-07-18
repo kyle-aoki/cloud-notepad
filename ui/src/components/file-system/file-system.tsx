@@ -29,12 +29,15 @@ import styled from 'styled-components';
 import { FSObjectIconStyle } from './objects';
 import { Editor, useEditorState } from '../editor/redux';
 import { Spinner } from '../../ui/spinner';
+import { useCreateFolder } from './hooks/use-create-folder';
 
 export default function FileSystemComponent() {
   const FileSystemController = new FileSystem.Instance(useDispatch());
   const { userDir, path, mode, newFileName, newFileExtension, saveFileLoading, totalMemory } = useFileSystemState();
 
   const { fileContent } = useEditorState();
+
+  useCreateFolder();
 
   return (
     <FileSystemContainer>
@@ -51,7 +54,7 @@ export default function FileSystemComponent() {
           <ArrowsContainer>
             <Arrow onClick={() => FileSystemController.BACK_BUTTON_PRESSED()} />
             <Arrow right onClick={() => FileSystemController.FORWARD_BUTTON_PRESSED()} />
-            <NewFolderIconContainer>
+            <NewFolderIconContainer onClick={() => FileSystemController.START_FOLDER_CREATION_PROCESS()}>
               <FolderIcon style={FSObjectIconStyle} />
             </NewFolderIconContainer>
           </ArrowsContainer>

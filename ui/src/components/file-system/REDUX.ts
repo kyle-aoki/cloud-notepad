@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { GlobalState } from '../..';
+import { DISALLOWED_FOLDER_NAME_CHARACTERS } from '../../constants';
 import { ExecuteFunction, Executor, init, ReduxAction } from '../../redux/class';
 import { dirInitialState } from './user-dir';
 import { getTotalMemoryFromLocalStorage, setTotalMemoryInLocalStorage } from './util';
@@ -24,6 +25,10 @@ export namespace FileSystem {
     newFileExtension: string;
     saveFileLoading: boolean;
     totalMemory: number;
+    creatingFolder: boolean;
+    selectedOnCreatingFolder: string;
+    newFolderName: string;
+    newFolderLoading: boolean;
   }
   export const INITIAL_STATE: SHAPE = {
     fileSystemOpen: false,
@@ -37,6 +42,10 @@ export namespace FileSystem {
     newFileExtension: '.txt',
     saveFileLoading: false,
     totalMemory: getTotalMemoryFromLocalStorage(),
+    creatingFolder: false,
+    selectedOnCreatingFolder: '',
+    newFolderName: '',
+    newFolderLoading: false,
   };
 
   export namespace DEFAULT {
@@ -157,6 +166,38 @@ export namespace FileSystem {
     });
   }
 
+  export namespace START_FOLDER_CREATION_PROCESS {
+    export const meta = init((state: SHAPE, action) => ({
+      ...state,
+      selected: '',
+      creatingFolder: true,
+      selectedOnCreatingFolder: '',
+    }));
+  }
+
+  export namespace STOP_FOLDER_CREATION_PROCESS {
+    export const meta = init((state: SHAPE, action) => ({ ...state, creatingFolder: false }));
+  }
+
+  export namespace UPDATE_FOLDER_NAME {
+    export const meta = init((state: SHAPE, action) => {
+      const { newFolderName } = action.payload;
+      const newFolderNameChars = newFolderName.split('');
+      for (let i = 0; i < newFolderNameChars.length; i += 1) {
+        if (!DISALLOWED_FOLDER_NAME_CHARACTERS.includes(newFolderNameChars[i])) continue;
+        return { ...state };
+      }
+      return { ...state, newFolderName };
+    });
+  }
+
+  export namespace START_NEW_FOLDER_LOADING {
+    export const meta = init((state: SHAPE, action) => ({ ...state, newFolderLoading: true }));
+  }
+  export namespace STOP_NEW_FOLDER_LOADING {
+    export const meta = init((state: SHAPE, action) => ({ ...state, newFolderLoading: false }));
+  }
+
   export namespace SAGA {
     export namespace GET_USER_DIR {
       export const meta = init(() => {});
@@ -170,27 +211,35 @@ export namespace FileSystem {
     export namespace HANDLE_FILE_CLICK {
       export const meta = init(() => {});
     }
+    export namespace CREATE_FOLDER {
+      export const meta = init(() => {});
+    }
   }
 
   // prettier-ignore
   export function REDUCER(state: SHAPE = INITIAL_STATE, action: ReduxAction) {
     switch (action.type) {
-      case OPEN_FILE_SYSTEM.meta.type:            return OPEN_FILE_SYSTEM.meta.logic(state, action);
-      case CLOSE_FILE_SYSTEM.meta.type:           return CLOSE_FILE_SYSTEM.meta.logic(state, action);
-      case SET_USER_DIR.meta.type:                return SET_USER_DIR.meta.logic(state, action);
-      case CREATE_FILE.meta.type:                 return CREATE_FILE.meta.logic(state, action);
-      case SAVE_FILE.meta.type:                   return SAVE_FILE.meta.logic(state, action);
-      case DELETE_FILE.meta.type:                 return DELETE_FILE.meta.logic(state, action);
-      case BACK_BUTTON_PRESSED.meta.type:         return BACK_BUTTON_PRESSED.meta.logic(state, action);
-      case FORWARD_BUTTON_PRESSED.meta.type:      return FORWARD_BUTTON_PRESSED.meta.logic(state, action);
-      case FOLDER_CLICKED.meta.type:              return FOLDER_CLICKED.meta.logic(state, action);
-      case SELECT_OBJECT.meta.type:               return SELECT_OBJECT.meta.logic(state, action);
-      case SET_NEW_LAST_CLICK_TIME.meta.type:     return SET_NEW_LAST_CLICK_TIME.meta.logic(state, action);
-      case UPDATE_FIELD.meta.type:                return UPDATE_FIELD.meta.logic(state, action);
-      case START_LOADING.meta.type:               return START_LOADING.meta.logic(state, action);
-      case STOP_LOADING.meta.type:                return STOP_LOADING.meta.logic(state, action);
-      case SET_TOTAL_MEMORY.meta.type:            return SET_TOTAL_MEMORY.meta.logic(state, action);
-      default:                                    return DEFAULT.meta.logic(state, action);
+      case OPEN_FILE_SYSTEM.meta.type:                    return OPEN_FILE_SYSTEM.meta.logic(state, action);
+      case CLOSE_FILE_SYSTEM.meta.type:                   return CLOSE_FILE_SYSTEM.meta.logic(state, action);
+      case SET_USER_DIR.meta.type:                        return SET_USER_DIR.meta.logic(state, action);
+      case CREATE_FILE.meta.type:                         return CREATE_FILE.meta.logic(state, action);
+      case SAVE_FILE.meta.type:                           return SAVE_FILE.meta.logic(state, action);
+      case DELETE_FILE.meta.type:                         return DELETE_FILE.meta.logic(state, action);
+      case BACK_BUTTON_PRESSED.meta.type:                 return BACK_BUTTON_PRESSED.meta.logic(state, action);
+      case FORWARD_BUTTON_PRESSED.meta.type:              return FORWARD_BUTTON_PRESSED.meta.logic(state, action);
+      case FOLDER_CLICKED.meta.type:                      return FOLDER_CLICKED.meta.logic(state, action);
+      case SELECT_OBJECT.meta.type:                       return SELECT_OBJECT.meta.logic(state, action);
+      case SET_NEW_LAST_CLICK_TIME.meta.type:             return SET_NEW_LAST_CLICK_TIME.meta.logic(state, action);
+      case UPDATE_FIELD.meta.type:                        return UPDATE_FIELD.meta.logic(state, action);
+      case START_LOADING.meta.type:                       return START_LOADING.meta.logic(state, action);
+      case STOP_LOADING.meta.type:                        return STOP_LOADING.meta.logic(state, action);
+      case SET_TOTAL_MEMORY.meta.type:                    return SET_TOTAL_MEMORY.meta.logic(state, action);
+      case START_FOLDER_CREATION_PROCESS.meta.type:       return START_FOLDER_CREATION_PROCESS.meta.logic(state, action);
+      case STOP_FOLDER_CREATION_PROCESS.meta.type:        return STOP_FOLDER_CREATION_PROCESS.meta.logic(state, action);
+      case UPDATE_FOLDER_NAME.meta.type:                  return UPDATE_FOLDER_NAME.meta.logic(state, action);
+      case START_NEW_FOLDER_LOADING.meta.type:            return START_NEW_FOLDER_LOADING.meta.logic(state, action);
+      case STOP_NEW_FOLDER_LOADING.meta.type:             return STOP_NEW_FOLDER_LOADING.meta.logic(state, action);
+      default:                                            return DEFAULT.meta.logic(state, action);
     }
   }
 
@@ -211,6 +260,11 @@ export namespace FileSystem {
     STOP_LOADING = () => this.exec(STOP_LOADING.meta.createAction());
     SET_TOTAL_MEMORY = (memory: number) => this.exec(SET_TOTAL_MEMORY.meta.createAction({ memory }));
     SET_NEW_LAST_CLICK_TIME = (newLastClick: number) => this.exec(SET_NEW_LAST_CLICK_TIME.meta.createAction({ newLastClick }));
+    START_FOLDER_CREATION_PROCESS = () => this.exec(START_FOLDER_CREATION_PROCESS.meta.createAction());
+    STOP_FOLDER_CREATION_PROCESS = () => this.exec(STOP_FOLDER_CREATION_PROCESS.meta.createAction());
+    UPDATE_FOLDER_NAME = (newFolderName: string) => this.exec(UPDATE_FOLDER_NAME.meta.createAction({ newFolderName }));
+    START_NEW_FOLDER_LOADING = () => this.exec(START_NEW_FOLDER_LOADING.meta.createAction());
+    STOP_NEW_FOLDER_LOADING = () => this.exec(STOP_NEW_FOLDER_LOADING.meta.createAction());
 
     SAGA = new (class extends Executor {
       GET_USER_DIR = () => this.exec(SAGA.GET_USER_DIR.meta.createAction());
@@ -223,6 +277,7 @@ export namespace FileSystem {
       HANDLE_FILE_CLICK = (lastClickTime: number, fileName: string, filePath: string[]) => {
         return this.exec(SAGA.HANDLE_FILE_CLICK.meta.createAction({ lastClickTime, fileName, filePath }));
       };
+      CREATE_FOLDER = (path: string[], newFolderName: string) => this.exec(SAGA.CREATE_FOLDER.meta.createAction({ path, newFolderName }));
     })(this.exec);
   }
 }

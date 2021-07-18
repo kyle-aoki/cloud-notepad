@@ -1,8 +1,10 @@
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
 import { ReactComponent as FileIcon } from '../../assets/file.svg';
 import { ReactComponent as FolderIcon } from '../../assets/folder.svg';
 import DirObject from '../../model/dir-object';
+import { Spinner } from '../../ui/spinner';
 import { FileSystem, useFileSystemState } from './redux';
 import {
   FileContainer,
@@ -15,6 +17,7 @@ import {
   FolderName,
   FolderSize,
   FolderType,
+  CreateNewFolderContainer,
 } from './styled-components';
 
 export const FSObjectIconStyle = { fill: 'white', width: '15px', height: '15px' };
@@ -66,3 +69,38 @@ export const Folder: FC<any> = ({ dirObject, folderName }) => {
     </>
   );
 };
+
+export const CreateNewFolder: FC<any> = ({ dirObject, folderName }) => {
+  const FileSystemController = new FileSystem.Instance(useDispatch());
+  const { newFolderName, newFolderLoading } = useFileSystemState();
+  return (
+    <>
+      <CreateNewFolderContainer>
+        {newFolderLoading ? <Spinner /> : <FolderIcon style={FSObjectIconStyle} />}
+        <FolderName>
+          {newFolderLoading ? (
+            <>{newFolderName}</>
+          ) : (
+            <CreateNewFolderInput
+              value={newFolderName}
+              onChange={(e) => FileSystemController.UPDATE_FOLDER_NAME(e.target.value)}
+            />
+          )}
+        </FolderName>
+        <FolderDateMod></FolderDateMod>
+        <FolderType></FolderType>
+        <FolderSize></FolderSize>
+      </CreateNewFolderContainer>
+    </>
+  );
+};
+
+const CreateNewFolderInput = styled.input.attrs((props: any) => ({
+  spellCheck: false,
+}))`
+  outline: none;
+  border: 1px solid white;
+  background-color: #4d4d4d;
+  color: white;
+  height: 20px;
+`;

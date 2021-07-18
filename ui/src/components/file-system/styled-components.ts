@@ -244,6 +244,12 @@ export const FileExt = styled.div`
 `;
 
 export const FolderContainer = styled(FSObject)``;
+export const CreateNewFolderContainer = styled(FolderContainer)`
+  background-color: #777777;
+  &:hover {
+    background-color: #777777;
+  }
+`;
 
 export const FolderName = styled.div``;
 export const FolderSize = styled.div`
