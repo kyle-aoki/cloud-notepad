@@ -7,10 +7,16 @@
     "build-backend": "rimraf build && tsc && rimraf build/app/src/test/",
     "build-frontend": "cd ../ui && npm i && npm run build",
     "build": "npm-run-all build-backend build-frontend",
-    "start": "doppler run -- node build/main/server/"
+    "start": "doppler run -- node build/main/server/",
+    "clean": "rimraf build/ && rimraf ../ui/build/ && rimraf node_modules/ && rimraf ../ui/node_modules/",
+    "server": "doppler run -- pm2 start build/main/server/",
+    "server-max": "doppler run -- pm2 start build/main/server/ -i max",
+    "server-reload": "pm2 reload all",
+    "server-stop": "pm2 delete all"
   },
   "dependencies": {
     "@cloud-notepad/cloud-notepad-response": "file:../cloud-notepad-response",
+    "@cloud-notepad/reload-app": "file:../reload-app",
     "chalk": "^4.1.1",
     "cookie-parser": "^1.4.5",
     "crypto-js": "^4.0.0",
@@ -19,6 +25,7 @@
     "mongodb": "^3.6.9",
     "morgan": "^1.10.0",
     "pg": "^8.6.0",
+    "pm2": "^5.1.0",
     "response-time": "^2.3.2"
   },
   "devDependencies": {
