@@ -1,3 +1,0 @@
-test('Reloads the app', () => {
-  
-})

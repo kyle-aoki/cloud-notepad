@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "@cloud-notepad/cloud-notepad-response": "file:../cloud-notepad-response",
-    "@cloud-notepad/reload-app": "file:../reload-app",
     "chalk": "^4.1.1",
     "cookie-parser": "^1.4.5",
     "crypto-js": "^4.0.0",
