@@ -1,0 +1,21 @@
+{
+  "name": "devops",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "1": "ts-node scripts/delete-all-ec2-instances.ts",
+    "2": "ts-node scripts/create-free-tier-ec2-instance.ts",
+    "3": "ts-node scripts/get-ssh-command.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^16.4.0",
+    "@types/shelljs": "^0.8.9",
+    "chalk": "^4.1.1",
+    "shelljs": "^0.8.4",
+    "typescript": "^4.3.5"
+  }
+}
