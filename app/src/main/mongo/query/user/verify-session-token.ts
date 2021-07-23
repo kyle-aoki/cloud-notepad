@@ -1,10 +1,10 @@
-import Mongoose from "../..";
+import Mongo from "../..";
 import Err from "../../../response/err";
 import { AuthError } from "@cloud-notepad/cloud-notepad-response";
 import { ONE_DAY_MILLISECONDS } from "../../../utility/session-token-constants";
 
 export default async function VerifySessionToken(username: string, session_token: string) {
-  const potentialUser = await Mongoose.User.findOne({ username, session_token }).catch(handleError);
+  const potentialUser = await Mongo.User.findOne({ username, session_token }).catch(handleError);
   if (!potentialUser) throw new Err(AuthError.UNAUTHORIZED);
 
   // If right side is bigger --> session_token is INVALID.

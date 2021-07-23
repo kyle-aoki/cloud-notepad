@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import MongooseQuery from "../../../mongoose/class";
+import MongoQuery from "../../../mongo/class";
 import sendResponse from "../../../response/send-response";
 import { FileResponse } from "@cloud-notepad/cloud-notepad-response";
 import PayloadValidator from "../../../validation/payload";
@@ -15,7 +15,7 @@ export default async function SaveFile(req: Request, res: Response, next: NextFu
   PayloadValidator.filePathExists(filePath);
   PayloadValidator.fileContentExists(fileContent);
 
-  await MongooseQuery.SaveFile(username, fileName, filePath, fileContent);
+  await MongoQuery.SaveFile(username, fileName, filePath, fileContent);
 
   sendResponse(res);
 }

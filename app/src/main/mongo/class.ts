@@ -11,7 +11,7 @@ import SetSessionToken from "./query/user/set-session-token";
 import VerifyPassword from "./query/user/verify-password";
 import VerifySessionToken from "./query/user/verify-session-token";
 
-export default class MongooseQuery {
+export default class MongoQuery {
   static InitUserDir = InitUserDir;
   static CreateFile = CreateFile;
   static GetFile = GetFile;

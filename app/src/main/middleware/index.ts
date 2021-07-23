@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import Err from "../response/err";
 import { AuthError } from "@cloud-notepad/cloud-notepad-response";
-import MongooseQuery from "../mongoose/class";
+import MongoQuery from "../mongo/class";
 
 export namespace Middleware {
   export async function SessionTokenAuthorization(req: Request, res: Response, next: NextFunction) {
@@ -10,7 +10,7 @@ export namespace Middleware {
 
     if (!username || !session_token) throw new Err(AuthError.UNAUTHORIZED, 401);
 
-    await MongooseQuery.VerifySessionToken(username, session_token);
+    await MongoQuery.VerifySessionToken(username, session_token);
 
     next();
   }

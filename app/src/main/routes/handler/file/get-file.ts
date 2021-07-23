@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import MongooseQuery from "../../../mongoose/class";
+import MongoQuery from "../../../mongo/class";
 import sendResponse from "../../../response/send-response";
 import PayloadValidator from "../../../validation/payload";
 
@@ -12,7 +12,7 @@ export default async function GetFile(req: Request, res: Response, next: NextFun
   PayloadValidator.fileNameExists(fileName);
   PayloadValidator.filePathExists(filePath);
 
-  const fileContent = await MongooseQuery.GetFile(username, fileName, filePath);
+  const fileContent = await MongoQuery.GetFile(username, fileName, filePath);
 
   sendResponse(res, { fileContent });
 }

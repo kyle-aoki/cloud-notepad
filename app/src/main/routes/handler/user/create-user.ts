@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import hashPassword from "../../../cryptography/hash-password";
 import PayloadValidator from "../../../validation/payload";
 import Validator from "../../../validation/general";
-import MongooseQuery from "../../../mongoose/class";
+import MongoQuery from "../../../mongo/class";
 
 export default async function CreateUser(req: Request, res: Response, next: NextFunction) {
   const username = req.body.username;
@@ -14,12 +14,12 @@ export default async function CreateUser(req: Request, res: Response, next: Next
   Validator.validateUsername(username);
   Validator.validatePassword(password);
 
-  await MongooseQuery.DoesUserExist(username);
+  await MongoQuery.DoesUserExist(username);
 
   const hashedPassword = hashPassword(password);
-  await MongooseQuery.CreateUser(username, hashedPassword);
+  await MongoQuery.CreateUser(username, hashedPassword);
 
-  await MongooseQuery.InitUserDir(username);
+  await MongoQuery.InitUserDir(username);
 
   next();
 }

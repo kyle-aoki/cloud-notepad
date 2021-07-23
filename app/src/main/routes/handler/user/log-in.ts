@@ -4,7 +4,7 @@ import hashPassword from "../../../cryptography/hash-password";
 import sendResponse from "../../../response/send-response";
 import { cookieOptions } from "../../../utility/session-token-constants";
 import PayloadValidator from "../../../validation/payload";
-import MongooseQuery from "../../../mongoose/class";
+import MongoQuery from "../../../mongo/class";
 
 export default async function LogIn(req: Request, res: Response, next: NextFunction) {
   const username = req.body.username;
@@ -14,10 +14,10 @@ export default async function LogIn(req: Request, res: Response, next: NextFunct
   PayloadValidator.passwordExists(password);
 
   const hashedPassword = hashPassword(password);
-  await MongooseQuery.VerifyPassword(username, hashedPassword);
+  await MongoQuery.VerifyPassword(username, hashedPassword);
 
   const session_token = generateSessionToken();
-  await MongooseQuery.SetSessionToken(username, hashedPassword, session_token);
+  await MongoQuery.SetSessionToken(username, hashedPassword, session_token);
 
   res.cookie("username", username, cookieOptions);
   res.cookie("session_token", session_token, cookieOptions);

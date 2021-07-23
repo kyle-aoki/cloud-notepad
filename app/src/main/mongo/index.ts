@@ -11,7 +11,7 @@ const client = new MongoClient(FILE_DB_HOST, {
   useUnifiedTopology: true,
 });
 
-class Mongoose {
+class Mongo {
   static User: Collection;
   static UserDir: Collection;
   static Files: Collection;
@@ -19,12 +19,12 @@ class Mongoose {
   static async initialize() {
     const connection = await client.connect();
     const CN_DB = connection.db("CN_DB");
-    Mongoose.User = CN_DB.collection("User")
-    Mongoose.UserDir = CN_DB.collection("UserDir");
-    Mongoose.Files = CN_DB.collection("Files");
+    Mongo.User = CN_DB.collection("User")
+    Mongo.UserDir = CN_DB.collection("UserDir");
+    Mongo.Files = CN_DB.collection("Files");
   }
 }
 
-Mongoose.initialize();
+Mongo.initialize();
 
-export default Mongoose;
+export default Mongo;

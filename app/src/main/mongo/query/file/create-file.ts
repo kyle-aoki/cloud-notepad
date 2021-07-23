@@ -1,4 +1,4 @@
-import Mongoose from "../..";
+import Mongo from "../..";
 import Err from "../../../response/err";
 import { FileResponse } from "@cloud-notepad/cloud-notepad-response";
 import getFileSize, { getCanonicalFilePath } from "../../../utility/file";
@@ -12,20 +12,20 @@ export default async function CreateFile(username: string, fileName: string, fil
   const NewFile = { CanonicalFilePath, fileContent };
 
   // File Metadata Already Exists
-  const file = await Mongoose.UserDir.findOne({
+  const file = await Mongo.UserDir.findOne({
     username,
     objects: { $elemMatch: { filePath, fileName } },
   }).catch(handleError);
   if (file) throw new Err(FileResponse.FILE_ALREADY_EXISTS);
 
   // File exists in FileContent but not in UserDir --> Corrupted
-  const corruptFile = await Mongoose.Files.findOne({ path: CanonicalFilePath }).catch(handleError);
-  if (corruptFile) await Mongoose.Files.deleteOne({ path: CanonicalFilePath }).catch(handleError);
+  const corruptFile = await Mongo.Files.findOne({ path: CanonicalFilePath }).catch(handleError);
+  if (corruptFile) await Mongo.Files.deleteOne({ path: CanonicalFilePath }).catch(handleError);
 
-  await Mongoose.UserDir.updateOne({ username }, { $push: { objects: UserDirMetadata } }).catch(handleError);
-  await Mongoose.Files.insertOne(NewFile).catch(handleError);
+  await Mongo.UserDir.updateOne({ username }, { $push: { objects: UserDirMetadata } }).catch(handleError);
+  await Mongo.Files.insertOne(NewFile).catch(handleError);
 
-  const newUserDir = await Mongoose.UserDir.findOne({ username }).catch(handleError);
+  const newUserDir = await Mongo.UserDir.findOne({ username }).catch(handleError);
   return newUserDir.objects;
 }
 

@@ -1,4 +1,4 @@
-import Mongoose from "../..";
+import Mongo from "../..";
 import { User } from "../../../model/user";
 import Err from "../../../response/err";
 
@@ -10,7 +10,7 @@ export default async function CreateUser(username: string, hashedPassword: strin
     session_token_creation_timestamp: null,
   };
 
-  await Mongoose.User.insertOne(newUser).catch(handleError);
+  await Mongo.User.insertOne(newUser).catch(handleError);
 }
 
 function handleError(err: any) {
