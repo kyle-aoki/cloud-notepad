@@ -6,7 +6,6 @@ export const useCreateFolder = () => {
   const FileSystemController = new FileSystem.Instance(useDispatch());
   const { path, selected, selectedOnCreatingFolder, creatingFolder, newFolderName } = useFileSystemState();
 
-  console.log(newFolderName);
   const onEnterPressed = useCallback((e: any) => {
     const key = e.key;
     if (key === 'Enter') {
