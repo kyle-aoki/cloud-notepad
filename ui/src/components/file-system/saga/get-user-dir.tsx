@@ -23,7 +23,7 @@ export function* GetUserDir(): Generator<any, any, any> {
 
   const userDir = getUserDirResult.data.userDir;
 
-  let memory = userDir.reduce((acc: number, val: any) => {
+  const memory = userDir.reduce((acc: number, val: any) => {
     return acc + val.fileSize;
   }, 0);
 
