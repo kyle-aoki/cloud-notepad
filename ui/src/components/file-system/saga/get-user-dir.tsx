@@ -8,6 +8,8 @@ export function* GetUserDir(): Generator<any, any, any> {
   const NotifController = new Notif.Instance(put);
   const FileSystemController = new FileSystem.Instance(put);
 
+  yield FileSystemController.START_USER_DIR_LOADING();
+
   let getUserDirResult: any;
   try {
     getUserDirResult = yield call(FileAPI.GetUserDir);
@@ -27,6 +29,7 @@ export function* GetUserDir(): Generator<any, any, any> {
 
   yield FileSystemController.SET_TOTAL_MEMORY(memory);
   yield FileSystemController.SET_USER_DIR(<UserDir userDir={userDir} />);
+  yield FileSystemController.STOP_USER_DIR_LOADING();
 }
 
 export function* GetUserDirSaga() {

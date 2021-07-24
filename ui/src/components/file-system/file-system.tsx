@@ -33,7 +33,8 @@ import { useCreateFolder } from './hooks/use-create-folder';
 
 export default function FileSystemComponent() {
   const FileSystemController = new FileSystem.Instance(useDispatch());
-  const { userDir, path, mode, newFileName, newFileExtension, saveFileLoading, totalMemory } = useFileSystemState();
+  const { userDir, userDirLoading, path, mode, newFileName, newFileExtension, saveFileLoading, totalMemory } =
+    useFileSystemState();
 
   const { fileContent } = useEditorState();
 
@@ -72,7 +73,7 @@ export default function FileSystemComponent() {
             })}
           </PathContainer>
           <StorageCapacity>
-            <StorageCapacityFillBar memory={totalMemory}/>
+            <StorageCapacityFillBar memory={totalMemory} />
             <StorageCapacityText>{totalMemory} B / 1000 B</StorageCapacityText>
           </StorageCapacity>
         </Taskbar>
@@ -80,7 +81,13 @@ export default function FileSystemComponent() {
       <Container>
         <Sidebar></Sidebar>
         <ViewContainer>
-          <View>{userDir}</View>
+          {userDirLoading ? (
+            <SpinnerContainer>
+              <Spinner width={50} height={50} thickness={4} />
+            </SpinnerContainer>
+          ) : (
+            <View>{userDir}</View>
+          )}
         </ViewContainer>
       </Container>
       <Controller>
@@ -164,4 +171,12 @@ export const FileNameInput = styled(SaveFileInput)`
 `;
 export const FileExtensionInput = styled(SaveFileInput)`
   width: 50px;
+`;
+
+export const SpinnerContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  padding-right: 40px;
 `;

@@ -1,5 +1,5 @@
 {
-  "proxy": "http://localhost",
+  "proxy": "http://localhost:2222",
   "name": "cloud-notepad",
   "version": "0.1.0",
   "private": true,

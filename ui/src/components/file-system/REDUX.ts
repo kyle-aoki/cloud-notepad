@@ -16,6 +16,7 @@ export namespace FileSystem {
     [x: string]: any;
     fileSystemOpen: boolean;
     userDir: any;
+    userDirLoading: boolean;
     path: string[];
     recent: string[];
     selected: string;
@@ -33,6 +34,7 @@ export namespace FileSystem {
   export const INITIAL_STATE: SHAPE = {
     fileSystemOpen: false,
     userDir: [...dirInitialState],
+    userDirLoading: true,
     path: [],
     recent: [],
     selected: '',
@@ -198,6 +200,13 @@ export namespace FileSystem {
     export const meta = init((state: SHAPE, action) => ({ ...state, newFolderLoading: false }));
   }
 
+  export namespace START_USER_DIR_LOADING {
+    export const meta = init((state: SHAPE, action) => ({ ...state, userDirLoading: true }));
+  }
+  export namespace STOP_USER_DIR_LOADING {
+    export const meta = init((state: SHAPE, action) => ({ ...state, userDirLoading: false }));
+  }
+
   export namespace SAGA {
     export namespace GET_USER_DIR {
       export const meta = init(() => {});
@@ -239,6 +248,8 @@ export namespace FileSystem {
       case UPDATE_FOLDER_NAME.meta.type:                  return UPDATE_FOLDER_NAME.meta.logic(state, action);
       case START_NEW_FOLDER_LOADING.meta.type:            return START_NEW_FOLDER_LOADING.meta.logic(state, action);
       case STOP_NEW_FOLDER_LOADING.meta.type:             return STOP_NEW_FOLDER_LOADING.meta.logic(state, action);
+      case START_USER_DIR_LOADING.meta.type:              return START_USER_DIR_LOADING.meta.logic(state, action);
+      case STOP_USER_DIR_LOADING.meta.type:               return STOP_USER_DIR_LOADING.meta.logic(state, action);
       default:                                            return DEFAULT.meta.logic(state, action);
     }
   }
@@ -265,6 +276,8 @@ export namespace FileSystem {
     UPDATE_FOLDER_NAME = (newFolderName: string) => this.exec(UPDATE_FOLDER_NAME.meta.createAction({ newFolderName }));
     START_NEW_FOLDER_LOADING = () => this.exec(START_NEW_FOLDER_LOADING.meta.createAction());
     STOP_NEW_FOLDER_LOADING = () => this.exec(STOP_NEW_FOLDER_LOADING.meta.createAction());
+    START_USER_DIR_LOADING = () => this.exec(START_USER_DIR_LOADING.meta.createAction());
+    STOP_USER_DIR_LOADING = () => this.exec(STOP_USER_DIR_LOADING.meta.createAction());
 
     SAGA = new (class extends Executor {
       GET_USER_DIR = () => this.exec(SAGA.GET_USER_DIR.meta.createAction());
