@@ -30,6 +30,8 @@ export namespace FileSystem {
     selectedOnCreatingFolder: string;
     newFolderName: string;
     newFolderLoading: boolean;
+    fileOpening: string;
+    fileSuccessfullySaved: boolean;
   }
   export const INITIAL_STATE: SHAPE = {
     fileSystemOpen: false,
@@ -48,6 +50,8 @@ export namespace FileSystem {
     selectedOnCreatingFolder: '',
     newFolderName: '',
     newFolderLoading: false,
+    fileOpening: '',
+    fileSuccessfullySaved: false,
   };
 
   export namespace DEFAULT {
@@ -207,6 +211,17 @@ export namespace FileSystem {
     export const meta = init((state: SHAPE, action) => ({ ...state, userDirLoading: false }));
   }
 
+  export namespace SET_FILE_OPENING {
+    export const meta = init((state: SHAPE, action) => ({ ...state, fileOpening: action.payload.fileOpening }));
+  }
+
+  export namespace SET_FILE_SUCCESSFULLY_SAVED {
+    export const meta = init((state: SHAPE, action) => ({
+      ...state,
+      fileSuccessfullySaved: action.payload.fileSuccessfullySaved,
+    }));
+  }
+
   export namespace SAGA {
     export namespace GET_USER_DIR {
       export const meta = init(() => {});
@@ -250,8 +265,10 @@ export namespace FileSystem {
       case STOP_NEW_FOLDER_LOADING.meta.type:             return STOP_NEW_FOLDER_LOADING.meta.logic(state, action);
       case START_USER_DIR_LOADING.meta.type:              return START_USER_DIR_LOADING.meta.logic(state, action);
       case STOP_USER_DIR_LOADING.meta.type:               return STOP_USER_DIR_LOADING.meta.logic(state, action);
-      default:                                            return DEFAULT.meta.logic(state, action);
+      case SET_FILE_OPENING.meta.type:                    return SET_FILE_OPENING.meta.logic(state, action);
+      case SET_FILE_SUCCESSFULLY_SAVED.meta.type:         return SET_FILE_SUCCESSFULLY_SAVED.meta.logic(state, action);
     }
+    return DEFAULT.meta.logic(state, action);
   }
 
   // prettier-ignore
@@ -278,6 +295,8 @@ export namespace FileSystem {
     STOP_NEW_FOLDER_LOADING = () => this.exec(STOP_NEW_FOLDER_LOADING.meta.createAction());
     START_USER_DIR_LOADING = () => this.exec(START_USER_DIR_LOADING.meta.createAction());
     STOP_USER_DIR_LOADING = () => this.exec(STOP_USER_DIR_LOADING.meta.createAction());
+    SET_FILE_OPENING = (fileOpening: string) => this.exec(SET_FILE_OPENING.meta.createAction({ fileOpening }));
+    SET_FILE_SUCCESSFULLY_SAVED = (fileSuccessfullySaved: boolean) => this.exec(SET_FILE_SUCCESSFULLY_SAVED.meta.createAction({ fileSuccessfullySaved }));
 
     SAGA = new (class extends Executor {
       GET_USER_DIR = () => this.exec(SAGA.GET_USER_DIR.meta.createAction());

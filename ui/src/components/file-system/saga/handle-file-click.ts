@@ -18,6 +18,8 @@ function* HandleFileClickSaga(action: ReduxAction): Generator<any, any, any> {
   const { lastClickTime, fileName, filePath } = action.payload;
   const timeDelta = Date.now() - lastClickTime;
 
+  yield FileSystemController.SET_FILE_OPENING(fileName);
+
   if (timeDelta < DOUBLE_CLICK_TIME_DELTA_THRESHOLD) {
     try {
       let LoadFileResult = yield call(FileAPI.GetFile, fileName, filePath);
@@ -36,6 +38,7 @@ function* HandleFileClickSaga(action: ReduxAction): Generator<any, any, any> {
     yield FileSystemController.SELECT_OBJECT(fileName);
   }
 
+  yield FileSystemController.SET_FILE_OPENING('');
   yield FileSystemController.SET_NEW_LAST_CLICK_TIME(Date.now());
 }
 

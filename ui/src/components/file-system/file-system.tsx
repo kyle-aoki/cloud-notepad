@@ -23,6 +23,7 @@ import {
   XButton,
   StorageCapacityFillBar,
   StorageCapacityText,
+  DisabledButton,
 } from './styled-components';
 import { FileSystem, useFileSystemState } from './redux';
 import styled from 'styled-components';
@@ -33,8 +34,17 @@ import { useCreateFolder } from './hooks/use-create-folder';
 
 export default function FileSystemComponent() {
   const FileSystemController = new FileSystem.Instance(useDispatch());
-  const { userDir, userDirLoading, path, mode, newFileName, newFileExtension, saveFileLoading, totalMemory } =
-    useFileSystemState();
+  const {
+    userDir,
+    userDirLoading,
+    path,
+    mode,
+    newFileName,
+    newFileExtension,
+    saveFileLoading,
+    totalMemory,
+    fileSuccessfullySaved,
+  } = useFileSystemState();
 
   const { fileContent } = useEditorState();
 
@@ -102,28 +112,33 @@ export default function FileSystemComponent() {
         )}
         {mode === FileSystem.Mode.SAVE_NEW_FILE && (
           <>
-            <FileNameInputContainer>
-              <FileNameLabel>File name:</FileNameLabel>
-              <FileNameInput
-                id="newFileName"
-                value={newFileName}
-                onChange={(e) => FileSystemController.UPDATE_FIELD(e.target.id, e.target.value)}
-              />
-              <FileExtensionInput
-                id="newFileExtension"
-                value={newFileExtension}
-                onChange={(e) => FileSystemController.UPDATE_FIELD(e.target.id, e.target.value)}
-              />
-            </FileNameInputContainer>
+            {!fileSuccessfullySaved && (
+              <FileNameInputContainer>
+                <FileNameLabel>File name:</FileNameLabel>
+                <FileNameInput
+                  id="newFileName"
+                  value={newFileName}
+                  onChange={(e) => FileSystemController.UPDATE_FIELD(e.target.id, e.target.value)}
+                />
+                <FileExtensionInput
+                  id="newFileExtension"
+                  value={newFileExtension}
+                  onChange={(e) => FileSystemController.UPDATE_FIELD(e.target.id, e.target.value)}
+                />
+              </FileNameInputContainer>
+            )}
             <ButtonContainer>
-              <Button
-                onClick={() =>
-                  FileSystemController.SAGA.SAVE_NEW_FILE(path, newFileName, newFileExtension, fileContent)
-                }
-              >
-                {saveFileLoading ? <Spinner /> : 'Save'}
-              </Button>
-              <Button>Cancel</Button>
+              {fileSuccessfullySaved ? (
+                <DisabledButton disabled>Save</DisabledButton>
+              ) : (
+                <Button
+                  onClick={() =>
+                    FileSystemController.SAGA.SAVE_NEW_FILE(path, newFileName, newFileExtension, fileContent)
+                  }
+                >
+                  {saveFileLoading ? <Spinner /> : 'Save'}
+                </Button>
+              )}
             </ButtonContainer>
           </>
         )}

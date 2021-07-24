@@ -103,7 +103,7 @@ export const StorageCapacityFillBar = styled.div<any>`
   left: 0;
   height: 24px;
   width: ${(props: any) => {
-    return `${(props.memory / 1000) * 100}%`; 
+    return `${(props.memory / 1000) * 100}%`;
   }};
   background-color: #5b72ffb0;
   z-index: 99;
@@ -282,7 +282,7 @@ export const ButtonContainer = styled.div`
 
 // 174 × 51 --? 85 x 25
 
-export const Button = styled.div`
+export const Button = styled.div<any>`
   user-select: none;
   cursor: default;
   display: flex;
@@ -298,5 +298,16 @@ export const Button = styled.div`
   }
   &:active {
     background-color: #666666;
+  }
+`;
+
+export const DisabledButton = styled(Button)`
+  filter: brightness(.70);
+  background-color: #383838;
+  &:hover {
+    background-color: #383838;
+  }
+  &:active {
+    background-color: #383838;
   }
 `;

@@ -29,16 +29,17 @@ interface FileProps {
 export const File: FC<FileProps> = ({ dirObject }) => {
   const { fileName, filePath, lastModified, fileSize } = dirObject;
   const FileSystemController = new FileSystem.Instance(useDispatch());
-  const { selected, lastClickTime } = useFileSystemState();
+  const { selected, lastClickTime, fileOpening } = useFileSystemState();
 
   const isSelected = selected === fileName;
+  const isBeingOpened = fileOpening === fileName;
 
   return (
     <FileContainer
       isSelected={isSelected}
       onClick={() => FileSystemController.SAGA.HANDLE_FILE_CLICK(lastClickTime, fileName, filePath)}
     >
-      <FileIcon style={FSObjectIconStyle} />
+      {isBeingOpened ? <Spinner /> : <FileIcon style={FSObjectIconStyle} />}
       <FileName>{fileName}</FileName>
       <FileDateMod>{new Date(lastModified).toLocaleString()}</FileDateMod>
       <FileExt>.txt</FileExt>
