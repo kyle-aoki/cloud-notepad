@@ -8,11 +8,13 @@ import { useDispatch } from 'react-redux';
 import { useAccountState } from './redux';
 import { Menu } from '../../redux';
 import { Account } from './redux';
+import { useFileSystemState } from '../../../file-system/redux';
 
 
 const AccountComponent: any = () => {
   const AccountController = new Account.Instance(useDispatch());
   const { isLoggedIn, username } = useAccountState();
+  const { fileSaveState } = useFileSystemState();
 
   return (
     <>
@@ -23,7 +25,7 @@ const AccountComponent: any = () => {
               <LoggedInAs username={username} />
             </DropdownMenuItem>
             <DropdownMenuSeperator />
-            <DropdownMenuItem onClick={() => AccountController.LOG_OUT()}>Log Out</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => AccountController.LOG_OUT(fileSaveState)}>Log Out</DropdownMenuItem>
           </>
         ) : (
           <>

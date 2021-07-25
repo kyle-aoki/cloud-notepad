@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { GlobalState } from '../../../..';
 import { init, ReduxAction, Executor } from '../../../../redux/class';
+import { FileSystem } from '../../../file-system/redux';
 import {
   getUsernameFromLocalStorage,
   checkIfUsernameExistsInLocalStorage,
@@ -87,6 +88,6 @@ export namespace Account {
 
     CREATE_ACCOUNT = () => this.exec(SAGA.CREATE_ACCOUNT.meta.createAction());
     LOG_IN = () => this.exec(SAGA.LOG_IN.meta.createAction());
-    LOG_OUT = () => this.exec(SAGA.LOG_OUT.meta.createAction());
+    LOG_OUT = (fileSaveState: FileSystem.FileSaveState) => this.exec(SAGA.LOG_OUT.meta.createAction({ fileSaveState }));
   }
 }

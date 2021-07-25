@@ -25,6 +25,7 @@ function* HandleFileClickSaga(action: ReduxAction): Generator<any, any, any> {
       let LoadFileResult = yield call(FileAPI.GetFile, fileName, filePath);
       if (LoadFileResult.ok) {
         yield EditorController.LOAD_FILE(LoadFileResult.data.fileContent);
+        yield EditorController.SET_TITLE(`${fileName} - Cloud Notepad`);
         yield FileSystemController.CLOSE_FILE_SYSTEM();
         return;
       }

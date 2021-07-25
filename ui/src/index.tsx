@@ -25,6 +25,7 @@ import { OnSaveClickSagaMiddlware } from './components/file-system/saga/on-save-
 import { HandleFileClickSagaMiddleware } from './components/file-system/saga/handle-file-click';
 import { CreateFolderSagaMiddleware } from './components/file-system/saga/create-folder';
 import { HandleEditorChangeSagaMiddlware } from './components/editor/saga/handle-editor-change';
+import { SaveModal } from './components/save-modal/redux';
 
 export interface GlobalState {
   FileSystem: FileSystem.SHAPE;
@@ -34,6 +35,7 @@ export interface GlobalState {
   Notif: Notif.SHAPE;
   LogIn: LogIn.SHAPE;
   Editor: Editor.SHAPE;
+  SaveModal: SaveModal.SHAPE;
 }
 
 const sagaMiddleware = createSagaMiddleware();
@@ -46,6 +48,7 @@ const combinedReducers = combineReducers({
   Notif: Notif.REDUCER,
   LogIn: LogIn.REDUCER,
   Editor: Editor.REDUCER,
+  SaveModal: SaveModal.REDUCER,
 });
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -77,8 +77,7 @@ export namespace FileSystem {
 
   export namespace CLOSE_FILE_SYSTEM {
     export const meta = init((state: SHAPE, action) => ({
-      ...INITIAL_STATE,
-      userDir: [...dirInitialState],
+      ...state,
       fileSystemOpen: false,
     }));
   }

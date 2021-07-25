@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { GlobalState } from '../..';
+import { UNTITLED_FILE_TITLE } from '../../constants';
 import { Executor, init, ReduxAction } from '../../redux/class';
 import { FileSystem } from '../file-system/redux';
 import { getEditorStateFromLocalStorage, saveEditorStateToLocalStorage, setDocumentTitle } from './util';
@@ -13,7 +14,7 @@ export namespace Editor {
   }
   export const INITIAL_STATE: SHAPE = {
     fileContent: '',
-    title: 'Untitled - Notepad',
+    title: UNTITLED_FILE_TITLE,
   };
   export const WORKING_INITIAL_STATE: SHAPE = getEditorStateFromLocalStorage() || INITIAL_STATE;
 

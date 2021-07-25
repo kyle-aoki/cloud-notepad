@@ -8,6 +8,7 @@ import AccountCreationModal from './components/account-creation';
 import EditorComponent from './components/editor/editor';
 import FileSystemComponent from './components/file-system/file-system';
 import { LogInModal } from './components/log-in';
+import { SaveModalComponent } from './components/save-modal';
 import StatusBar from './components/statusbar/status-bar';
 import Taskbar from './components/taskbar/taskbar';
 import { inDevelopment } from './env/environment';
@@ -33,6 +34,7 @@ const App: FC = () => {
         {fileSystemOpen && <FileSystemComponent />}
         <AccountCreationModal />
         <LogInModal />
+        <SaveModalComponent />
 
         <Taskbar />
         <EditorComponent />
