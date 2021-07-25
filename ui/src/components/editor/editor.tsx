@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { useFileSystemState } from '../file-system/redux';
 import './consolas.css';
 import { Editor, useEditorState } from './redux';
 
@@ -26,13 +27,11 @@ const EditorElement = styled.textarea.attrs((props: EditorElementProps) => ({
 `;
 
 const EditorComponent: FC = () => {
-  const { fileContent, title } = useEditorState();
+  const { fileContent } = useEditorState();
   const EditorController = new Editor.Instance(useDispatch());
+  const { fileSaveState } = useFileSystemState();
 
-  const currentTitle = document.title;
-  if (currentTitle !== title) document.title = title;
-
-  return <EditorElement value={fileContent} onChange={(e) => EditorController.UPDATE_EDITOR(e.target.value)} />;
+  return <EditorElement value={fileContent} onChange={(e) => EditorController.SAGA.HANDLE_EDITOR_CHANGE(e.target.value, fileSaveState)} />;
 };
 
 export default EditorComponent;

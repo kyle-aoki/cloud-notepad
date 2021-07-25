@@ -3,7 +3,7 @@ import { GlobalState } from '../..';
 import { DISALLOWED_FOLDER_NAME_CHARACTERS } from '../../constants';
 import { ExecuteFunction, Executor, init, ReduxAction } from '../../redux/class';
 import { dirInitialState } from './user-dir';
-import { getTotalMemoryFromLocalStorage, setTotalMemoryInLocalStorage } from './util';
+import { getFileSaveStateFromLocalStorage, getTotalMemoryFromLocalStorage, setFileSaveStateToLocalStorage, setTotalMemoryInLocalStorage } from './util';
 
 export const useFileSystemState = () => useSelector((state: GlobalState) => state.FileSystem);
 
@@ -11,6 +11,12 @@ export namespace FileSystem {
   export enum Mode {
     OPEN_FILE,
     SAVE_NEW_FILE,
+  }
+  export enum FileSaveState {
+    NEW_FILE_PURE = 'NEW_FILE_PURE',
+    NEW_FILE_EDITED = 'NEW_FILE_EDITED',
+    SAVED_FILE_PURE = 'SAVED_FILE_PURE',
+    SAVED_FILE_EDITED = 'SAVED_FILE_EDITED',
   }
   export interface SHAPE {
     [x: string]: any;
@@ -32,6 +38,8 @@ export namespace FileSystem {
     newFolderLoading: boolean;
     fileOpening: string;
     fileSuccessfullySaved: boolean;
+    fileSaveState: FileSaveState;
+    openFileName: string;
   }
   export const INITIAL_STATE: SHAPE = {
     fileSystemOpen: false,
@@ -52,6 +60,8 @@ export namespace FileSystem {
     newFolderLoading: false,
     fileOpening: '',
     fileSuccessfullySaved: false,
+    fileSaveState: getFileSaveStateFromLocalStorage(),
+    openFileName: '',
   };
 
   export namespace DEFAULT {
@@ -222,6 +232,14 @@ export namespace FileSystem {
     }));
   }
 
+  export namespace SET_FILE_SAVE_STATE {
+    export const meta = init((state: SHAPE, action) => {
+      const newFileSaveState = action.payload.fileSaveState;
+      setFileSaveStateToLocalStorage(newFileSaveState);
+      return { ...state, fileSaveState: newFileSaveState };
+    });
+  }
+
   export namespace SAGA {
     export namespace GET_USER_DIR {
       export const meta = init(() => {});
@@ -267,6 +285,7 @@ export namespace FileSystem {
       case STOP_USER_DIR_LOADING.meta.type:               return STOP_USER_DIR_LOADING.meta.logic(state, action);
       case SET_FILE_OPENING.meta.type:                    return SET_FILE_OPENING.meta.logic(state, action);
       case SET_FILE_SUCCESSFULLY_SAVED.meta.type:         return SET_FILE_SUCCESSFULLY_SAVED.meta.logic(state, action);
+      case SET_FILE_SAVE_STATE.meta.type:                 return SET_FILE_SAVE_STATE.meta.logic(state, action);
     }
     return DEFAULT.meta.logic(state, action);
   }
@@ -297,6 +316,7 @@ export namespace FileSystem {
     STOP_USER_DIR_LOADING = () => this.exec(STOP_USER_DIR_LOADING.meta.createAction());
     SET_FILE_OPENING = (fileOpening: string) => this.exec(SET_FILE_OPENING.meta.createAction({ fileOpening }));
     SET_FILE_SUCCESSFULLY_SAVED = (fileSuccessfullySaved: boolean) => this.exec(SET_FILE_SUCCESSFULLY_SAVED.meta.createAction({ fileSuccessfullySaved }));
+    SET_FILE_SAVE_STATE = (fileSaveState: FileSaveState) => this.exec(SET_FILE_SAVE_STATE.meta.createAction({ fileSaveState }));
 
     SAGA = new (class extends Executor {
       GET_USER_DIR = () => this.exec(SAGA.GET_USER_DIR.meta.createAction());
