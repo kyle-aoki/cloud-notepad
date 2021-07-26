@@ -9,7 +9,7 @@ import File from './menu/file';
 import Format from './menu/format';
 import Help from './menu/help';
 import View from './menu/view';
-import { Menu, useMenuState } from './redux';
+import { Menu, useMenuState } from './menu/redux/redux';
 
 interface TaskbarProps {}
 

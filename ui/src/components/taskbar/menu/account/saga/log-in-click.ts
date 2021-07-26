@@ -1,6 +1,6 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import { LogIn } from '../../../../log-in/redux';
-import { Menu } from '../../../redux';
+import { Menu } from '../../redux/redux';
 import { Account } from '../redux';
 
 function* OpenLogInSaga(): Generator<any, any, any> {

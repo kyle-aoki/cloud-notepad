@@ -5,7 +5,7 @@ import { ReduxAction } from '../../../../../redux/class';
 import { Editor } from '../../../../editor/redux';
 import { FileSystem } from '../../../../file-system/redux';
 import { SaveModal } from '../../../../save-modal/redux';
-import { Menu } from '../../../redux';
+import { Menu } from '../../redux/redux';
 import { Account } from '../redux';
 
 function* LogOutSaga(action: ReduxAction): Generator<any, any, any> {

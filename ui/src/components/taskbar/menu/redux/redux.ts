@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
-import { GlobalState } from '../../..';
-import { init, ReduxAction, Executor } from '../../../redux/class';
+import { GlobalState } from '../../../..';
+import { init, ReduxAction, Executor } from '../../../../redux/class';
 import { closeAll, menuOpen } from './util';
 
 export const useMenuState = () => useSelector((state: GlobalState) => state.Menu);
@@ -62,6 +62,15 @@ export namespace Menu {
     });
   }
 
+  export namespace SAGA {
+    export namespace SAVE_CLICK {
+      export const meta = init(() => {});
+    }
+    export namespace OPEN_CLICK {
+      export const meta = init(() => {});
+    }
+  }
+
   // prettier-ignore
   export function REDUCER(state: SHAPE = INITIAL_STATE, action: ReduxAction) {
     switch (action.type) {
@@ -76,5 +85,10 @@ export namespace Menu {
     OPEN = (menuType: Type) => this.exec(OPEN.meta.createAction({ menuType }));
     CLOSE_ALL = () => this.exec(CLOSE_ALL.meta.createAction());
     SWITCH = (menuType: Type) => this.exec(SWITCH.meta.createAction({ menuType }));
+
+    SAGA = new (class extends Executor {
+      SAVE_CLICK = () => this.exec(SAGA.SAVE_CLICK.meta.createAction());
+      OPEN_CLICK = () => this.exec(SAGA.OPEN_CLICK.meta.createAction());
+    })(this.exec);
   }
 }

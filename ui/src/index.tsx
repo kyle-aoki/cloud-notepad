@@ -12,7 +12,7 @@ import { CheckUsernameSagaMiddleware } from './components/account-creation/saga/
 import { Notif } from './notif/redux';
 import { AccountCreation } from './components/account-creation/redux';
 import { Account } from './components/taskbar/menu/account/redux';
-import { Menu } from './components/taskbar/redux';
+import { Menu } from './components/taskbar/menu/redux/redux';
 import { LogIn } from './components/log-in/redux';
 import { LogInSagaMiddleware } from './components/log-in/saga/submit-log-in';
 import { FileSystem } from './components/file-system/redux';
@@ -26,6 +26,8 @@ import { HandleFileClickSagaMiddleware } from './components/file-system/saga/han
 import { CreateFolderSagaMiddleware } from './components/file-system/saga/create-folder';
 import { HandleEditorChangeSagaMiddlware } from './components/editor/saga/handle-editor-change';
 import { SaveModal } from './components/save-modal/redux';
+import { OpenClickSagaMiddlware } from './components/taskbar/menu/redux/saga/open-click';
+import { SaveClickSagaMiddlware } from './components/taskbar/menu/redux/saga/save-click';
 
 export interface GlobalState {
   FileSystem: FileSystem.SHAPE;
@@ -67,6 +69,8 @@ sagaMiddleware.run(OnSaveClickSagaMiddlware);
 sagaMiddleware.run(HandleFileClickSagaMiddleware);
 sagaMiddleware.run(CreateFolderSagaMiddleware);
 sagaMiddleware.run(HandleEditorChangeSagaMiddlware);
+sagaMiddleware.run(SaveClickSagaMiddlware);
+sagaMiddleware.run(OpenClickSagaMiddlware);
 
 ReactDOM.render(
   <Provider store={store}>

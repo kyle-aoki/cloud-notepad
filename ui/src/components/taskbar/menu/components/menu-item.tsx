@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { DropdownMenu } from './dropdown';
 import MenuContainer from './menu-container';
 import { GlobalState } from '../../../..';
-import { Menu, useMenuState } from '../../redux';
+import { Menu, useMenuState } from '../redux/redux';
 import { ReactComponent as DownChevron } from '../../../../assets/down-chevron.svg';
 import styled from 'styled-components';
 

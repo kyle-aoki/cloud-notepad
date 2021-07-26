@@ -52,6 +52,7 @@ function* OnSaveClickSaga(action: ReduxAction): Generator<any, any, any> {
     yield FileSystemController.SET_FILE_SUCCESSFULLY_SAVED(true);
     yield FileSystemController.SET_FILE_SAVE_STATE(FileSystem.FileSaveState.SAVED_FILE_PURE);
     yield EditorController.SET_TITLE(`${fullNewFileName} - Notepad`);
+    yield FileSystemController.SET_OPEN_FILE_NAME(fullNewFileName);
   } else {
     if (CreateFileResult.type === FileResponse.FILE_ALREADY_EXISTS) {
       yield NotifController.PUSH_ERROR('That file name already exists.');

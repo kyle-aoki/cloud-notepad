@@ -1,6 +1,6 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import { AccountCreation } from '../../../../account-creation/redux';
-import { Menu } from '../../../redux';
+import { Menu } from '../../redux/redux';
 import { Account } from '../redux';
 
 function* CreateAccountSaga(): Generator<any, any, any> {

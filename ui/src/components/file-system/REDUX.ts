@@ -239,6 +239,10 @@ export namespace FileSystem {
     });
   }
 
+  export namespace SET_OPEN_FILE_NAME {
+    export const meta = init((state: SHAPE, action) => ({ ...state, openFileName: action.payload.openFileName }));
+  }
+
   export namespace SAGA {
     export namespace GET_USER_DIR {
       export const meta = init(() => {});
@@ -285,6 +289,7 @@ export namespace FileSystem {
       case SET_FILE_OPENING.meta.type:                    return SET_FILE_OPENING.meta.logic(state, action);
       case SET_FILE_SUCCESSFULLY_SAVED.meta.type:         return SET_FILE_SUCCESSFULLY_SAVED.meta.logic(state, action);
       case SET_FILE_SAVE_STATE.meta.type:                 return SET_FILE_SAVE_STATE.meta.logic(state, action);
+      case SET_OPEN_FILE_NAME.meta.type:                  return SET_OPEN_FILE_NAME.meta.logic(state, action);
     }
     return DEFAULT.meta.logic(state, action);
   }
@@ -316,6 +321,7 @@ export namespace FileSystem {
     SET_FILE_OPENING = (fileOpening: string) => this.exec(SET_FILE_OPENING.meta.createAction({ fileOpening }));
     SET_FILE_SUCCESSFULLY_SAVED = (fileSuccessfullySaved: boolean) => this.exec(SET_FILE_SUCCESSFULLY_SAVED.meta.createAction({ fileSuccessfullySaved }));
     SET_FILE_SAVE_STATE = (fileSaveState: FileSaveState) => this.exec(SET_FILE_SAVE_STATE.meta.createAction({ fileSaveState }));
+    SET_OPEN_FILE_NAME = (openFileName: string) => this.exec(SET_OPEN_FILE_NAME.meta.createAction({ openFileName }));
 
     SAGA = new (class extends Executor {
       GET_USER_DIR = () => this.exec(SAGA.GET_USER_DIR.meta.createAction());

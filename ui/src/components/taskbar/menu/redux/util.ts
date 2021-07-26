@@ -1,4 +1,4 @@
-import { Menu } from './';
+import { Menu } from './redux';
 
 export const menuOpen = (state: Menu.SHAPE) => {
   return Object.values(state).filter((value: boolean) => Boolean(value)).length > 0;

@@ -6,7 +6,7 @@ import MenuItem from '../components/menu-item';
 import { LoggedInAs, UsernameDisplay } from '../../../../ui/username-font';
 import { useDispatch } from 'react-redux';
 import { useAccountState } from './redux';
-import { Menu } from '../../redux';
+import { Menu } from '../redux/redux';
 import { Account } from './redux';
 import { useFileSystemState } from '../../../file-system/redux';
 
