@@ -6,7 +6,8 @@
   "scripts": {
     "1": "ts-node scripts/delete-all-ec2-instances.ts",
     "2": "ts-node scripts/create-free-tier-ec2-instance.ts",
-    "3": "ts-node scripts/get-ssh-command.ts"
+    "3": "ts-node scripts/get-ssh-command.ts",
+    "123": "npm-run-all 1 2 3"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
     "@types/node": "^16.4.0",
     "@types/shelljs": "^0.8.9",
     "chalk": "^4.1.1",
+    "npm-run-all": "^4.1.5",
     "shelljs": "^0.8.4",
     "typescript": "^4.3.5"
   }
